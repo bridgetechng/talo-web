@@ -47,6 +47,12 @@
    border-width:1px;
 }
 
+
+.sliderLabel {
+    color:green;
+    font-weight:600;
+}
+
 @media screen and (min-width:1300px){
     .subjectHousePic {
        
@@ -116,6 +122,9 @@
     flex:3;
 }
 
+.description p {
+    padding:1rem;
+}
 
 .featuresList {
     list-style: none;
@@ -126,12 +135,19 @@
     flex:1;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     
     border-style: solid;
     border-width:1px;
     padding:10px;
    
+}
+
+.displayAndConfirm{
+    display: flex;
+    gap:6rem;
+    justify-content: center;
+    align-items: center;
+    padding:2rem;
 }
 
 
@@ -147,7 +163,7 @@
     margin-top: 10px;
 
 
-    width: 100px;
+    max-width: 260px;
  }
 
 
@@ -163,4 +179,31 @@ border-width:1px;
 padding-top: 15px;
 padding-bottom: 15px;
 margin-top: 15px;
+}
+
+
+.successBuy{
+    color: #270;
+    background-color: #DFF2BF;
+    margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.failureBuy{
+    color: #D8000C;
+    background-color: #FFBABA;
+
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.pendingBuy{
+    color: rgb(156, 156, 90);
+    background-color: rgba(255, 255, 0, 0.281);
+
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
 }

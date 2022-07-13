@@ -68,7 +68,7 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
        <Searchandfilter className="searchComponent"/> 
 
          {/* the property list below will be from the off-plan properites,when that distinguishment is made,
-          but for now, I am loading all properties and using my personal hardcoded pics */}
+          but for now, I am loading all properties from the database and using my personal hardcoded pics of offplan properties in place of the pics that come from the database*/}
        
                    
 {   addressList.map((item,i)=>{

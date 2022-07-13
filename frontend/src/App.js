@@ -11,7 +11,10 @@ import Registerpage from "./pages/registerpage/Registerpage";
 import OffplanPropertylist from "./pages/offplanpropertylist/OffplanPropertylist";
 import BuiltPropertylist from "./pages/builtpropertylist/BuiltPropertylist";
 
-import Propertyview from "./pages/propertyview/Propertyview";
+import PropertyView from "./pages/propertyview/Propertyview";
+import PropertyBuy from "./pages/propertybuy/Propertybuy";
+import PropertySell from "./pages/propertysell/Propertysell";
+
 import Usertable from "./pages/usertable/Usertable";
 import Propertytable from "./pages/propertytable/Propertytable";
 import AddProperty from "./pages/addproperty/Addproperty";
@@ -59,7 +62,10 @@ function App() {
            
           
            
-           <Route  path= "/propertyview/:address" element ={<Propertyview/>} />
+           <Route  path= "/propertyview/:address" element ={<PropertyView/>} />
+
+           <Route  path= "/propertybuy/:address" element ={<PropertyBuy/>} />
+           <Route  path= "/propertysell/:address" element ={<PropertySell/>} />
 
            <Route  path= "/admin/userlist" element ={<Usertable/>} />
            <Route  path= "/admin/propertylist" element ={<Propertytable/>} />

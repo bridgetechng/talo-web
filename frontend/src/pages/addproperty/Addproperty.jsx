@@ -80,8 +80,10 @@ export default function AddProperty() {
    const [yearBuilt,setYearBuilt] = useState('')
    const [purchaseDate,setPurchaseDate] = useState(date)
    const [image,setImage] = useState('')
-   const [returnData, setReturnData] = useState('')
-  
+   const [description, setDescription] = useState('')
+  /*to confirm submission */
+  const [submitted,setSubmitted] = useState(" ")
+  /*to confirm submission END */
 
 
    const { address } = useParams();
@@ -97,9 +99,7 @@ export default function AddProperty() {
   }
   /*for my post routes END */
 
-   /*to confirm submission */
-    const [submitted,setSubmitted] = useState(" ")
-   /*to confirm submission END */
+   
   
  const  submitPropertyHandler = async(e) => {
      
@@ -130,7 +130,8 @@ export default function AddProperty() {
             percentage:percentage,
             yearBuilt:yearBuilt,
             purchasePrice:purchasePrice,
-            purchaseDate:purchaseDate
+            purchaseDate:purchaseDate,
+            description:description
           },
            config
           ) 
@@ -307,13 +308,13 @@ export default function AddProperty() {
 
         {submitted===true &&
         
-        <p id="description" className="successMessage text-center">
+        <p  className="successMessage text-center">
           <DoneIcon className="doneIcon"/> SUBMITTED SUCCESSFULLY ! 
         </p> 
         }
  
         {submitted===false &&
-          <p id="description" className="failureMessage text-center">
+          <p  className="failureMessage text-center">
          <ReplayIcon className="doneIcon"/>SOMETHING WENT WRONG, PLEASE TRY AGAIN 
        </p>
         }

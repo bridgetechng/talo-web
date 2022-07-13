@@ -38,6 +38,7 @@ const dbtest = getFirestore()
 const colRef = collection(dbtest , "estate")
 const docRef = doc(dbtest, "estate","collection")
 
+
 /**the arrays i will send in my fetch requests */
 let properties = []
 let messages = []
@@ -60,7 +61,7 @@ let messages = []
   snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
    properties.push({...doc.data(),id:doc.id})
   })
-  console.log(properties[0].data.length)
+ 
  
 })
 
@@ -263,6 +264,77 @@ properties[0].data[arrayPosition] =
    )
 
 
+   const updatePropertyPrice = asyncHandler(async(req,res)=>{
+    res.header("Access-Control-Allow-Origin","*")
+    
+   /*INITIAL SETUP */
+    const selectedPercentage = req.body.selectedPercentage
+    const addressPosition = req.body.addressPosition
+    const userId= req.body.userId
+    const currUserBalance = req.body.userBalance
+    const address = req.params.address
+    const userRef = doc(dbtest,'users',userId)
+    let userHouses;
+    let spotInArray;
 
 
-  export {getProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition}
+   /*ASSISTANCE CONSTANTS */
+   const newAvailablePercentage =  properties[0].data[addressPosition].availablePercentage - (selectedPercentage/100)
+   const price = properties[0].data[addressPosition].purchasePrice
+   const userSpent = price * (selectedPercentage/100)  /*so you do userBalance - subtractUserBalance, to get the new userBalance */
+    
+    console.log(newAvailablePercentage)
+
+
+    /*i need to get all the properties for that position then alter the available percentage */
+    properties[0].data[addressPosition] =  {...properties[0].data[addressPosition],availablePercentage:newAvailablePercentage}
+
+
+/*updating the property in the array, so we can reset and submit END*/
+   /*remember to change the date property in firebase to have a type of date ! */
+  
+   
+   
+     updateDoc(docRef, {
+      data:properties[0].data
+     }).then(
+    
+
+    /*UNFORTUNATELY I HAVE TO FETCH THE USER IN QUESTION, TO GET ARRAY POSITION FOR WHAT I WANT TO UPDATE AND WHATNOT */
+      
+
+    getDoc(userRef)
+     .then((doc) => {
+    userHouses = doc.data().ownedProperties
+     
+    spotInArray = userHouses.findIndex((item)=>(item.address === address))
+    console.log(spotInArray,userHouses)
+
+     /*one small change to the proportion, the user has now */
+    userHouses[spotInArray].proportion = userHouses[spotInArray].proportion + (selectedPercentage/100)
+   
+    updateDoc(userRef,{
+      userBalance:(currUserBalance - userSpent),
+      ownedProperties: userHouses /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
+
+     })
+      .then(
+        res.json({submitted:true})
+        )
+ })
+
+
+   /*FETCHING USER IN QUESTION END */
+   
+
+    
+  
+     )
+   
+
+   })
+
+
+
+
+  export {getProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition,updatePropertyPrice}

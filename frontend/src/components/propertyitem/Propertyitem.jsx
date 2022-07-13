@@ -35,7 +35,7 @@ export default function Propertyitem (props){
             <div className="priceAndView">
                
               <div className="price">
-                {props.purchasePrice}
+               ${props.purchasePrice}
               </div>
 
               <Link to={`/propertyview/${props.address}`}>

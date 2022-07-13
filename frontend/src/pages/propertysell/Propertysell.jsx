@@ -1,6 +1,6 @@
 import React,{useEffect, useState, useRef} from 'react';
 import Grid from '@mui/material/Grid';
-import "./propertyview.css";
+import "./propertysell.css";
 import Chartbox from  "../../components/chartbox/Chartbox"
 import Messagebox from  "../../components/messagebox/Messagebox"
 import Propertyitem from  "../../components/propertyitem/Propertyitem"
@@ -14,7 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 
 
-function PropertyView() {
+function PropertySell() {
    
   /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   const navigate = useNavigate()
@@ -107,8 +107,8 @@ function PropertyView() {
              </div>
             
              <div className="controls">
-              <Link to={`/propertybuy/${address}`}><button className="button">BUY</button> </Link> 
-              <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
+             <Link to={`/propertyview/${address}`}><button className="button">BACK</button> </Link> 
+              <Link to ={`/propertybuy/${address}`}><button className="button">BUY</button> </Link> 
                <button className="button">OFFER</button>
                <button className="button">VOTE</button>
              </div>
@@ -132,4 +132,4 @@ function PropertyView() {
     )
 }
 
-export default PropertyView
+export default PropertySell
