@@ -187,7 +187,7 @@ export default function AddProperty() {
       <header className="header">
         <h1 id="title" className="text-center">Add a New Property</h1>
        { submitted===" " &&
-        (<p id="description" className="propertyInstruction text-center">
+        (<p className="propertyInstruction text-center">
           Please tell us the details of this property
         </p>)
         }

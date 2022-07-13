@@ -171,6 +171,7 @@ const getProperties = asyncHandler(async (req,res)=>{
     const percentage = req.body.percentage
     const type = req.body.type
     const imageUrl = req.body.imageUrl
+    const description = req.body.description
    
      
   
@@ -189,6 +190,7 @@ const getProperties = asyncHandler(async (req,res)=>{
       purchaseDate:purchaseDate,
       purchasePrice:purchasePrice,
       totalReturn:"",
+      description:description;
       type:type,
       yearBuilt:yearBuilt
 
