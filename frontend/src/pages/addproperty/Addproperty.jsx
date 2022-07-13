@@ -281,6 +281,21 @@ export default function AddProperty() {
         </div> 
 
 
+        <div className="form-group">
+          <label id="email-label" for="percentage">Description</label>
+          <textarea
+            rows="8"
+            type="text"
+            name="description"
+            id="description"
+            className="textarea-control"
+            placeholder="describe the property"
+            value={description} onChange={(e)=>setDescription(e.target.value)}
+            required
+          ></textarea>
+        </div> 
+
+
 
 
         <div className="form-group">
