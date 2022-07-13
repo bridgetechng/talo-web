@@ -190,7 +190,7 @@ const getProperties = asyncHandler(async (req,res)=>{
       purchaseDate:purchaseDate,
       purchasePrice:purchasePrice,
       totalReturn:"",
-      description:description;
+      description:description,
       type:type,
       yearBuilt:yearBuilt
 
