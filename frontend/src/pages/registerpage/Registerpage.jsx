@@ -156,7 +156,7 @@ if(password !== confirmPassword)
 
 
 
-            <div className="form-group backgroundColor">
+            <div className="form-grouping">
          
          
           <button type="submit" id="submit" className=" buttonAdjustReg" >

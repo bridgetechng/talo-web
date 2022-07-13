@@ -83,12 +83,12 @@ export default function Loginpage() {
            <div className=" inputOrganiser">
             
             <div className="form-grouping">
-           <label id="name-label" for="name" className="backgroundColor">Email Address</label>
+           <label id="name-label" for="name" >Email Address</label>
             <input type="email" placeholder='enter your email' className="input-box" required value={email} onChange={(e)=>setEmail(e.target.value)}/>
             </div>
    
             <div className="form-grouping">
-            <label id="name-label" for="name" className="backgroundColor">Password</label>
+            <label id="name-label" for="name" >Password</label>
             <input type="password"  placeholder='enter your password' className="input-box" required value={password} onChange={(e)=>setPassword(e.target.value)}/>
             </div>
            

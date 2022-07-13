@@ -19,20 +19,35 @@ function PropertyView() {
   /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   const navigate = useNavigate()
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
-   
+  const [ownedPercentage,setOwnedPercentage] = useState(0)
+  const { address } = useParams();
+
      useEffect(()=>{
   
       if(userInfo === null){
         navigate('/')
+      }else{
+        setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
+       
+        
+        /*logic to see if a user actually already has a share of this property */
+      const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
+      console.log(hasAddress)
+      const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
+      setOwnedPercentage(userHas)
+     
+  
+  /*logic to see if a user actually already has a share of this property END*/
+
       }
   
-    },[userInfo])
+    },[address])
 
     /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
 
    const [property,setProperty] = useState({}); /*this is where the  database information will reside */ 
    
-   const { address } = useParams();
+ 
   
   
 
@@ -79,7 +94,7 @@ function PropertyView() {
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>
-           <div className="percentageValue">{property.percentage}</div>
+           <div className="percentageValue">{ownedPercentage}%</div>
          </div>
 
         </div>

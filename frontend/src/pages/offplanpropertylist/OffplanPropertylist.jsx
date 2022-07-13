@@ -75,7 +75,7 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
   
   return (
       
-       <Propertyitem imageLink ={tempPics[i]} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.percentage}/> 
+       <Propertyitem imageLink ={tempPics[i]} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
       
   )
  

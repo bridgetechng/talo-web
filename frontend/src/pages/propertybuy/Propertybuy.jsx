@@ -101,7 +101,7 @@ function PropertyBuy() {
         
         /*logic to see if a user actually already has a share of this property */
       const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
-     const userHas =  hasAddress !== [] ? (hasAddress[0].proportion*100):(0*100)
+     const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
       setOwnedPercentage(userHas)
      
   

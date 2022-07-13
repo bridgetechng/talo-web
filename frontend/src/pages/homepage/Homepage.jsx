@@ -191,7 +191,7 @@ export default function Homepage() {
   
           return (
               
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.percentage}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
               
           )
          
@@ -203,8 +203,8 @@ export default function Homepage() {
         filteredAddresses.map((item,i)=>{
   
        return (
-            <div >
-            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={item.percentage}/> 
+            <div>
+            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
             </div>
        )
 

@@ -75,7 +75,7 @@ export default function BuiltPropertylist() {   /*to fetch info from a url . it 
   
   return (
       
-       <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.percentage}/> 
+       <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
       
   )
  
