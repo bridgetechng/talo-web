@@ -20,6 +20,7 @@ function PropertyView() {
   const navigate = useNavigate()
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const [ownedPercentage,setOwnedPercentage] = useState(0)
+  const [addressPosition,setAddressPosition] = useState('')
   const { address } = useParams();
 
      useEffect(()=>{
@@ -41,7 +42,7 @@ function PropertyView() {
 
       }
   
-    },[address])
+    },[userInfo,address])
 
     /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
 
@@ -54,17 +55,24 @@ function PropertyView() {
 
    useEffect(()=>{
 
-    const fetchProperty = async() => {
+    const fetchPropertyAndUser = async() => {
      
-    const {data} = await axios.get(`/api/properties/${address}`) 
-   
+      const {data} = await axios.get(`/api/properties/${address}`) 
+      const position = await axios.get(`/api/properties/propertypos/${address}`)
+      const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+     
+       setUserInfo(userData.data)
+       
+      setAddressPosition(position.data.id)
+      
+       setProperty(data.property[0]) /*i AM GOING OFF THE ASSUMPTION THAT I ONLY GET ONE VALUE , CUZ ADDRESSES ARE UNIQUE AFTER ALL */
+      
+  
     
-     setProperty(data.property[0]) /*i AM GOING OFF THE ASSUMPTION THAT I ONLY GET ONE VALUE , CUZ ADDRESSES ARE UNIQUE AFTER ALL */
-    
-    
-   }
-
-   fetchProperty()
+      
+     }
+  
+     fetchPropertyAndUser()
 
 
  },[])

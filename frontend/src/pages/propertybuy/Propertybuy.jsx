@@ -24,6 +24,7 @@ function PropertyBuy() {
   /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   const navigate = useNavigate()
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [liveUserInfo,setLiveUserInfo]  = useState(' ')
   const [addressPosition,setAddressPosition] = useState('')
   console.log(userInfo)
   const [selectedPercentage,setSelectedPercentage] = useState(0)
@@ -91,25 +92,25 @@ function PropertyBuy() {
 
 
      useEffect(()=>{
-      setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
+      
       if(userInfo === null){
         navigate('/')
       }
       else{
-        setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
        
+       
+       /*logic to see if a user actually already has a share of this property */
+       const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
+       const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
+        setOwnedPercentage(userHas)
+       
+    
+    /*logic to see if a user actually already has a share of this property END*/
         
-        /*logic to see if a user actually already has a share of this property */
-      const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
-     const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
-      setOwnedPercentage(userHas)
-     
-  
-  /*logic to see if a user actually already has a share of this property END*/
-
+      
       }
   
-    },[address,submitted])
+    },[address,submitted,userInfo])
 
     /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
 
@@ -118,19 +119,24 @@ function PropertyBuy() {
 
    useEffect(()=>{
 
-    const fetchProperty = async() => {
+    const fetchPropertyAndUser = async() => {
      
     const {data} = await axios.get(`/api/properties/${address}`) 
     const position = await axios.get(`/api/properties/propertypos/${address}`)
+    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
    
-     setAddressPosition(position.data.id)
+     setUserInfo(userData.data)
+     
+    setAddressPosition(position.data.id)
     
      setProperty(data.property[0]) /*i AM GOING OFF THE ASSUMPTION THAT I ONLY GET ONE VALUE , CUZ ADDRESSES ARE UNIQUE AFTER ALL */
     
+
+  
     
    }
 
-   fetchProperty()
+   fetchPropertyAndUser()
 
 
  },[submitted])
@@ -185,7 +191,7 @@ function PropertyBuy() {
            
            <div>Percentage Owned:</div>
            <div className="percentageValue">
-            {userInfo ? ownedPercentage : 0 } %
+            {userInfo ? (ownedPercentage).toFixed(1) : 0 } %
             </div>
 
            <br/>
@@ -236,8 +242,8 @@ function PropertyBuy() {
              <div className="controls">
              <Link to={`/propertyview/${address}`}><button className="button">BACK</button> </Link> 
               <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
-               <button className="button">OFFER</button>
-               <button className="button">VOTE</button>
+             <button className="button">OFFER</button>
+               {/*  <button className="button">VOTE</button>*/}
              </div>
             
           </div>

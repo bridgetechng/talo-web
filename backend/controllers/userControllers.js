@@ -129,7 +129,10 @@ const authUser = asyncHandler(async (req, res) => {
     /*adding to firestore END */
 
 
-   /*2  sending from firestore */
+   /*2  sending from firestore,  i did a query cuz i didnt have the
+    id and i believe you can only search for an individual document
+     by id, not be email, or some other category */
+
     const user = []
     const q =  query(colRef, where("email", "==", `${email}`))
     
@@ -161,5 +164,26 @@ const authUser = asyncHandler(async (req, res) => {
   
   })
 
+  const userInfoUpdates = asyncHandler(async (req, res) => {
+    res.header("Access-Control-Allow-Origin","*")
+   
+    const userId= req.params.id
+    
+   
+    const userRef = doc(dbtest,'users',userId)
+  
+    getDoc(userRef)
+     .then((doc) => {
+      
+      res.json({userInfo:{...doc.data(),id:doc.id}}) /*I got lazy here, and wanted to follow my frontend syntax, I can do better here */
+     }) 
 
-  export {authUser,registerUser}
+  })
+
+
+     const getAllUsers = asyncHandler(async (req, res) => {
+      res.header("Access-Control-Allow-Origin","*")
+        res.json({allUsers:users}) 
+  })
+
+  export {authUser,registerUser,userInfoUpdates,getAllUsers}

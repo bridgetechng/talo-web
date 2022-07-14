@@ -1,7 +1,7 @@
 import express from 'express'
 //const express= require('express')
 
-import {authUser,registerUser} from '../controllers/userControllers.js'
+import {authUser,registerUser, userInfoUpdates,getAllUsers} from '../controllers/userControllers.js'
 //const {authUser,registerUser}= require('../controllers/productControllers.js')
 
 //import {protect,admin} from '../Middleware/authMiddleware.js'
@@ -11,10 +11,10 @@ const router = express.Router()
   
 
 
-router.route('/').post(authUser)
+router.route('/').post(authUser).get(getAllUsers)
 router.route('/register').post(registerUser)
 
-
+router.route('/:id').get(userInfoUpdates)
 
 
 

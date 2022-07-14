@@ -37,16 +37,26 @@ export default function Usertable() {
    
   const [pages,setPages] = useState(1);
    const [page,setPage] = useState(1);
-  
+  const [users,setUsers] = useState([])
 
 
-  useEffect(()=>{
+   useEffect(()=>{
 
+    const fetchAllUsers = async() => {
+     
     
-
-  },[])
+    const {data} = await axios.get(`/api/users/`) 
+     setUsers([...data.allUsers])
+     
   
-  const users = [{
+   }
+
+   fetchAllUsers()
+
+
+ },[])
+  
+  /*const users = [{
     _id:"1",
     email:"dagogouranto@gmail.com",
     name:"kenny Dominguez",
@@ -66,7 +76,7 @@ export default function Usertable() {
     email:"tommyboy@gmail.com",
     name:"Aubrey Graham",
 
-  }]
+  }]*/
   
   
   return (
@@ -106,16 +116,18 @@ export default function Usertable() {
            <th className='th'>ID</th>
            <th className='th'>NAME</th>
            <th className='th'>EMAIL</th>
+           <th className='th'>PHONE</th>
            <th className='th'></th>
            <th className='th'></th>
          </tr>
          
          
           {users.map(user => (
-            <tr className='tr' key={user._id}  >
-              <td className='td'>{user._id}</td>
-              <td className='td' >{user.name}</td>
-              <td className='td backgroundColor'>{user.email}</td>
+            <tr className='tr' key={users.indexOf(user)}  >
+              <td className='td'>{users.indexOf(user) + 1}</td>
+              <td className='td' >{user.firstName + " " + user.lastName}</td>
+              <td className='td '>{user.email}</td>
+              <td className='td '>{user.phoneNumber}</td>
              
               <td className='td'>    
               <Link to={`/admin/user/${user._id}/edit`}>
