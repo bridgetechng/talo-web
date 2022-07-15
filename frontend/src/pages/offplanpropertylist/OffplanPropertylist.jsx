@@ -1,8 +1,7 @@
 import React,{useEffect, useState, useRef} from 'react';
 import Grid from '@mui/material/Grid';
 import "./propertylist.css";
-import Chartbox from  "../../components/chartbox/Chartbox"
-import Messagebox from  "../../components/messagebox/Messagebox"
+
 import Propertyitem from  "../../components/propertyitem/Propertyitem"
 import Paginate from '../../components/paginate/Paginate';
 import {useNavigate} from "react-router-dom";

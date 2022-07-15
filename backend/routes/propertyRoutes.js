@@ -1,7 +1,7 @@
 import express from 'express'
 //const express= require('express')
 
-import {getProperties,getPropertyByAddress,addNewProperty,editProperty,useAddressToFindPosition, updatePropertyPrice} from '../controllers/propertyControllers.js'
+import {getProperties,getPropertyByAddress,addNewProperty,editProperty,useAddressToFindPosition, updatePropertyBought,updatePropertySold} from '../controllers/propertyControllers.js'
 //const {getProducts, getProductById,deleteProduct,createProduct, updateProduct,getTopProducts,createProductReview}= require('../controllers/productControllers.js')
 
 //import {protect,admin} from '../Middleware/authMiddleware.js'
@@ -17,7 +17,9 @@ const router = express.Router()
 
 
 router.route('/').get(getProperties)
-router.route('/:address').get(getPropertyByAddress).post(updatePropertyPrice)
+router.route('/:address').get(getPropertyByAddress)
+router.route('/buy/:address').post(updatePropertyBought)
+router.route('/sell/:address').post(updatePropertySold)
 router.route('/propertypos/:addressalso').get(useAddressToFindPosition)
 router.route('/newproperty').post(addNewProperty)
 router.route('/editproperty/:id').post(editProperty)

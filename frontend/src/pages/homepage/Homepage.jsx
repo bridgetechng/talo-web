@@ -7,17 +7,12 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 import "./homepage.css";
 import Chartbox from  "../../components/chartbox/Chartbox"
-import Messagebox from  "../../components/messagebox/Messagebox"
+import Balancebox from  "../../components/balancebox/Balancebox"
 import Propertyitem from  "../../components/propertyitem/Propertyitem"
 import Paginate from '../../components/paginate/Paginate';
 import {Link} from "react-router-dom";
 
-/** just temporary pics */
-import House1 from '../../images/house1.jpeg';
-import House2 from '../../images/house2.jpeg';
-import House3 from '../../images/house3.jpg';
-import House4 from '../../images/house4.jpeg';
-/** just temporary pics end */
+
 
 import Searchandfilter from '../../components/searchandfilter/Searchandfilter';
 
@@ -141,7 +136,7 @@ export default function Homepage() {
        <div className="homeContainer"> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
-        <Messagebox/>
+        <Balancebox/>
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 

@@ -133,7 +133,7 @@ export default function Propertytable() {
          
           <tr className='tr'>
            <th className='th'>ID</th>
-           <th className='th'>OWNERS</th>
+           <th className='th'>IMAGE</th>
            <th className='th'>ADDRESS</th>
            <th className='th'>TYPE</th>
            <th className='th'>PRICE</th>
@@ -145,10 +145,10 @@ export default function Propertytable() {
           {propertyList.map(property => (
             <tr className='tr' key={propertyList.indexOf(property)} >
               <td className='td'>{propertyList.indexOf(property) + 1}</td>
-              <td className='td' >{properties[propertyList.indexOf(property)].owners}</td>
-              <td className='td backgroundColor'>{property.address}</td>
-              <td className='td backgroundColor'>{property.type}</td>
-              <td className='td backgroundColor'>{property.price}</td>
+              <td className='td'  ><img src={property.image} style={{width:'200px'}}/></td>
+              <td className='td '>{property.address}</td>
+              <td className='td '>{property.type}</td>
+              <td className='td '>${(property.purchasePrice).toFixed(2)}</td>
              
               <td className='td'>    
               <Link to={`/admin/editproperty/${property.address}`}>

@@ -88,9 +88,9 @@ const authUser = asyncHandler(async (req, res) => {
       res.json({
       userInfo:user[0] /*i am unpeeling the info from the array */
     }) 
-  }
-   })
-
+  
+     }
+  })
   
 
    
@@ -147,22 +147,9 @@ const authUser = asyncHandler(async (req, res) => {
     }) 
   }
    })
-  /*sending from firestore END*/
-  
-
-   
-  /*if (user.length > 0){ figure out why it jumps straight to else first ? i.e why am I getting 401 error before it parses the array
-     
-        res.json({
-        userInfo:user[0] 
-      })
-    } else {
-      res.status(401)
-      throw new Error('invalid email or password')
-    } */ 
-  
-  
+ 
   })
+  
 
   const userInfoUpdates = asyncHandler(async (req, res) => {
     res.header("Access-Control-Allow-Origin","*")

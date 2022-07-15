@@ -65,7 +65,7 @@ export default function Sidebar() {
                  <Link to ={'/properties/built'} className="linkref">
                      <li className="sidebarListItem">
                          <AccountBalanceIcon  className="sidebarListItemIcon"/>
-                         Built 
+                        Completed 
                          
                      </li>
                      </Link> 
@@ -76,7 +76,7 @@ export default function Sidebar() {
                      <li className="sidebarListItem">
                        
                          <NearMeIcon className="sidebarListItemIcon"/>
-                            Off Plan 
+                            Incomplete
                    
                      </li>
                     </Link> 

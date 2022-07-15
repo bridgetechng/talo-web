@@ -1,13 +1,7 @@
 import React,{useEffect, useState, useRef} from 'react';
 import Grid from '@mui/material/Grid';
 import "./propertyview.css";
-import Chartbox from  "../../components/chartbox/Chartbox"
-import Messagebox from  "../../components/messagebox/Messagebox"
-import Propertyitem from  "../../components/propertyitem/Propertyitem"
-import House1 from '../../images/house1.jpeg';
-
 import {Link} from "react-router-dom";
-import Searchandfilter from '../../components/searchandfilter/Searchandfilter';
 import axios from 'axios'  
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -21,42 +15,16 @@ function PropertyView() {
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const [ownedPercentage,setOwnedPercentage] = useState(0)
   const [addressPosition,setAddressPosition] = useState('')
+  const [property,setProperty] = useState({}); /*this is where the  database information will reside */ 
+   
   const { address } = useParams();
 
-     useEffect(()=>{
-  
-      if(userInfo === null){
-        navigate('/')
-      }else{
-        setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
-       
-        
-        /*logic to see if a user actually already has a share of this property */
-      const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
-      console.log(hasAddress)
-      const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
-      setOwnedPercentage(userHas)
+
      
-  
-  /*logic to see if a user actually already has a share of this property END*/
-
-      }
-  
-    },[userInfo,address])
-
-    /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
-
-   const [property,setProperty] = useState({}); /*this is where the  database information will reside */ 
-   
- 
-  
-  
-
-
    useEffect(()=>{
-
+   
     const fetchPropertyAndUser = async() => {
-     
+      
       const {data} = await axios.get(`/api/properties/${address}`) 
       const position = await axios.get(`/api/properties/propertypos/${address}`)
       const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
@@ -68,14 +36,60 @@ function PropertyView() {
        setProperty(data.property[0]) /*i AM GOING OFF THE ASSUMPTION THAT I ONLY GET ONE VALUE , CUZ ADDRESSES ARE UNIQUE AFTER ALL */
       
   
-    
+       console.log(property.availablePercentage)
+      
       
      }
-  
+      
+ 
      fetchPropertyAndUser()
+     console.log("hello I am here")
 
 
  },[])
+
+
+
+
+
+
+
+     useEffect(()=>{
+  
+      if(userInfo === null){
+        navigate('/')
+      }else{
+       
+        const fetchUserForUpdates = async() => {
+      const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+     
+       setUserInfo(userData.data)
+        
+        }
+
+        fetchUserForUpdates()
+        
+       
+
+      }
+  
+    },[address])
+
+
+
+   useEffect(()=>{
+
+     /*logic to see if a user actually already has a share of this property */
+     const hasAddress = userInfo.userInfo.ownedProperties ? userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address)) : []
+     console.log(hasAddress)
+     const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
+     setOwnedPercentage(userHas)
+    
+ 
+ /*logic to see if a user actually already has a share of this property END*/
+
+    },[userInfo])
+
   
   
   
@@ -98,7 +112,7 @@ function PropertyView() {
          <div className="propertyPricingDetails">
 
           <div>Available for purchase:</div>
-           <div className='moneyValue'>${property.purchasePrice * property.availablePercentage}</div>
+           <div className='moneyValue'>${(property.purchasePrice *property.availablePercentage).toFixed(2)}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>

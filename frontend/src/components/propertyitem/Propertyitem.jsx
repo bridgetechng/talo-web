@@ -30,7 +30,7 @@ export default function Propertyitem (props){
           
             <div className="percentAppreciation">
             <div className="moneyHeader">Available:</div>
-                {props.percentage*100}%
+                {(props.percentage*100).toFixed(1)}%
             </div>
 
             <div className="priceAndView">
@@ -41,7 +41,7 @@ export default function Propertyitem (props){
 
               <Link to={`/propertyview/${props.address}`}>
               <button  type="button" className="view">
-                View
+                BUY
               </button>
               </Link>
 

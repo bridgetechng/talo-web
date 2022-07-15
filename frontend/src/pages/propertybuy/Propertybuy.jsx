@@ -1,10 +1,7 @@
 import React,{useEffect, useState, useRef} from 'react';
 import Grid from '@mui/material/Grid';
 import "./propertybuy.css";
-import Chartbox from  "../../components/chartbox/Chartbox"
-import Messagebox from  "../../components/messagebox/Messagebox"
-import Propertyitem from  "../../components/propertyitem/Propertyitem"
-import House1 from '../../images/house1.jpeg';
+
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import DoneIcon from '@mui/icons-material/Done';
@@ -12,7 +9,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 import {Link} from "react-router-dom";
-import Searchandfilter from '../../components/searchandfilter/Searchandfilter';
+
 import axios from 'axios'  
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -24,13 +21,13 @@ function PropertyBuy() {
   /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   const navigate = useNavigate()
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
-  const [liveUserInfo,setLiveUserInfo]  = useState(' ')
+  
   const [addressPosition,setAddressPosition] = useState('')
   console.log(userInfo)
   const [selectedPercentage,setSelectedPercentage] = useState(0)
   const [submitted,setSubmitted] = useState(" ") 
   const [ownedPercentage,setOwnedPercentage] = useState(0)
-  
+  const [property,setProperty] = useState({});  /*this is where the  database information for property will reside */ 
   
   
   const marks = [ /*these are the values for our slider */
@@ -100,7 +97,7 @@ function PropertyBuy() {
        
        
        /*logic to see if a user actually already has a share of this property */
-       const hasAddress = userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address))
+       const hasAddress = userInfo.userInfo.ownedProperties ? userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address)) : []
        const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
         setOwnedPercentage(userHas)
        
@@ -114,7 +111,7 @@ function PropertyBuy() {
 
     /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
 
-   const [property,setProperty] = useState({}); /*this is where the  database information will reside */ 
+  
    
 
    useEffect(()=>{
@@ -139,7 +136,7 @@ function PropertyBuy() {
    fetchPropertyAndUser()
 
 
- },[submitted])
+ },[submitted,address])
 
 
  const buyProperty = async() => {
@@ -151,7 +148,7 @@ function PropertyBuy() {
   }
   else { 
      
-   const {data} = await axios.post(`/api/properties/${address}`, {
+   const {data} = await axios.post(`/api/properties/buy/${address}`, {
      selectedPercentage:selectedPercentage,
      addressPosition:addressPosition,
      userId:userInfo.userInfo.id,
@@ -225,7 +222,7 @@ function PropertyBuy() {
                 <div className="displayAndConfirm">
                   <div className="display">
                   <ul className="featuresList">
-                 <li >Portion Selected:<strong className="fontAdjust" style={{color:'red'}}>${(property.purchasePrice*selectedPercentage/100).toFixed(2)}{' '}{' '}</strong>{`(${selectedPercentage}%)`}</li>
+                 <li >Portion Selected:<strong className="fontAdjust" style={{color:'red'}}>${(property.purchasePrice*selectedPercentage/100).toFixed(2)}{' '}{' '}</strong>{`(${selectedPercentage.toFixed(1)}%)`}</li>
                  <br/>
                  <li >Available for Purchase: <strong className="fontAdjust">${(property.purchasePrice * property.availablePercentage).toFixed(2)} </strong></li>
                  </ul>
@@ -240,7 +237,7 @@ function PropertyBuy() {
              </div>
             
              <div className="controls">
-             <Link to={`/propertyview/${address}`}><button className="button">BACK</button> </Link> 
+             <Link to={`/home`}><button className="button">BACK</button> </Link> 
               <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
              <button className="button">OFFER</button>
                {/*  <button className="button">VOTE</button>*/}

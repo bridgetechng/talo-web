@@ -55,7 +55,7 @@ let messages = []
      }) 
     
 
- })I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT INSTEAD OF GETDOCS */
+ })I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS */
 
  onSnapshot(colRef,(snapshot) => {
   snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
@@ -77,7 +77,7 @@ let messages = []
   }) 
   
 
-} )  I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT INSTEAD OF GETDOCS*/
+} )  I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS*/
 
 onSnapshot(colRef,(snapshot) => {
   snapshot.docs.filter((doc)=>(doc.id === 'message')).forEach((doc)=>{
@@ -88,7 +88,7 @@ onSnapshot(colRef,(snapshot) => {
 })
 
 
- /*just an experiment to try the other firebase way END */
+ 
 
 
 
@@ -266,8 +266,15 @@ properties[0].data[arrayPosition] =
    )
 
 
-   const updatePropertyPrice = asyncHandler(async(req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+   const updatePropertyBought = asyncHandler(async(req,res)=>{
+    /*res.header("Access-Control-Allow-Origin","*") */
+
+    /*I had a problem in which the header above would try and set a header AFTER
+      I had sent response to client... why is that so ? does it have to do with my promises ? or 
+      does it have to do with how response object works in the backend 
+        
+      
+      */
     
    /*INITIAL SETUP */
     const selectedPercentage = req.body.selectedPercentage
@@ -307,14 +314,19 @@ properties[0].data[arrayPosition] =
 
     getDoc(userRef)
      .then((doc) => {
-    userHouses = doc.data().ownedProperties
+    userHouses = doc.data().ownedProperties ? doc.data().ownedProperties  :[]
      
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
     console.log(spotInArray,userHouses)
 
      /*one small change to the proportion, the user has now */
+     if(spotInArray > -1){
     userHouses[spotInArray].proportion = userHouses[spotInArray].proportion + (selectedPercentage/100)
-   
+     }else{
+      userHouses.push({address:address,proportion:selectedPercentage/100})
+     }
+
+
     updateDoc(userRef,{
       userBalance:(currUserBalance - userSpent),
       ownedProperties: userHouses /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
@@ -337,6 +349,83 @@ properties[0].data[arrayPosition] =
    })
 
 
+   const updatePropertySold = asyncHandler(async(req,res)=>{
+   /* res.header("Access-Control-Allow-Origin","*")*/
+    
+   /*INITIAL SETUP */
+    const selectedPercentage = req.body.selectedPercentage
+    const addressPosition = req.body.addressPosition
+    const userId= req.body.userId
+    const currUserBalance = req.body.userBalance
+    const address = req.params.address
+    const userRef = doc(dbtest,'users',userId)
+    let userHouses;
+    let spotInArray;
 
 
-  export {getProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition,updatePropertyPrice}
+   /*ASSISTANCE CONSTANTS */
+   const newAvailablePercentage =  properties[0].data[addressPosition].availablePercentage + (selectedPercentage/100)
+   const price = properties[0].data[addressPosition].purchasePrice
+   const userSold = price * (selectedPercentage/100)  /*so you do userBalance + userSold to get the new userBalance */
+    
+    console.log(newAvailablePercentage)
+
+
+    /*i need to get all the properties for that position then alter the available percentage */
+    properties[0].data[addressPosition] =  {...properties[0].data[addressPosition],availablePercentage:newAvailablePercentage}
+
+
+/*updating the property in the array, so we can reset and submit END*/
+   /*remember to change the date property in firebase to have a type of date ! */
+  
+   
+   
+     updateDoc(docRef, {
+      data:properties[0].data
+     }).then(
+    
+
+    /*UNFORTUNATELY I HAVE TO FETCH THE USER IN QUESTION, TO GET ARRAY POSITION FOR WHAT I WANT TO UPDATE AND WHATNOT */
+      
+
+    getDoc(userRef)
+     .then((doc) => {
+    userHouses = doc.data().ownedProperties
+     
+    spotInArray = userHouses.findIndex((item)=>(item.address === address))
+    console.log(spotInArray,userHouses)
+
+     /*change to the proportion the user has */
+    userHouses[spotInArray].proportion = userHouses[spotInArray].proportion - (selectedPercentage/100)
+
+    /*if the user has sold everything, delete the property element from the ownedProperties array */
+    if(userHouses[spotInArray].proportion === 0){
+
+      userHouses.splice(spotInArray,1)
+    }
+   
+    updateDoc(userRef,{
+      userBalance:(currUserBalance + userSold),
+      ownedProperties: userHouses /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
+
+     })
+      .then(
+        res.json({submitted:true})
+        )
+ })
+
+
+   /*FETCHING USER IN QUESTION END */
+   
+
+    
+  
+     )
+   
+
+   })
+
+
+
+
+  export {getProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition,updatePropertyBought,updatePropertySold}
