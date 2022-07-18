@@ -125,7 +125,7 @@ const authUser = asyncHandler(async (req, res) => {
       firstName:firstName,
       lastName:lastName,
       phoneNumber:phoneNumber,
-      userBalance:'100000'
+      userBalance:100000 /* THE DATA TYPE IS IMPORTANT, FOR THE DATABASE */
 
     }).then((document) => {
      
