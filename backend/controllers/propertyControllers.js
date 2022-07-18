@@ -93,7 +93,7 @@ onSnapshot(colRef,(snapshot) => {
 
 
 const getProperties = asyncHandler(async (req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
     const pageSize = 3 // 3 per page as dean has asked
        const page = Number(req.query.pageNumber) || 1
   
@@ -134,7 +134,7 @@ const getProperties = asyncHandler(async (req,res)=>{
 
 
   const getPropertyByAddress = asyncHandler(async(req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
      
  const property = [] 
 
@@ -149,7 +149,7 @@ const getProperties = asyncHandler(async (req,res)=>{
 
 
   const useAddressToFindPosition = asyncHandler(async(req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
      
  
     
@@ -162,7 +162,7 @@ const getProperties = asyncHandler(async (req,res)=>{
 
 
   const addNewProperty = asyncHandler(async(req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
     
     const propertyAddress = req.body.propertyAddress
     const purchasePrice = req.body.purchasePrice
@@ -212,7 +212,7 @@ const getProperties = asyncHandler(async (req,res)=>{
 
 
   const editProperty = asyncHandler(async(req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
     
     const propertyAddress = req.body.propertyAddress
     const purchasePrice = req.body.purchasePrice
@@ -267,7 +267,7 @@ properties[0].data[arrayPosition] =
 
 
    const updatePropertyBought = asyncHandler(async(req,res)=>{
-    /*res.header("Access-Control-Allow-Origin","*") */
+    /*/*res.header("Access-Control-Allow-Origin","*")*/
 
     /*I had a problem in which the header above would try and set a header AFTER
       I had sent response to client... why is that so ? does it have to do with my promises ? or 

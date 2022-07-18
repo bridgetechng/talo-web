@@ -70,7 +70,7 @@ getDocs(colRef)
 
 
 const authUser = asyncHandler(async (req, res) => {
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
     
     const { email, password } = req.body
     console.log(email)
@@ -111,7 +111,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 
   const registerUser = asyncHandler(async (req, res) => {
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
     
     const { email, password, firstName,lastName,phoneNumber} = req.body
     console.log(email)
@@ -152,7 +152,7 @@ const authUser = asyncHandler(async (req, res) => {
   
 
   const userInfoUpdates = asyncHandler(async (req, res) => {
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
    
     const userId= req.params.id
     
@@ -169,7 +169,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 
      const getAllUsers = asyncHandler(async (req, res) => {
-      res.header("Access-Control-Allow-Origin","*")
+      /*res.header("Access-Control-Allow-Origin","*")*/
         res.json({allUsers:users}) 
   })
 
