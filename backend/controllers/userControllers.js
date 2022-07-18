@@ -125,7 +125,7 @@ const authUser = asyncHandler(async (req, res) => {
       firstName:firstName,
       lastName:lastName,
       phoneNumber:phoneNumber,
-      userBalance:'0'
+      userBalance:'100000'
 
     }).then((document) => {
      

@@ -37,7 +37,7 @@ export default function Topbar(){
                              2
                          </span>
                       </div>
-                <img src={profile} alt="profile pic" className="topAvatar" />
+                <img src={userInfo.userInfo.profileImage?userInfo.userInfo.profileImage:profile} alt="profile pic" className="topAvatar" />
 
          
                     </div> 
