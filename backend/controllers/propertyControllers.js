@@ -93,7 +93,7 @@ onSnapshot(colRef,(snapshot) => {
 
 
 const getProperties = asyncHandler(async (req,res)=>{
-    /*res.header("Access-Control-Allow-Origin","*")*/
+    res.header("Access-Control-Allow-Origin","*")
     const pageSize = 3 // 3 per page as dean has asked
        const page = Number(req.query.pageNumber) || 1
   
@@ -109,7 +109,7 @@ const getProperties = asyncHandler(async (req,res)=>{
    
    }:{}
    
-   
+    
    
   count = properties[0].data.length
   propertylist = (array, pageSize, pageNumber) => {
@@ -125,7 +125,7 @@ const getProperties = asyncHandler(async (req,res)=>{
   const propertylists = propertylist(properties[0].data,pageSize,page)
   
   
-
+console.log("almost working")
 
   
     res.json({properties:propertylists, page,pages:Math.ceil(count/pageSize)})

@@ -24,44 +24,50 @@ import axios from 'axios'
 
 export default function Homepage() {
    
-  /*I am pushing people to login page if they dont have user info details, i.e they are not in */
-  const navigate = useNavigate()
-  const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
-  
+ 
+ 
+  const [searchTerm,setSearchTerm] = useState('');
+  /*const [filteredAClone,setFilteredAClone] = useState([])*/
 
+  const [searchDone,setSearchDone] = useState(false);
+  const [filteredAddresses,setFilteredAddresses] = useState([]);
+  
+ 
+  const [pages,setPages] = useState(1);
+  const [page,setPage] = useState(1);
+  const [addressList,setAddressList] = useState([]);
+  
+  const filterRef = useRef();
+  const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const navigate = useNavigate()
+
+
+   /*I am pushing people to login page if they dont have user info details, i.e they are not logged in */
      useEffect(()=>{
   
-    console.log(userInfo)
+ 
 
       if(userInfo === null){
         navigate('/')
        
       }
+
+
+    },[])
+
+    /*I am pushing people to login page if they dont have user info details, i.e they are not logged in END */
+
+
+
+
+ 
   
-    },[userInfo])
-
-    /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
-
-
-
-
-   const [searchTerm,setSearchTerm] = useState('');
-   /*const [filteredAClone,setFilteredAClone] = useState([])*/
-
-   const [searchDone,setSearchDone] = useState(false);
-   const [filteredAddresses,setFilteredAddresses] = useState([]);
-   
-  
-   const [pages,setPages] = useState(1);
-   const [page,setPage] = useState(1);
-   const [addressList,setAddressList] = useState([]);
-   
-   const filterRef = useRef();
-  
-   /*const addressList = [ "234 ABBEY ROAD HOUSTON, TEXAS" , "19 WEST LANE HOUSTON,TEXAS" , "40 DRISCOLL STREET HOUSTON,TEXAS" ]*/
+   const baddressList = [ "234 ABBEY ROAD HOUSTON, TEXAS" , "19 WEST LANE HOUSTON,TEXAS" , "40 DRISCOLL STREET HOUSTON,TEXAS" ]
    
  
    useEffect(()=>{
+ 
+    
 
      const fetchProperties = async() => {
       
@@ -76,7 +82,7 @@ export default function Homepage() {
     fetchProperties()
 
  /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
-  },[])
+  },[userInfo])
  
  
  
@@ -113,10 +119,7 @@ export default function Homepage() {
 
    const showSearchResult = function(){
         
-      const regex = new RegExp(`/\/\b${searchTerm}\b/g`, 'g');
-
-
-   /*the for each in addressList used to be here */
+     
 
     setSearchDone(true)
    
@@ -147,7 +150,7 @@ export default function Homepage() {
         
         <h2 className="propertyLabel"> PROPERTIES </h2>
        
-       
+        
 
        {/*input for searching*/}
          <div className="searchBox">
@@ -183,14 +186,14 @@ export default function Homepage() {
         {filteredAddresses.length === 0 ? 
         
         addressList.map((item,i)=>{
-  
+           
           return (
               
                <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
-              
+             
           )
          
-   
+            
              })
 
         :
@@ -207,7 +210,7 @@ export default function Homepage() {
         }
 
        
-
+ 
         </div> {/*property list end */}
          
        

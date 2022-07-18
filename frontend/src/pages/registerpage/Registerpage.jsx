@@ -22,8 +22,8 @@ export default function Registerpage() {
   useEffect(()=>{
 
    if(userInfo !== null){
-    console.log(userInfo)
-    /*navigate('/home')*/
+    
+    navigate('/home')
    }
 
  },[userInfo])
@@ -38,17 +38,6 @@ export default function Registerpage() {
   const [phoneNumber,setPhoneNumber] = useState('')
 
 
-
-
-
-
-   useEffect(()=>{
-
-    
- /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
-  },[])
- 
- 
  
  
  /*usually for my post routes*/
@@ -82,7 +71,7 @@ if(password !== confirmPassword)
     firstName:firstName,
     lastName:lastName,
     phoneNumber:phoneNumber,
-    password:password
+   
   },
    config
   ) 

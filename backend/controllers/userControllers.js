@@ -112,9 +112,11 @@ const authUser = asyncHandler(async (req, res) => {
 
   const registerUser = asyncHandler(async (req, res) => {
     /*res.header("Access-Control-Allow-Origin","*")*/
+   let registeredId
     
     const { email, password, firstName,lastName,phoneNumber} = req.body
     console.log(email)
+    const user = []
 
     /* 1  adding to firestore */
      
@@ -123,8 +125,23 @@ const authUser = asyncHandler(async (req, res) => {
       firstName:firstName,
       lastName:lastName,
       phoneNumber:phoneNumber,
+      userBalance:'0'
 
-    } )
+    }).then((document) => {
+     
+    
+      const registeredRef = doc(dbtest,'users',document.id)
+
+      getDoc(registeredRef)
+      .then((doc) => {
+     
+        console.log({userInfo:{...doc.data(),id:doc.id}})
+
+       res.json({userInfo:{...doc.data(),id:doc.id}}) 
+      }) 
+ 
+    
+    })
 
     /*adding to firestore END */
 
@@ -133,20 +150,27 @@ const authUser = asyncHandler(async (req, res) => {
     id and i believe you can only search for an individual document
      by id, not be email, or some other category */
 
-    const user = []
+    
     const q =  query(colRef, where("email", "==", `${email}`))
     
-   onSnapshot(q,(snapshot) => {
+   /*onSnapshot(q,(snapshot) => {
      snapshot.docs.forEach((doc)=>{
       user.push({...doc.data(),id:doc.id})
      })
+   
      console.log(user.length)
-     if (user.length > 0){ 
+     
+     if(user.length > 0){ 
       res.json({
-      userInfo:user[0] /*i am unpeeling the info from the array */
+      userInfo:user[0]
     }) 
-  }
-   })
+   }
+
+
+   })*/
+
+   
+
  
   })
   
