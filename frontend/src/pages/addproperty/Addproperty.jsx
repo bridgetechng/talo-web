@@ -105,6 +105,7 @@ export default function AddProperty() {
      
     e.preventDefault()
 
+    setSubmitted("loading")
       console.log('the submit has started')
     
     /*uploading the image to firebase */
@@ -315,9 +316,11 @@ export default function AddProperty() {
 
 
         <div className="form-group">
-          <button type="submit" id="submit" className="submit-button" >
+         {submitted !=="submitting" ? <button type="submit" id="submit" className="submit-button" >
             Submit
-          </button>
+          </button>:
+          <h4>SUBMITTING...</h4>
+          }
         </div>
 
 
