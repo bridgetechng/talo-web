@@ -64,6 +64,8 @@ const getProperties = asyncHandler(async (req,res)=>{
    
    
     let properties = []
+    let count;
+
     getDocs(colRef)
     .then((snapshot) => {
    
@@ -73,7 +75,7 @@ const getProperties = asyncHandler(async (req,res)=>{
    
        properties.push({...doc.data(), id:doc.id})
         }) 
-         console.log(properties)
+        count = properties[0].data.length
       }
     )
 
@@ -82,7 +84,7 @@ const getProperties = asyncHandler(async (req,res)=>{
        const page = Number(req.query.pageNumber) || 1
   
    
-  let count;
+  
   let propertylist;
   
     const keyword = req.query.keyword ? {
@@ -95,7 +97,7 @@ const getProperties = asyncHandler(async (req,res)=>{
    
     
    
-  count = properties[0].data.length
+  
   propertylist = (array, pageSize, pageNumber) => {
     
     
@@ -104,7 +106,8 @@ const getProperties = asyncHandler(async (req,res)=>{
   }
   
   
-
+  console.log("count is now",count)
+   
 
   const propertylists = propertylist(properties[0].data,pageSize,page)
   
@@ -121,7 +124,23 @@ const getProperties = asyncHandler(async (req,res)=>{
     /*res.header("Access-Control-Allow-Origin","*")*/
      
  const property = [] 
+ /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+ let properties = []
+   
+ getDocs(colRef)
+ .then((snapshot) => {
 
+    
+     snapshot.docs.forEach((doc) => {
+      
+
+    properties.push({...doc.data(), id:doc.id})
+     }) 
+      console.log("property length is",properties.length)
+   }
+ )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
 
   property.push( ...properties[0].data.filter((p) => p.address === req.params.address) )
     
@@ -135,7 +154,23 @@ const getProperties = asyncHandler(async (req,res)=>{
   const useAddressToFindPosition = asyncHandler(async(req,res)=>{
     /*res.header("Access-Control-Allow-Origin","*")*/
      
+  /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+  let properties = []
+   
+  getDocs(colRef)
+  .then((snapshot) => {
  
+     
+      snapshot.docs.forEach((doc) => {
+       
+ 
+     properties.push({...doc.data(), id:doc.id})
+      }) 
+       console.log("property length is",properties.length)
+    }
+  )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
     
 
     const id =  properties[0].data.findIndex((p) => p.address === req.params.addressalso) 
@@ -162,7 +197,7 @@ const getProperties = asyncHandler(async (req,res)=>{
    
        properties.push({...doc.data(), id:doc.id})
         }) 
-         console.log(properties)
+         console.log("property length is",properties.length)
       }
     )
 
@@ -235,7 +270,27 @@ const getProperties = asyncHandler(async (req,res)=>{
 
 
 /*updating the property in the array,so we can reset and submit */
+  
+ /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+ let properties = []
    
+ getDocs(colRef)
+ .then((snapshot) => {
+
+    
+     snapshot.docs.forEach((doc) => {
+      
+
+    properties.push({...doc.data(), id:doc.id})
+     }) 
+      console.log("property length is",properties.length)
+   }
+ )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
+
 const arrayToUpdate = properties[0].data
 
 properties[0].data[arrayPosition] = 
@@ -278,10 +333,27 @@ properties[0].data[arrayPosition] =
     /*I had a problem in which the header above would try and set a header AFTER
       I had sent response to client... why is that so ? does it have to do with my promises ? or 
       does it have to do with how response object works in the backend 
-        
-      
-      */
+        */
     
+   /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+   let properties = []
+   
+   getDocs(colRef)
+   .then((snapshot) => {
+  
+      
+       snapshot.docs.forEach((doc) => {
+        
+  
+      properties.push({...doc.data(), id:doc.id})
+       }) 
+        console.log("property length is",properties.length)
+     }
+   )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
    /*INITIAL SETUP */
     const selectedPercentage = req.body.selectedPercentage
     const addressPosition = req.body.addressPosition
@@ -358,6 +430,31 @@ properties[0].data[arrayPosition] =
    const updatePropertySold = asyncHandler(async(req,res)=>{
    /* res.header("Access-Control-Allow-Origin","*")*/
     
+    /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+    let properties = []
+   
+    getDocs(colRef)
+    .then((snapshot) => {
+   
+       
+        snapshot.docs.forEach((doc) => {
+         
+   
+       properties.push({...doc.data(), id:doc.id})
+        }) 
+         console.log("property length is",properties.length)
+      }
+    )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
+
+
+
+
+
+
    /*INITIAL SETUP */
     const selectedPercentage = req.body.selectedPercentage
     const addressPosition = req.body.addressPosition
