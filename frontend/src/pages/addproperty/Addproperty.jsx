@@ -127,9 +127,9 @@ export default function AddProperty() {
             imageUrl:url,
             propertyAddress:propertyAddress,
             type:type,
-            percentage:percentage,
-            yearBuilt:yearBuilt,
-            purchasePrice:purchasePrice,
+            percentage:Number(percentage),
+            yearBuilt:Number(yearBuilt),
+            purchasePrice:Number(purchasePrice),
             purchaseDate:purchaseDate,
             description:description
           },
