@@ -53,7 +53,10 @@ function App() {
          <Route  path="/" element={<Loginpage/>} />
          <Route  path="/register" element={<Registerpage/>} />
           
-           <Route  path="/home" element={<Homepage/>} />
+           
+           <Route  path="/home/:pageNumber"  element={<Homepage/>} />
+           <Route  path="/home" exact element={<Homepage/>} />
+
            <Route  path="/properties/offplan" element={<OffplanPropertylist/>} />
            <Route  path="/properties/built" element={<BuiltPropertylist/>} />
            <Route  path="/admin/addproperty" element={<AddProperty/>} />
@@ -67,8 +70,11 @@ function App() {
            <Route  path= "/propertybuy/:address" element ={<PropertyBuy/>} />
            <Route  path= "/propertysell/:address" element ={<PropertySell/>} />
 
-           <Route  path= "/admin/userlist" element ={<Usertable/>} />
-           <Route  path= "/admin/propertylist" element ={<Propertytable/>} />
+           <Route  path= "/admin/userlist/:pageNumber" element ={<Usertable/>} />
+           <Route  path= "/admin/userlist/" element ={<Usertable/>} />
+
+           <Route  path= "/admin/propertylist/:pageNumber"  element ={<Propertytable/>} />
+           <Route  path= "/admin/propertylist/" exact element ={<Propertytable/>} />
 
            
          </Routes>

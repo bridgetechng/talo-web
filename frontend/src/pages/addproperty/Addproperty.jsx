@@ -256,7 +256,7 @@ export default function AddProperty() {
         <div className="form-group">
           <label id="email-label" for="purchasePrice">Purchase Price</label>
           <input
-            type="text"
+            type="number"
             name="purchase price"
             id="purchasePrice"
             className="form-control"
@@ -270,11 +270,11 @@ export default function AddProperty() {
           <div className="form-group">
           <label id="email-label" for="percentage">Percentage</label>
           <input
-            type="text"
+            type="number"
             name="percentage"
             id="percentage"
             className="form-control"
-            placeholder="Enter percentage"
+            placeholder="Enter percentage available for sale"
             value={percentage} onChange={(e)=>setPercentage(e.target.value)}
             required
           />

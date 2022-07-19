@@ -1,5 +1,5 @@
 import React,{useEffect, useState, useRef} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -40,7 +40,7 @@ export default function Homepage() {
   const filterRef = useRef();
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const navigate = useNavigate()
-
+  const { pageNumber } = useParams();
 
    /*I am pushing people to login page if they dont have user info details, i.e they are not logged in */
      useEffect(()=>{
@@ -62,7 +62,7 @@ export default function Homepage() {
 
  
   
-   const baddressList = [ "234 ABBEY ROAD HOUSTON, TEXAS" , "19 WEST LANE HOUSTON,TEXAS" , "40 DRISCOLL STREET HOUSTON,TEXAS" ]
+   /*const baddressList = [ "234 ABBEY ROAD HOUSTON, TEXAS" , "19 WEST LANE HOUSTON,TEXAS" , "40 DRISCOLL STREET HOUSTON,TEXAS" ]*/
    
  
    useEffect(()=>{
@@ -71,7 +71,7 @@ export default function Homepage() {
 
      const fetchProperties = async() => {
       
-     const {data} = await axios.get('/api/properties') //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
+     const {data} = await axios.get(`/api/properties?pageNumber=${pageNumber}`) //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
      
       setAddressList(data.properties)
       setPage(data.page)
@@ -82,7 +82,7 @@ export default function Homepage() {
     fetchProperties()
 
  /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
-  },[userInfo])
+  },[userInfo,pageNumber])
  
  
  

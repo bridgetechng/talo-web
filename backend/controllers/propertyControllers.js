@@ -60,7 +60,7 @@ onSnapshot(colRef,(snapshot) => {
 
 
 const getProperties = asyncHandler(async (req,res)=>{
-    res.header("Access-Control-Allow-Origin","*")
+    /*res.header("Access-Control-Allow-Origin","*")*/
    
    
     let properties = []
@@ -74,48 +74,50 @@ const getProperties = asyncHandler(async (req,res)=>{
          
    
        properties.push({...doc.data(), id:doc.id})
-        }) 
+        })
+
         count = properties[0].data.length
+
+   //FROM HERE
+    const pageSize = 3 // 3 per page as dean has asked
+    const page = Number(req.query.pageNumber) || 1
+
+
+
+let propertylistfunction;
+
+ const keyword = req.query.keyword ? {
+  name: {
+    $regex: req.query.keyword,
+    $options:'i' // it means case insensitive 
+  }
+
+}:{}
+
+ 
+
+
+propertylistfunction = (array, pageSize, pageNumber) => {
+ 
+ 
+ return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+}
+
+
+console.log("count is now",count)
+
+
+const propertylist = propertylistfunction(properties[0].data,pageSize,page)
+
+
+
+
+
+ res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
       }
     )
 
-   
-    const pageSize = 3 // 3 per page as dean has asked
-       const page = Number(req.query.pageNumber) || 1
-  
-   
-  
-  let propertylist;
-  
-    const keyword = req.query.keyword ? {
-     name: {
-       $regex: req.query.keyword,
-       $options:'i' // it means case insensitive 
-     }
-   
-   }:{}
-   
-    
-   
-  
-  propertylist = (array, pageSize, pageNumber) => {
-    
-    
-    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
-  
-  }
-  
-  
-  console.log("count is now",count)
-   
-
-  const propertylists = propertylist(properties[0].data,pageSize,page)
-  
-  
-
-
-  
-    res.json({properties:propertylists, page,pages:Math.ceil(count/pageSize)})
   })
 
 
@@ -137,16 +139,20 @@ const getProperties = asyncHandler(async (req,res)=>{
     properties.push({...doc.data(), id:doc.id})
      }) 
       console.log("property length is",properties.length)
-   }
- )
 
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+   /*  FROM HERE I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
 
   property.push( ...properties[0].data.filter((p) => p.address === req.params.address) )
     
   /*console.log(property)*/
     res.json({property})
   })
+
+
+   }
+ )
+
+
 
 
 
@@ -167,16 +173,19 @@ const getProperties = asyncHandler(async (req,res)=>{
      properties.push({...doc.data(), id:doc.id})
       }) 
        console.log("property length is",properties.length)
+
+       const id =  properties[0].data.findIndex((p) => p.address === req.params.addressalso) 
+    
+       res.json({id:id})
     }
+
+   
   )
 
 /* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
     
 
-    const id =  properties[0].data.findIndex((p) => p.address === req.params.addressalso) 
-    
-  console.log(id)
-    res.json({id:id})
+   
   })
 
 
@@ -198,10 +207,6 @@ const getProperties = asyncHandler(async (req,res)=>{
        properties.push({...doc.data(), id:doc.id})
         }) 
          console.log("property length is",properties.length)
-      }
-    )
-
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
 
 
     const propertyAddress = req.body.propertyAddress
@@ -223,11 +228,12 @@ const getProperties = asyncHandler(async (req,res)=>{
       amountLeft:"",
       earn:[""],
       image:imageUrl,
-      images:[""],
+      images:[{image:imageUrl}],
       monthlyIncome:"",
       monthlyReturn:"",
-      percentage:percentage,
+      availablePercentage:percentage/100,
       percentageReturn:"",
+      percentage:percentage.toString()+" %",
       purchaseDate:purchaseDate,
       purchasePrice:purchasePrice,
       totalReturn:"",
@@ -246,6 +252,12 @@ const getProperties = asyncHandler(async (req,res)=>{
    
      res.json({submitted:true}),
    )
+
+      }
+    )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
 
 
 
@@ -284,12 +296,9 @@ const getProperties = asyncHandler(async (req,res)=>{
     properties.push({...doc.data(), id:doc.id})
      }) 
       console.log("property length is",properties.length)
-   }
- )
-
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
-
-
+   
+   
+   
 
 const arrayToUpdate = properties[0].data
 
@@ -322,6 +331,16 @@ properties[0].data[arrayPosition] =
   
      )
    
+   
+   
+   
+   
+    }
+ )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
      
   }
    )
@@ -348,11 +367,6 @@ properties[0].data[arrayPosition] =
       properties.push({...doc.data(), id:doc.id})
        }) 
         console.log("property length is",properties.length)
-     }
-   )
-
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
-
 
    /*INITIAL SETUP */
     const selectedPercentage = req.body.selectedPercentage
@@ -422,6 +436,12 @@ properties[0].data[arrayPosition] =
     
   
      )
+     }
+   )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
    
 
    })
@@ -443,15 +463,6 @@ properties[0].data[arrayPosition] =
        properties.push({...doc.data(), id:doc.id})
         }) 
          console.log("property length is",properties.length)
-      }
-    )
-
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
-
-
-
-
-
 
 
 
@@ -524,7 +535,11 @@ properties[0].data[arrayPosition] =
     
   
      )
-   
+      }
+    )
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
 
    })
 
