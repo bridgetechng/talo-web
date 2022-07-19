@@ -148,7 +148,7 @@ export default function AddProperty() {
 
    useEffect(()=>{
    
-    if(type === "Off-plan"){
+    if(type === "Incomplete"){
       setYearBuilt(currYear)
     }
 
@@ -217,8 +217,8 @@ export default function AddProperty() {
           <p>Type &nbsp;&nbsp; i.e Is it completed, or off-plan (currently being being built)?</p>
           <select id="dropdown"  value={type}  name="type" className="form-control" onChange={(e)=>{setType(e.target.value); console.log(e.target.value)}}  required>
             <option disabled selected value></option>
-            <option value={"Built"}  >Built</option>
-            <option value={"Off-plan"} >Off-plan</option>
+            <option value={"Completed"}  >Completed</option>
+            <option value={"Incomplete"} >Incomplete</option>
           </select>
         </div>
 
