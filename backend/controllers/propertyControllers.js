@@ -40,8 +40,8 @@ const docRef = doc(dbtest, "estate","collection")
 
 
 /**the arrays i will send in my fetch requests */
-let properties = []
-let messages = []
+
+
 
 
 /*getDocs(colRef)
@@ -57,27 +57,12 @@ let messages = []
 
  })I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS */
 
- onSnapshot(colRef,(snapshot) => {
-  snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
-   properties.push({...doc.data(),id:doc.id})
-  })
+
  
- 
-})
 
  
  
- /*getDocs(colRef).then((snapshot) =>{
-
-    
-  snapshot.docs.filter((doc)=>(doc.id === 'message')).forEach((doc) => {
-   
-
-  messages.push({...doc.data(), id:doc.id})
-  }) 
-  
-
-} )  I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS*/
+ /*  I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS*/
 
 onSnapshot(colRef,(snapshot) => {
   snapshot.docs.filter((doc)=>(doc.id === 'message')).forEach((doc)=>{
@@ -94,6 +79,19 @@ onSnapshot(colRef,(snapshot) => {
 
 const getProperties = asyncHandler(async (req,res)=>{
     res.header("Access-Control-Allow-Origin","*")
+   
+   
+    let properties = []
+    onSnapshot(colRef,(snapshot) => {
+     snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
+      properties.push({...doc.data(),id:doc.id})
+     })
+    
+    
+   })
+   
+
+   
     const pageSize = 3 // 3 per page as dean has asked
        const page = Number(req.query.pageNumber) || 1
   
@@ -125,7 +123,7 @@ const getProperties = asyncHandler(async (req,res)=>{
   const propertylists = propertylist(properties[0].data,pageSize,page)
   
   
-console.log("almost working")
+
 
   
     res.json({properties:propertylists, page,pages:Math.ceil(count/pageSize)})
@@ -163,7 +161,22 @@ console.log("almost working")
 
   const addNewProperty = asyncHandler(async(req,res)=>{
     /*res.header("Access-Control-Allow-Origin","*")*/
+   
     
+
+ /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
+    let properties = []
+    onSnapshot(colRef,(snapshot) => {
+     snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
+      properties.push({...doc.data(),id:doc.id})
+     })
+    
+    
+   })
+
+/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+
+
     const propertyAddress = req.body.propertyAddress
     const purchasePrice = req.body.purchasePrice
     const purchaseDate = req.body.purchaseDate
@@ -173,7 +186,8 @@ console.log("almost working")
     const imageUrl = req.body.imageUrl
     const description = req.body.description
    
-     
+ 
+
   
     
    updateDoc(docRef, {
