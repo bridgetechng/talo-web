@@ -39,28 +39,10 @@ const colRef = collection(dbtest , "estate")
 const docRef = doc(dbtest, "estate","collection")
 
 
-/**the arrays i will send in my fetch requests */
-
-
-
-
-/*getDocs(colRef)
- .then((snapshot) => {
-
-    
-     snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc) => {
-      
-
-     properties.push({...doc.data(), id:doc.id})
-     }) 
-    
-
- })I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS */
 
 
  
-
- 
+let messages =[]
  
  /*  I NEEDED CONTINUOUS FEEDBACK SO I DECIDED TO USE ONSNAPSHOT(below) INSTEAD OF GETDOCS*/
 
