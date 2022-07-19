@@ -64,14 +64,18 @@ const getProperties = asyncHandler(async (req,res)=>{
    
    
     let properties = []
-    onSnapshot(colRef,(snapshot) => {
-     snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
-      properties.push({...doc.data(),id:doc.id})
-     })
-    
-    
-   })
+    getDocs(colRef)
+    .then((snapshot) => {
    
+       
+        snapshot.docs.forEach((doc) => {
+         
+   
+       properties.push({...doc.data(), id:doc.id})
+        }) 
+         console.log(properties)
+      }
+    )
 
    
     const pageSize = 3 // 3 per page as dean has asked
@@ -148,13 +152,19 @@ const getProperties = asyncHandler(async (req,res)=>{
 
  /*I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to  */
     let properties = []
-    onSnapshot(colRef,(snapshot) => {
-     snapshot.docs.filter((doc)=>(doc.id === 'collection')).forEach((doc)=>{
-      properties.push({...doc.data(),id:doc.id})
-     })
-    
-    
-   })
+   
+    getDocs(colRef)
+    .then((snapshot) => {
+   
+       
+        snapshot.docs.forEach((doc) => {
+         
+   
+       properties.push({...doc.data(), id:doc.id})
+        }) 
+         console.log(properties)
+      }
+    )
 
 /* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
 
