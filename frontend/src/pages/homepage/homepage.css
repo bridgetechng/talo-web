@@ -32,23 +32,32 @@
 }
 
 .searchAndFilterContainer {
-    background-color: #ffffff;  /* its better to have a whole body icon that one can apply background color to, but i will refactor later*/
+
+  display: flex;
+  gap:3rem;
+  width: 110%;
 }
 
 .searchBox{
     background-color: #ffffff;
 }
 
-.searchButton {
+.inputBox{
+    min-width:10rem;
+    height: 2.7rem;
+    font-size:1.5rem;
+}
+
+.searchButton1 {
 
    
 
-        padding:7px 20px 7px 20px;
+        padding:25px 40px 15px 40px;
         
         border-radius: 5px;
         background-color: black;
         color:white;
-        font-size: large;
+        font-size: 1.6rem;
         font-weight: bold;
         margin-top: 10px;
         margin-left: 10px;
@@ -56,6 +65,20 @@
      
 }
 
+
+.search-button {
+    background: transparent !important;
+    border: none;
+    outline: none;
+    margin-left: -93px;
+  }
+  
+  .search-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    background: transparent !important;
+  }
 
 .propertyList {
     margin-top: 40px; /* ideally , I should use some sort of padding , to push neigbouring elements away , but this workds for now */
@@ -68,15 +91,27 @@
 
 
 .propertyLabel {
-    background-color: #ffffff;
+    font-size: 2rem;
+
 }
 
-.filterAndLogo{
-    background-color: #ffffff;
+.filterAndLogo1{
+    
+   
+   
+    flex:1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+   font-size: 1.5rem;
+   border-style: solid;
+   border-width:1px;
+   padding:1.5rem;
 }
 
 .filterIcon {
     background-color: #ffffff;
+    
 }
 
 /*temporary*/

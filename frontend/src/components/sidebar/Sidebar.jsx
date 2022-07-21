@@ -13,6 +13,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import WifiProtectedSetupIcon from '@mui/icons-material/WifiProtectedSetup';
+import urbanlogo from '../../images/talo.png';
 
 import {Button} from 'react-bootstrap'
 
@@ -31,21 +32,18 @@ export default function Sidebar() {
     return (
         
         <div className="sidebar">
-
-<div  className = "buttonSidebar" onClick = {changeMode}>
+  
+              <div className="imageCenter">
+              <img src={urbanlogo} alt="urban hive logo" className="sidebarLogo"  />
+              </div>
+               
+               
+               <div  className = "buttonSidebar" onClick = {changeMode}>   
                   <WifiProtectedSetupIcon className = "iconNB"/> {admin ?"Admin Mode":"User Mode"}
                 </div>
 
                 
             <div className="sidebarWrapper">
-               
-               
-               
-               
-
-             
-               
-               
                
                
                 <div className="sidebarMenu">

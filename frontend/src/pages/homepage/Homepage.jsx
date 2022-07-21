@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import magGlass from "../../images/search.png"
 
 import "./homepage.css";
 import Chartbox from  "../../components/chartbox/Chartbox"
@@ -154,15 +155,15 @@ export default function Homepage() {
 
        {/*input for searching*/}
          <div className="searchBox">
-         <input className="inputBox"type="text"  value={searchTerm} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="search by address..."/> 
+         <input className="inputBox"type="text"  value={searchTerm} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="type an address and Enter..."/> 
          </div>
         
-         <button  type="button" className="searchButton" onClick={showSearchResult}>
-                Search
-              </button>
+         <button type="submit" class="search-button" onClick={showSearchResult}>
+          <img src={magGlass}/>
+        </button>
         
         {/*filter and it's icon*/}
-         <div className="filterAndLogo" onMouseEnter={upMenu} onMouseLeave={downMenu}>
+         <div className="filterAndLogo1" onMouseEnter={upMenu} onMouseLeave={downMenu}>
         <FilterListIcon className="filterIcon" />
          FILTER   
          </div>

@@ -32,9 +32,24 @@ a {
 }
 
 
-.buttonSidebar {
-
+/* logo styles grouping*/
+.imageCenter{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color:none !important;
    
+}
+
+.sidebarLogo {
+   width:100%; 
+    
+    background-color: rgb(30, 121, 3);
+}
+
+/* logo styles grouping END*/
+
+.buttonSidebar {
 
     padding:10px 10px 10px 10px;
     width: 140px;
@@ -46,7 +61,7 @@ a {
     cursor:pointer;
 
     margin-left:10px;
-    margin-top:100px;
+    margin-top:10px;
  
 }
 

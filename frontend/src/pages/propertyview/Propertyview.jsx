@@ -138,6 +138,7 @@ function PropertyView() {
                <ul className="featuresList">
                  <li className ="fontAdjust">PURCHASE DATE:<strong>{property.purchaseDate}</strong></li>
                  <li className ="fontAdjust">PURPOSE: <strong>{property.type} </strong></li>
+                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'} </strong></li>
                  <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice}</strong> </li>
                  <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice} </strong></li>
                </ul>
