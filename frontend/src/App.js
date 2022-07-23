@@ -57,8 +57,15 @@ function App() {
            <Route  path="/home/:pageNumber"  element={<Homepage/>} />
            <Route  path="/home" exact element={<Homepage/>} />
 
-           <Route  path="/properties/offplan" element={<OffplanPropertylist/>} />
-           <Route  path="/properties/built" element={<BuiltPropertylist/>} />
+
+           <Route  path="/properties/offplan/:pageNumber"  element={<OffplanPropertylist/>} />
+
+           <Route  path="/properties/offplan/" exact element={<OffplanPropertylist/>} />
+
+           <Route  path="/properties/built/:pageNumber" element={<BuiltPropertylist/>} />
+          <Route  path="/properties/built/" exact element={<BuiltPropertylist/>} />
+          
+          
            <Route  path="/admin/addproperty" element={<AddProperty/>} />
            <Route  path="/admin/editproperty/:id" element={<EditProperty/>} />
            

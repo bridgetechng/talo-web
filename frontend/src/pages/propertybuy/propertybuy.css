@@ -94,17 +94,27 @@
     border-style: solid;
     border-width:1px ;
     padding:10px;
-    margin-top: 40px; 
+    margin-top: 20px; 
     height: 20%;
     flex:5;
     overflow: scroll;
-    max-height: 60vh;
+    max-height: 80vh;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 } 
 
+.propertyDescShort{
+    padding-left:30px; /*this is what makes desc and select purchase amount start on the same place */
+    padding-top: 1%;
+   
+    max-width: 800px;
+}
+
+.smallMargin {
+    margin-top: 12px;
+}
 
 .descriptionAndControls{
     display:flex;

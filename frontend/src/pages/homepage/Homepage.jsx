@@ -63,7 +63,15 @@ export default function Homepage() {
 
  
   
-   /*const baddressList = [ "234 ABBEY ROAD HOUSTON, TEXAS" , "19 WEST LANE HOUSTON,TEXAS" , "40 DRISCOLL STREET HOUSTON,TEXAS" ]*/
+    /*for my post routes*/
+    const config = {
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json'
+        
+      }
+    }
+    /*for my post routes END */
    
  
    useEffect(()=>{
@@ -72,7 +80,17 @@ export default function Homepage() {
 
      const fetchProperties = async() => {
       
-     const {data} = await axios.get(`/api/properties?pageNumber=${pageNumber}`) //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
+     /*this is typically supposed to be a get request but I am breaking convention and using post ,
+      so I can send the owned properties array and get info for all properties 
+      owned by a user, later I will change the user array to have the full details of a property,
+      so all properties will just display from user info*/
+
+     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+          {
+            ownedProperties:userInfo.userInfo.ownedProperties
+          },
+           config
+          )
      
       setAddressList(data.properties)
       setPage(data.page)
@@ -95,7 +113,7 @@ export default function Homepage() {
    
      
 
-    if (searchTerm && address.includes(searchTerm.toUpperCase())){
+    if (searchTerm && address.address.includes(searchTerm.toUpperCase())){
        setFilteredAddresses([address])
      
     }
@@ -118,15 +136,15 @@ export default function Homepage() {
    }
 
 
-   const showSearchResult = function(){
+   const showSearchResult = function(event){
         
      
-
+    if(event.key === 'Enter'){
     setSearchDone(true)
    
     console.log(searchTerm)
     console.log(filteredAddresses)
-
+    }
    }
 
 
@@ -155,10 +173,10 @@ export default function Homepage() {
 
        {/*input for searching*/}
          <div className="searchBox">
-         <input className="inputBox"type="text"  value={searchTerm} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="type an address and Enter..."/> 
+         <input className="inputBox"type="text"  value={searchTerm} onKeyPress={showSearchResult} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="type an address and Enter..."/> 
          </div>
         
-         <button type="submit" class="search-button" onClick={showSearchResult}>
+         <button type="submit" class="search-button" >
           <img src={magGlass}/>
         </button>
         
@@ -209,6 +227,24 @@ export default function Homepage() {
 
           })
         }
+
+        { addressList.length === 0  &&
+         
+             <div className="noPropertyContainer">
+             <h2> Welcome <span style={{color:"red"}}> {userInfo.userInfo.firstName}{' '}{ userInfo.userInfo.lastName}! </span> </h2>
+             <br/>
+              <h2>Properties you own will appear here.</h2>
+              <br/>
+              <h2>Click "Completed" or "Incomplete" on the menu </h2>
+              <br/>
+              <h2> to view properties you can buy. </h2>
+             </div>
+          
+
+        }
+
+
+
 
        
  

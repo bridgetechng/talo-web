@@ -187,7 +187,15 @@ function PropertySell() {
          </div>
 
         </div>
-      
+              
+        <hr className = "smallMarginSell"/>
+        <div className="propertyDescShortSell">
+        <p className ="fontAdjust" >
+             <strong className="fontAdjust"> DESCRIPTION</strong>
+              <br/>
+                 {property.description}{'...'}
+               </p>
+        </div>
 
          {/* the property list below will be a forEach , and i will load as many
           components as the database warrants me to, but for now, I will just hard code like 5 items */}

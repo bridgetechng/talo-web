@@ -1,5 +1,5 @@
 import React,{useEffect, useState, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,useParams} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import "./propertylist.css";
 import Propertyitem from  "../../components/propertyitem/Propertyitem"
@@ -17,6 +17,7 @@ export default function BuiltPropertylist() {   /*to fetch info from a url . it 
    
    /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   const navigate = useNavigate()
+  const { pageNumber } = useParams();
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
    
      useEffect(()=>{
@@ -40,8 +41,8 @@ export default function BuiltPropertylist() {   /*to fetch info from a url . it 
 
       const fetchProperties = async() => {
        
-      const {data} = await axios.get('/api/properties') //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
-      console.log(data)
+      const {data} = await axios.get(`/api/properties/complete?pageNumber=${pageNumber}`) //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
+      
       console.log(data.properties)
        setAddressList(data.properties)
        setPage(data.page)
@@ -52,7 +53,7 @@ export default function BuiltPropertylist() {   /*to fetch info from a url . it 
      fetchProperties()
  
   /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
-   },[])
+   },[pageNumber])
   
   
   

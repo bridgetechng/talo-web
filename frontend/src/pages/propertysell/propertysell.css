@@ -99,6 +99,16 @@
     justify-content: center;
 } 
 
+.propertyDescShortSell{
+    padding-left:30px; /*this is what makes desc and select purchase amount start on the same place */
+    padding-top: 1%;
+   
+    max-width: 800px;
+}
+
+.smallMarginSell {
+    margin-top: 12px;
+}
 
 .descriptionAndControls{
     display:flex;

@@ -11,7 +11,7 @@ const Paginate = ({pages,page /*, isAdmin=false, keyword=''*/}) => {
   const {pathname} = useLocation()
 
   const list = pathname.substring(pathname.indexOf('/'),pathname.lastIndexOf('/'));
-  console.log(list)
+  console.log(list,"list is here")
 
 
 
@@ -59,7 +59,28 @@ const Paginate = ({pages,page /*, isAdmin=false, keyword=''*/}) => {
              </Link>
         ))}
          
+
+         { list === '/properties/offplan' &&
+        
+        [...Array(pages).keys()].map(x => (
+             <Link key={x+1} to={ `/properties/offplan/${x+1}`} >
+
+          <a className={`page ${x+1===page && "active"}`}>{x+1}</a>
+
+             </Link>
+        ))}
   
+
+
+  { list === '/properties/built' &&
+        
+        [...Array(pages).keys()].map(x => (
+             <Link key={x+1} to={ `/properties/built/${x+1}`} >
+
+          <a className={`page ${x+1===page && "active"}`}>{x+1}</a>
+
+             </Link>
+        ))}
   
   
         </div>

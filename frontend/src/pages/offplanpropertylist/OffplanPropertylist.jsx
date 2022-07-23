@@ -4,7 +4,7 @@ import "./propertylist.css";
 
 import Propertyitem from  "../../components/propertyitem/Propertyitem"
 import Paginate from '../../components/paginate/Paginate';
-import {useNavigate} from "react-router-dom";
+import {useNavigate,useParams} from "react-router-dom";
 import Searchandfilter from '../../components/searchandfilter/Searchandfilter';
 import axios from 'axios'  
 
@@ -18,6 +18,7 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
   /*I am pushing people to login page if they dont have user info details, i.e they are not in */
   
   const navigate = useNavigate()
+  const { pageNumber } = useParams();
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
    
      useEffect(()=>{
@@ -42,10 +43,11 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
 
     const fetchProperties = async() => {
      
-    const {data} = await axios.get('/api/properties') //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
-    console.log(data)
-    console.log(data.properties)
+    const {data} = await axios.get(`/api/properties/incomplete?pageNumber=${pageNumber}`) //{data} is object destructuring from what we get back from axios , i totally forgot about object destructuring
+   
+    
      setAddressList(data.properties)
+     console.log(data.properties)
      setPage(data.page)
      setPages(data.pages)
 
@@ -54,7 +56,7 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
    fetchProperties()
 
 /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
- },[])
+ },[pageNumber])
    
   
   
@@ -74,7 +76,7 @@ export default function OffplanPropertyList() {   /*to fetch info from a url . i
   
   return (
       
-       <Propertyitem imageLink ={tempPics[i]} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
+       <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
       
   )
  

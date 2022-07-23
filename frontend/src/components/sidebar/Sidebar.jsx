@@ -60,7 +60,7 @@ export default function Sidebar() {
                       {/*I had to assign each emoji component a classname here, to enforce background color*/ }
                      
                     
-                 <Link to ={'/properties/built'} className="linkref">
+                 <Link to ={'/properties/built/'} className="linkref">
                      <li className="sidebarListItem">
                          <AccountBalanceIcon  className="sidebarListItemIcon"/>
                         Completed 
@@ -70,7 +70,7 @@ export default function Sidebar() {
 
 
 
-                     <Link  className="linkref" to={"/properties/offplan"}>
+                     <Link  className="linkref" to={"/properties/offplan/"}>
                      <li className="sidebarListItem">
                        
                          <NearMeIcon className="sidebarListItemIcon"/>

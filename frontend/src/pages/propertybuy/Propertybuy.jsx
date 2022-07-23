@@ -198,6 +198,14 @@ function PropertyBuy() {
          </div>
 
         </div>
+         <hr className = "smallMargin"/>
+        <div className="propertyDescShort">
+        <p className ="fontAdjust" >
+             <strong className="fontAdjust"> DESCRIPTION</strong>
+              <br/>
+                 {property.description}{'...'}
+               </p>
+        </div>
       
 
          {/* the property list below will be a forEach , and i will load as many
@@ -207,7 +215,11 @@ function PropertyBuy() {
            
           <div className='descriptionAndControls'>
              <div className="description">
-               <p  >
+              
+             
+
+
+               <p >
                 <strong className="fontAdjust"> SELECT PURCHASE AMOUNT</strong>
                  <br/>
                  (select by moving the slider below, then click "make buy" to purchase)

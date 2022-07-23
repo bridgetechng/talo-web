@@ -122,6 +122,230 @@ const propertylist = propertylistfunction(properties[0].data,pageSize,page)
 
 
 
+const getOwnedProperties = asyncHandler(async (req,res)=>{
+  /*res.header("Access-Control-Allow-Origin","*")*/
+ 
+ const userOwns =  req.body.ownedProperties;
+console.log(userOwns, "owned properties here")
+ 
+let allProperties = []
+let userProperties = []
+let count;
+
+  getDocs(colRef)
+  .then((snapshot) => {
+ 
+     
+      snapshot.docs.forEach((doc) => {
+       
+ 
+     allProperties.push({...doc.data(), id:doc.id})
+      })
+
+
+      userOwns.forEach((item)=>(
+
+        allProperties[0].data.forEach((house)=>{
+          
+         if(item.address === house.address){
+            userProperties.push(house)
+          }
+     /*double loop here, try and refactor this to better code */
+
+      })
+
+      ))
+
+
+
+      count = userProperties.length
+
+ //FROM HERE
+  const pageSize = 3 // 3 per page as dean has asked
+  const page = Number(req.query.pageNumber) || 1
+
+
+
+let propertylistfunction;
+
+const keyword = req.query.keyword ? {
+name: {
+  $regex: req.query.keyword,
+  $options:'i' // it means case insensitive 
+}
+
+}:{}
+
+
+
+
+propertylistfunction = (array, pageSize, pageNumber) => {
+
+
+return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+}
+
+
+console.log("count is now",count)
+
+
+const propertylist = propertylistfunction(userProperties,pageSize,page)
+
+
+
+
+
+res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+    }
+  )
+
+})
+
+
+
+
+const getCompletedProperties = asyncHandler(async (req,res)=>{
+  /*res.header("Access-Control-Allow-Origin","*")*/
+ 
+ 
+  let properties = []
+  let completedProperties;
+  let count;
+  let propertylistfunction;
+
+  getDocs(colRef)
+  .then((snapshot) => {
+ 
+     
+      snapshot.docs.forEach((doc) => {
+       
+ 
+     properties.push({...doc.data(), id:doc.id})
+     
+    
+    })
+
+     console.log(properties[0].data.filter((item)=>(item.type === "Completed")))
+
+    completedProperties =  properties[0].data.filter((item)=>(item.type === "Completed"))
+
+      count = completedProperties.length
+
+ //FROM HERE
+  const pageSize = 3 // 3 per page as dean has asked
+  const page = Number(req.query.pageNumber) || 1
+
+
+
+
+
+const keyword = req.query.keyword ? {
+name: {
+  $regex: req.query.keyword,
+  $options:'i' // it means case insensitive 
+}
+
+}:{}
+
+
+
+
+propertylistfunction = (array, pageSize, pageNumber) => {
+
+
+return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+}
+
+
+console.log("count is now",count)
+
+
+
+const propertylist = propertylistfunction(completedProperties,pageSize,page)
+
+
+
+
+
+res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+    }
+  )
+
+})
+
+
+
+const getIncompleteProperties = asyncHandler(async (req,res)=>{
+  /*res.header("Access-Control-Allow-Origin","*")*/
+ 
+ 
+  let properties = []
+  let count;
+  let incompleteProperties =[]
+  let propertylistfunction;
+
+  getDocs(colRef)
+  .then((snapshot) => {
+ 
+     
+      snapshot.docs.forEach((doc) => {
+       
+ 
+     properties.push({...doc.data(), id:doc.id})
+      })
+
+    incompleteProperties = properties[0].data.filter((item)=>(item.type == "Incomplete"))
+
+
+      count = incompleteProperties.length
+
+ //FROM HERE
+  const pageSize = 3 // 3 per page as dean has asked
+  const page = Number(req.query.pageNumber) || 1
+
+
+
+
+
+const keyword = req.query.keyword ? {
+name: {
+  $regex: req.query.keyword,
+  $options:'i' // it means case insensitive 
+}
+
+}:{}
+
+
+
+
+propertylistfunction = (array, pageSize, pageNumber) => {
+
+
+return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+}
+
+
+
+console.log(incompleteProperties)
+console.log("count is now",count)
+
+
+const propertylist = propertylistfunction(incompleteProperties,pageSize,page)
+
+
+
+
+
+res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+    }
+  )
+
+})
+
+
   const getPropertyByAddress = asyncHandler(async(req,res)=>{
     /*res.header("Access-Control-Allow-Origin","*")*/
      
@@ -546,4 +770,4 @@ properties[0].data[arrayPosition] =
 
 
 
-  export {getProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition,updatePropertyBought,updatePropertySold}
+  export {getProperties,getCompletedProperties,getIncompleteProperties,getOwnedProperties,getPropertyByAddress,editProperty,addNewProperty,useAddressToFindPosition,updatePropertyBought,updatePropertySold}
