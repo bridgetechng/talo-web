@@ -604,7 +604,9 @@ properties[0].data[arrayPosition] =
 
 
    /*ASSISTANCE CONSTANTS */
-   const newAvailablePercentage =  properties[0].data[addressPosition].availablePercentage - (selectedPercentage/100)
+   const newAvailablePercentage =  (properties[0].data[addressPosition].availablePercentage - (selectedPercentage/100)) > 0 ?
+                                    properties[0].data[addressPosition].availablePercentage - (selectedPercentage/100): 0
+
    const price = properties[0].data[addressPosition].purchasePrice
    const userSpent = price * (selectedPercentage/100)  /*so you do userBalance - subtractUserBalance, to get the new userBalance */
     
@@ -734,7 +736,7 @@ properties[0].data[arrayPosition] =
     console.log(spotInArray,userHouses)
 
      /*change to the proportion the user has */
-    userHouses[spotInArray].proportion = userHouses[spotInArray].proportion - (selectedPercentage/100)
+    userHouses[spotInArray].proportion = (userHouses[spotInArray].proportion - (selectedPercentage/100)) >= 0 ? (userHouses[spotInArray].proportion - (selectedPercentage/100)) : 0 
 
     /*if the user has sold everything, delete the property element from the ownedProperties array */
     if(userHouses[spotInArray].proportion === 0){

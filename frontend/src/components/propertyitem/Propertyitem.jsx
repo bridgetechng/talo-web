@@ -17,7 +17,7 @@ export default function Propertyitem (props){
          <>
            
          <div className="propertyitemContainer">
-         <img src={props.imageLink} alt="property picture" className="houselistpic" />
+         <img style={{height:200, width:300}}  src={props.imageLink} alt="property picture" className="houselistpic" />
          
          <div className="chartForList">
          <Actualchart /> {/*this component needs a container around it*/}
