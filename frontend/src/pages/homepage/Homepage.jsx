@@ -181,7 +181,7 @@ export default function Homepage() {
         </button>
         
         {/*filter and it's icon*/}
-         <div className="filterAndLogo1" onMouseEnter={upMenu} onMouseLeave={downMenu}>
+         <div className="filterAndLogo" onMouseEnter={upMenu} onMouseLeave={downMenu}>
         <FilterListIcon className="filterIcon" />
          FILTER   
          </div>

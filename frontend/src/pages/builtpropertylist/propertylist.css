@@ -12,3 +12,9 @@
    
 }
 
+.searchAndFilterContainerBuilt {
+
+    display: flex;
+    gap:2.5rem;
+    width: 110%;
+  }

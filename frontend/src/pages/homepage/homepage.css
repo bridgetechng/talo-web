@@ -34,7 +34,7 @@
 .searchAndFilterContainer {
 
   display: flex;
-  gap:3rem;
+  gap:2.6rem;
   width: 110%;
 }
 
@@ -44,8 +44,8 @@
 
 .inputBox{
     min-width:10rem;
-    height: 2.7rem;
-    font-size:1.5rem;
+    height: 1rem;
+    font-size:1.2rem;
 }
 
 .searchButton1 {
