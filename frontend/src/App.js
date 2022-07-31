@@ -20,6 +20,8 @@ import Propertytable from "./pages/propertytable/Propertytable";
 import AddProperty from "./pages/addproperty/Addproperty";
 import EditProperty from "./pages/editproperty/Editproperty";
 
+import MessagePage from "./pages/messagepage/MessagePage";
+
 import "./app.css";
 import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 
@@ -70,7 +72,7 @@ function App() {
            <Route  path="/admin/editproperty/:id" element={<EditProperty/>} />
            
            
-          
+           <Route  path="/messages/:id" element={<MessagePage/>} />
            
            <Route  path= "/propertyview/:address" element ={<PropertyView/>} />
 

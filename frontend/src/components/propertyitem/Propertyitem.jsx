@@ -30,7 +30,7 @@ export default function Propertyitem (props){
           
             <div className="percentAppreciation">
             <div className="moneyHeader">Available:</div>
-                {(props.percentage*100).toFixed(1)}%
+                {(props.percentage).toFixed(1)}%
             </div>
 
             <div className="priceAndView">

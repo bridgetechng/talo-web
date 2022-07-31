@@ -82,7 +82,7 @@ function PropertyView() {
      /*logic to see if a user actually already has a share of this property */
      const hasAddress = userInfo.userInfo.ownedProperties ? userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address)) : []
      console.log(hasAddress)
-     const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
+     const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion):(0)
      setOwnedPercentage(userHas)
     
  
@@ -112,7 +112,7 @@ function PropertyView() {
          <div className="propertyPricingDetails">
 
           <div>Available for purchase:</div>
-           <div className='moneyValue'>${(property.purchasePrice *property.availablePercentage).toFixed(2)}</div>
+           <div className='moneyValue'>${(property.purchasePrice *(property.availablePercentage/100)).toFixed(2)}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>

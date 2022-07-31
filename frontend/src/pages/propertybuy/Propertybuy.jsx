@@ -98,7 +98,7 @@ function PropertyBuy() {
        
        /*logic to see if a user actually already has a share of this property */
        const hasAddress = userInfo.userInfo.ownedProperties ? userInfo.userInfo.ownedProperties.filter((property)=>(property.address === address)) : []
-       const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion*100):(0*100)
+       const userHas =  hasAddress.length !== 0 ? (hasAddress[0].proportion):(0)
         setOwnedPercentage(userHas)
        
     
@@ -183,7 +183,7 @@ function PropertyBuy() {
          <div className="propertyPricingDetails">
 
           <div>Available for purchase:</div>
-           <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage).toFixed(2)}</div>
+           <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage/100).toFixed(2)}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>
@@ -227,7 +227,7 @@ function PropertyBuy() {
                 
               < Box sx={{ borderRadius:2, border:1,borderColor:'green', padding:5, margin:1}}>
                 <div classname="sliderLabel">SLIDER</div>
-               <Slider defaultValue={0} step={10} marks={marks} min={0} max={property.availablePercentage*100} color="success" onChange={(e)=>{setSelectedPercentage(e.target.value)}}  />
+               <Slider defaultValue={0} step={10} marks={marks} min={0} max={property.availablePercentage} color="success" onChange={(e)=>{setSelectedPercentage(e.target.value)}}  />
                </Box>
                <br />
 
@@ -236,7 +236,7 @@ function PropertyBuy() {
                   <ul className="featuresList">
                  <li >Portion Selected:<strong className="fontAdjust" style={{color:'red'}}>${(property.purchasePrice*selectedPercentage/100).toFixed(2)}{' '}{' '}</strong>{`(${selectedPercentage.toFixed(1)}%)`}</li>
                  <br/>
-                 <li >Available for Purchase: <strong className="fontAdjust">${(property.purchasePrice * property.availablePercentage).toFixed(2)} </strong></li>
+                 <li >Available for Purchase: <strong className="fontAdjust">${(property.purchasePrice * (property.availablePercentage/100)).toFixed(2)} </strong></li>
                  </ul>
                   </div>
 
