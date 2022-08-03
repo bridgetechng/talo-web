@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler'
 //const Product = require('../models/productModel.js') ES5 VERSION
 //const asyncHandler = require('express-async-handler') ES5 VERSION
 
-import { getFirestore, collection, where , query ,getDocs ,addDoc, deleteDoc ,doc, getDoc ,updateDoc,onSnapshot} from 'firebase/firestore';
+import { getFirestore, collection, where , query ,getDocs ,addDoc, deleteDoc ,doc, getDoc ,updateDoc,onSnapshot,Timestamp} from 'firebase/firestore';
 
 import { initializeApp } from 'firebase/app'
 
@@ -601,7 +601,8 @@ properties[0].data[arrayPosition] =
     const userRef = doc(dbtest,'users',userId)
     let userHouses;
     let spotInArray;
-
+    let messagesArray;
+    let myTimeStamp = Timestamp.fromDate(new Date());
 
    /*ASSISTANCE CONSTANTS */
    const newAvailablePercentage =  (properties[0].data[addressPosition].availablePercentage - (selectedPercentage)) > 0 ?
@@ -633,7 +634,9 @@ properties[0].data[arrayPosition] =
     getDoc(userRef)
      .then((doc) => {
     userHouses = doc.data().ownedProperties ? doc.data().ownedProperties  :[]
-     
+    messagesArray = doc.data().Messages ? doc.data().Messages  :[]
+    
+
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
     console.log(spotInArray,userHouses)
 
@@ -644,11 +647,12 @@ properties[0].data[arrayPosition] =
       userHouses.push({address:address,proportion:selectedPercentage})
      }
 
+     messagesArray.push({date:myTimeStamp, message:"Congratulations, you have successfully purchased" + selectedPercentage + "% of the property at" +  address }) /*consider making a messages collection and fetching from the list of generic message in that collection */
 
     updateDoc(userRef,{
       userBalance:(currUserBalance - userSpent),
-      ownedProperties: userHouses /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
-
+      ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
+      Messages:[...messagesArray]
      })
       .then(
         res.json({submitted:true})
@@ -701,7 +705,8 @@ properties[0].data[arrayPosition] =
     const userRef = doc(dbtest,'users',userId)
     let userHouses;
     let spotInArray;
-
+    let messagesArray;
+    let myTimeStamp = Timestamp.fromDate(new Date());
 
    /*ASSISTANCE CONSTANTS */
    const newAvailablePercentage =  properties[0].data[addressPosition].availablePercentage + (selectedPercentage)
@@ -716,7 +721,7 @@ properties[0].data[arrayPosition] =
 
 
 /*updating the property in the array, so we can reset and submit END*/
-   /*remember to change the date property in firebase to have a type of date ! */
+   
   
    
    
@@ -724,19 +729,23 @@ properties[0].data[arrayPosition] =
       data:properties[0].data
      }).then(
     
+      
 
-    /*UNFORTUNATELY I HAVE TO FETCH THE USER IN QUESTION, TO GET ARRAY POSITION FOR WHAT I WANT TO UPDATE AND WHATNOT */
+    /*FETCH USER AND UPDATE THEIR BALANCE AND MESSAGES */
       
 
     getDoc(userRef)
      .then((doc) => {
     userHouses = doc.data().ownedProperties
-     
+    messagesArray = doc.data().Messages ? doc.data().Messages  :[]
+    
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
     console.log(spotInArray,userHouses)
 
      /*change to the proportion the user has */
     userHouses[spotInArray].proportion = (userHouses[spotInArray].proportion - (selectedPercentage)) >= 0 ? (userHouses[spotInArray].proportion - (selectedPercentage)) : 0 
+    messagesArray.push({date:myTimeStamp, message:"You have just sold" + selectedPercentage + "% of the property at" +  address }) /*consider making a messages collection and fetching from the list of generic message in that collection */
+     
 
     /*if the user has sold everything, delete the property element from the ownedProperties array */
     if(userHouses[spotInArray].proportion === 0){
@@ -746,8 +755,8 @@ properties[0].data[arrayPosition] =
    
     updateDoc(userRef,{
       userBalance:(currUserBalance + userSold),
-      ownedProperties: userHouses /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
-
+      ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
+      Message:[...messagesArray],
      })
       .then(
         res.json({submitted:true})
@@ -755,12 +764,12 @@ properties[0].data[arrayPosition] =
  })
 
 
-   /*FETCHING USER IN QUESTION END */
+   /*FETCH USER AND UPDATE THEIR BALANCE AND MESSAGES END */
    
 
     
   
-     )
+        )
       }
     )
 

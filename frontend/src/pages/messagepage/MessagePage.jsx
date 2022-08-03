@@ -1,37 +1,89 @@
 import React , {useEffect, useState, useRef}  from 'react'
 import profilePhoto from '../../images/talo.png'
 import './messagepage.css'
-
+import { useNavigate,useParams } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 
 const MessagePage = () => {
+
+  /*STATE SET UP*/ 
+  const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [focusMessage,setFocusMessage] = useState(" ")
+  const [focusMessageDate,setFocusMessageDate] = useState(" ")
+  const navigate = useNavigate()
+  const rightNow = new Date()
+  const secondsConverter = function(seconds){
+    return new Date(seconds);
+  }
+ /*STATE SET UP END*/ 
+
+ console.log(userInfo.userInfo)
+
+  useEffect(()=>{
+  
+ 
+
+    if(userInfo === null){
+      navigate('/')
+     
+    }
+
+    const fetchUser = async() => {
+    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+   
+     /*setUserInfo(userData.data)*/
+
+     console.log(userData)
+    }
+
+     fetchUser()
+
+
+  },[])
+
   return (
     
     <div className="messagesContainer">
 
       <div className="messageList">
       
-       {/*1 */}
+     { userInfo.userInfo.Messages.length > 0 ?
+     
+            userInfo.userInfo.Messages.map((item,i)=>{
+           
+           
+               return (
+            <div className="singleMessage" key={i} onClick ={()=>{setFocusMessage(item.message);setFocusMessageDate(secondsConverter(item.date.seconds*1000).toLocaleDateString())}}>
+          
+            <img src={profilePhoto} className="senderPic" alt="talo symbol" />
+            <div className="messageDetails">
+              <div className="messageDesc"><span>Talo</span><span>{secondsConverter(item.date.seconds*1000).toLocaleDateString()}</span> </div>
+              <div className="messagePreamble">{item.message.substring(0,15)+ "..."}</div>
+            </div>
+          </div>
+               ) 
+           
+          
+             
+              }) :
+
+
+
+       
        <div className="singleMessage">
           
-         <img src={profilePhoto} className="senderPic" alt="talo symbol" />
+         
          <div className="messageDetails">
-           <div className="messageDesc"><span>Talo</span><span>2 days</span> </div>
-           <div className="messagePreamble">Success! Thank you for...</div>
+         
+           <div className="messagePreamble">NO NEW MESSAGES</div>
          </div>
        </div>
+      }
        
-       {/*2 */}
-       <div className="singleMessage">
-          
-          <img src={profilePhoto} className="senderPic" alt="talo symbol" />
-          <div className="messageDetails">
-            <div className="messageDesc"><span>Talo</span><span>2 days</span> </div>
-            <div className="messagePreamble">Success! Thank you for...</div>
-          </div>
-        </div>
+      
       
        </div>
       
@@ -41,16 +93,14 @@ const MessagePage = () => {
         <img src={profilePhoto} className="titlePic" alt="talo symbol" />
         <div className="titleSender">
         <h2>Talo</h2>
-        <div>16th August, 2022</div> 
+        <div>{focusMessageDate !== " " ?focusMessageDate:rightNow.toLocaleDateString()}</div> 
         </div>
         </div>
 
         <div className="chosenMessageBody">
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores saepe voluptas impedit suscipit illo enim magni optio recusandae, debitis molestias quam distinctio iste laboriosam ut minus corporis blanditiis. Esse, assumenda.
-      Delectus sed sunt soluta consequatur, libero id. Magnam quam, odio maiores voluptatem, beatae omnis impedit atque error asperiores, nostrum cum ut consectetur assumenda commodi minus laboriosam suscipit perspiciatis consequatur? Ad?
-      Ipsam incidunt culpa id a illum consectetur sit mollitia cumque animi ipsa eum reprehenderit sint reiciendis similique, expedita eligendi maiores! Quisquam cum rerum reprehenderit laboriosam odio quaerat culpa, nostrum consequuntur.
-      Perferendis magni dolore explicabo minima et voluptas ullam nostrum reiciendis, asperiores molestias natus accusamus alias quam sint enim, in tempore recusandae est praesentium excepturi. Delectus reprehenderit suscipit vel nisi cumque!
-      Quisquam libero ipsam facere modi explicabo quia a sed perspiciatis molestias omnis sit rem exercitationem iure voluptate quibusdam illo cum quo maiores numquam ipsum, doloremque officia. Perferendis nam natus officiis.
+         { focusMessage !== " " ?focusMessage:
+          
+      "CLICK A MESSAGE FROM THE LIST ON THE LEFT, AND IT WILL APPEAR IN FULL HERE."}
       </div>
       </div>
    

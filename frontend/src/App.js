@@ -57,7 +57,7 @@ function App() {
           
            
            <Route  path="/home/:pageNumber"  element={<Homepage/>} />
-           <Route  path="/home" exact element={<Homepage/>} />
+           <Route  path="/home/" exact element={<Homepage/>} />
 
 
            <Route  path="/properties/offplan/:pageNumber"  element={<OffplanPropertylist/>} />
@@ -72,7 +72,7 @@ function App() {
            <Route  path="/admin/editproperty/:id" element={<EditProperty/>} />
            
            
-           <Route  path="/messages/:id" element={<MessagePage/>} />
+           <Route  path="/messages/" element={<MessagePage/>} />
            
            <Route  path= "/propertyview/:address" element ={<PropertyView/>} />
 

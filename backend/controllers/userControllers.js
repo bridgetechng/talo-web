@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler'
 //const Product = require('../models/productModel.js') ES5 VERSION
 //const asyncHandler = require('express-async-handler') ES5 VERSION
 
-import { getFirestore, collection, where , query ,getDocs ,addDoc, deleteDoc ,doc, getDoc ,updateDoc,onSnapshot} from 'firebase/firestore';
+import { getFirestore, collection, where , query ,getDocs ,addDoc, deleteDoc ,doc, getDoc ,updateDoc,onSnapshot,Timestamp} from 'firebase/firestore';
 import { initializeApp } from 'firebase/app'
 
 import dotenv from 'dotenv'
@@ -117,6 +117,7 @@ const authUser = asyncHandler(async (req, res) => {
     const { email, password, firstName,lastName,phoneNumber} = req.body
     console.log(email)
     const user = []
+    let myTimeStamp = Timestamp.fromDate(new Date());
 
     /* 1  adding to firestore */
      
@@ -125,7 +126,8 @@ const authUser = asyncHandler(async (req, res) => {
       firstName:firstName,
       lastName:lastName,
       phoneNumber:phoneNumber,
-      userBalance:100000 /* THE DATA TYPE IS IMPORTANT, FOR THE DATABASE */
+      userBalance:100000,/* THE DATA TYPE IS IMPORTANT, FOR THE DATABASE */
+      Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
 
     }).then((document) => {
      

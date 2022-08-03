@@ -87,9 +87,9 @@ export default function Sidebar() {
 
           { !admin && 
                  <>
-                 <Link  className="linkref" to={"/messages/:id"}>
+                 <Link  className="linkref" to={"/messages/"}>
                 <div className="sidebarMenu">
-                    <h3 className="sidebarTitle"> MESSAGES </h3>
+                    <h3 className="sidebarTitle clickable"> MESSAGES </h3>
                    
                 </div> 
                 </Link>
