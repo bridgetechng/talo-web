@@ -1,5 +1,5 @@
 import React,{useEffect, useState, useRef} from 'react';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate,useParams,useLocation} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -41,6 +41,9 @@ export default function Homepage() {
   const filterRef = useRef();
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const navigate = useNavigate()
+  const Location = useLocation()
+ 
+  console.log(Location)
   const { pageNumber } = useParams();
 
    /*I am pushing people to login page if they dont have user info details, i.e they are not logged in */
@@ -80,6 +83,8 @@ export default function Homepage() {
 
      const fetchProperties = async() => {
       
+   
+
      /*this is typically supposed to be a get request but I am breaking convention and using post ,
       so I can send the owned properties array and get info for all properties 
       owned by a user, later I will change the user array to have the full details of a property,
@@ -92,16 +97,20 @@ export default function Homepage() {
            config
           )
      
+     
       setAddressList(data.properties)
       setPage(data.page)
       setPages(data.pages)
+
+    
 
     }
 
     fetchProperties()
 
- /*no need to put any dependencies in use effect just yet, I want the fetch to happen only when the page is loaded */
-  },[userInfo,pageNumber])
+   
+
+  },[userInfo,pageNumber,])
  
  
  
@@ -141,12 +150,31 @@ export default function Homepage() {
      
     if(event.key === 'Enter'){
     setSearchDone(true)
-   
-    console.log(searchTerm)
-    console.log(filteredAddresses)
+    return
+    /*console.log(searchTerm)
+    console.log(filteredAddresses)*/
     }
    }
 
+   const updateData = async()=>{
+
+    const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+    {
+      ownedProperties:userInfo.userInfo.ownedProperties
+    },
+     config
+    )
+
+    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+   
+    setUserInfo(userData.data)
+
+
+setAddressList(data.properties)
+setPage(data.page)
+setPages(data.pages)
+
+   }
 
 
 
@@ -155,7 +183,7 @@ export default function Homepage() {
   return (
 
       <> 
-       <div className="homeContainer"> 
+       <div className="homeContainer" onLoad={()=>{updateData()}}> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
         <Balancebox/>
@@ -208,7 +236,7 @@ export default function Homepage() {
            
           return (
               
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties[i].proportion}/> 
              
           )
          
@@ -221,7 +249,7 @@ export default function Homepage() {
   
        return (
             <div>
-            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={item.availablePercentage}/> 
+            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties[i].proportion}/> 
             </div>
        )
 

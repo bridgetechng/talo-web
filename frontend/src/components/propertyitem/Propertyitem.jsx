@@ -4,13 +4,15 @@ import Chartbox from '../chartbox/Chartbox';
 import House1 from '../../images/house1.jpeg';
 
 import Actualchart from '../chartbox/Actualchart';
-import {Link} from "react-router-dom";
+import {Link,useLocation} from "react-router-dom";
 
 export default function Propertyitem (props){
        
      
-
-
+const location = useLocation()
+/*ideally there should be a property item component for the property items on the home page 
+but the change was small ,just changing available to owned, so i used location and ternary below to switch between owned and available
+*/
 
 
     return(
@@ -29,7 +31,7 @@ export default function Propertyitem (props){
            <div className="houseStats">
           
             <div className="percentAppreciation">
-            <div className="moneyHeader">Available:</div>
+            <div className="moneyHeader">{location.pathname==="/home"?"Owned" :"Available:"}</div>
                 {(props.percentage).toFixed(1)}%
             </div>
 

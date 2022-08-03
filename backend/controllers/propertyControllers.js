@@ -114,7 +114,7 @@ const propertylist = propertylistfunction(properties[0].data,pageSize,page)
 
 
 
- res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
       }
     )
 
@@ -196,7 +196,7 @@ const propertylist = propertylistfunction(userProperties,pageSize,page)
 
 
 
-res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
     }
   )
 
@@ -269,7 +269,7 @@ const propertylist = propertylistfunction(completedProperties,pageSize,page)
 
 
 
-res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
     }
   )
 
@@ -339,7 +339,7 @@ const propertylist = propertylistfunction(incompleteProperties,pageSize,page)
 
 
 
-res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
+return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
     }
   )
 
@@ -369,7 +369,7 @@ res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
   property.push( ...properties[0].data.filter((p) => p.address === req.params.address) )
     
   /*console.log(property)*/
-    res.json({property})
+   return res.json({property})
   })
 
 
@@ -400,7 +400,7 @@ res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
 
        const id =  properties[0].data.findIndex((p) => p.address === req.params.addressalso) 
     
-       res.json({id:id})
+     return  res.json({id:id})
     }
 
    
@@ -474,7 +474,7 @@ res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
 
    }).then(
    
-     res.json({submitted:true}),
+   ()=>{return res.json({submitted:true})}
    )
 
       }
@@ -551,7 +551,7 @@ properties[0].data[arrayPosition] =
       data:properties[0].data
      }).then(
   
-       res.json({submitted:true})
+     () =>{ return res.json({submitted:true})}
   
      )
    
@@ -634,7 +634,7 @@ properties[0].data[arrayPosition] =
     getDoc(userRef)
      .then((doc) => {
     userHouses = doc.data().ownedProperties ? doc.data().ownedProperties  :[]
-    messagesArray = doc.data().Messages ? doc.data().Messages  :[]
+    messagesArray = Array.isArray(doc.data().Messages) ? doc.data().Messages  :[]
     
 
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
@@ -655,7 +655,7 @@ properties[0].data[arrayPosition] =
       Messages:[...messagesArray]
      })
       .then(
-        res.json({submitted:true})
+     ()=>{return res.json({submitted:true})}
         )
  })
 
@@ -759,7 +759,7 @@ properties[0].data[arrayPosition] =
       Message:[...messagesArray],
      })
       .then(
-        res.json({submitted:true})
+        ()=>{return res.json({submitted:true})}
         )
  })
 

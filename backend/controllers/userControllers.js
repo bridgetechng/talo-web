@@ -85,7 +85,7 @@ const authUser = asyncHandler(async (req, res) => {
      })
      console.log(user.length)
      if (user.length > 0){ 
-      res.json({
+     return res.json({
       userInfo:user[0] /*i am unpeeling the info from the array */
     }) 
   
@@ -139,7 +139,7 @@ const authUser = asyncHandler(async (req, res) => {
      
         console.log({userInfo:{...doc.data(),id:doc.id}})
 
-       res.json({userInfo:{...doc.data(),id:doc.id}}) 
+       return  res.json({userInfo:{...doc.data(),id:doc.id}}) 
       }) 
  
     
@@ -188,7 +188,7 @@ const authUser = asyncHandler(async (req, res) => {
     getDoc(userRef)
      .then((doc) => {
       
-      res.json({userInfo:{...doc.data(),id:doc.id}}) /*I got lazy here, and wanted to follow my frontend syntax, I can do better here */
+    return  res.json({userInfo:{...doc.data(),id:doc.id}}) /*I got lazy here, and wanted to follow my frontend syntax, I can do better here */
      }) 
 
   })
@@ -196,7 +196,7 @@ const authUser = asyncHandler(async (req, res) => {
 
      const getAllUsers = asyncHandler(async (req, res) => {
       /*res.header("Access-Control-Allow-Origin","*")*/
-        res.json({allUsers:users}) 
+      return  res.json({allUsers:users}) 
   })
 
   export {authUser,registerUser,userInfoUpdates,getAllUsers}

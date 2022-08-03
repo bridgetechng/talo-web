@@ -22,6 +22,18 @@ const MessagePage = () => {
 
  console.log(userInfo.userInfo)
 
+
+ const updateData =  async() => {
+   
+      const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+   
+      setUserInfo(userData.data)
+
+     console.log(userData)
+    }
+
+ 
+
   useEffect(()=>{
   
  
@@ -34,7 +46,7 @@ const MessagePage = () => {
     const fetchUser = async() => {
     const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
    
-     /*setUserInfo(userData.data)*/
+     setUserInfo(userData.data)
 
      console.log(userData)
     }
@@ -46,7 +58,7 @@ const MessagePage = () => {
 
   return (
     
-    <div className="messagesContainer">
+    <div className="messagesContainer" onLoad={()=>{updateData()}}>
 
       <div className="messageList">
       
