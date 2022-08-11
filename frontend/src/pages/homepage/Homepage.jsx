@@ -236,7 +236,7 @@ setPages(data.pages)
            
           return (
               
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties[i].proportion}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties?userInfo.userInfo.ownedProperties[i].proportion:0}/> 
              
           )
          
@@ -249,7 +249,7 @@ setPages(data.pages)
   
        return (
             <div>
-            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties[i].proportion}/> 
+            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties?userInfo.userInfo.ownedProperties[i].proportion:0}/> 
             </div>
        )
 
