@@ -30,12 +30,16 @@ export default function Topbar(){
                           {userInfo.userInfo.firstName.toUpperCase()} 
                           {' '}
                           {userInfo.userInfo.lastName.toUpperCase()}
+                          &nbsp;&nbsp;
+                            (LOG OUT)
                           </span>
-                          <Settings className="settingsIcon"/>
+                         
                          <NotificationsNone className="notificationIcon"/>
                          <span className="topIconBadge">
                              2
                          </span>
+                         
+
                       </div>
                 <img src={userInfo.userInfo.profileImage?userInfo.userInfo.profileImage:profile} alt="profile pic" className="topAvatar" />
 

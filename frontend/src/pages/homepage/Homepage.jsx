@@ -227,9 +227,9 @@ setPages(data.pages)
 
          {/* the property list below will be a forEach , and i will load as many
           components as the database warrants me to, but for now, I will just hard code like 5 items */}
-           
+          <h2 className="propertyLabel"> MY PORTFOLIO </h2> 
         <div className="propertyList">
-
+            
         {filteredAddresses.length === 0 ? 
         
         addressList.map((item,i)=>{

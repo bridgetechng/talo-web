@@ -43,7 +43,7 @@ but the change was small ,just changing available to owned, so i used location a
 
               <Link to={`/propertyview/${props.address}`}>
               <button  type="button" className="view">
-                BUY
+                VIEW
               </button>
               </Link>
 
