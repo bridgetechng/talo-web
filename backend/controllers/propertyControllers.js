@@ -655,7 +655,7 @@ properties[0].data[arrayPosition] =
       Messages:[...messagesArray]
      })
       .then(
-     ()=>{return res.json({submitted:true})}
+      ()=>{console.log("i have updated the database for bought")/*return res.json({submitted:true})*/}
         )
  })
 
@@ -669,10 +669,10 @@ properties[0].data[arrayPosition] =
      }
    )
 
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
+/* I HAVE TO SEND THE JSON IN THE SAME SCOPE AS THE RES, NOT IN THE GEN SCOPE */
 
 
-   
+return res.json({submitted:true})
 
    })
 
@@ -759,7 +759,7 @@ properties[0].data[arrayPosition] =
       Message:[...messagesArray],
      })
       .then(
-        ()=>{return res.json({submitted:true})}
+      ()=>{console.log("I have updated database for bought")/*return res.json({submitted:true})*/}
         )
  })
 
@@ -773,8 +773,8 @@ properties[0].data[arrayPosition] =
       }
     )
 
-/* I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
-
+/* I have to return resjson AT THE VERY END, TO AVOID SCOPE ISSUES IN MY CONTROLLER, HENCE I AM SENDING IT BELOW  */
+   return res.json({submitted:true})
 
    })
 

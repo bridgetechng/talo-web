@@ -6,6 +6,7 @@ import logo from '../../images/uhlogo.png'
 import profile from '../../images/sample-profile.jpg'
 import { NotificationsNone,Settings} from '@mui/icons-material/';
 import { useState,useEffect } from 'react'
+import { Button } from 'react-bootstrap';
 
 export default function Topbar(){
 
@@ -31,7 +32,7 @@ export default function Topbar(){
                           {' '}
                           {userInfo.userInfo.lastName.toUpperCase()}
                           &nbsp;&nbsp;
-                            (LOG OUT)
+                            <span className='logOut'>( LOG OUT )</span>
                           </span>
                          
                          <NotificationsNone className="notificationIcon"/>
