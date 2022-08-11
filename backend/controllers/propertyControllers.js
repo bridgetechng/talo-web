@@ -105,7 +105,7 @@ propertylistfunction = (array, pageSize, pageNumber) => {
 }
 
 
-console.log("count is now",count)
+
 
 
 const propertylist = propertylistfunction(properties[0].data,pageSize,page)
@@ -126,7 +126,7 @@ const getOwnedProperties = asyncHandler(async (req,res)=>{
   /*res.header("Access-Control-Allow-Origin","*")*/
  
  const userOwns =  req.body.ownedProperties;
-console.log(userOwns, "owned properties here")
+console.log( "owned properties")
  
 let allProperties = []
 let userProperties = []
@@ -187,7 +187,7 @@ return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
 
-console.log("count is now",count)
+console.log("count is now")
 
 
 const propertylist = propertylistfunction(userProperties,pageSize,page)
@@ -226,7 +226,7 @@ const getCompletedProperties = asyncHandler(async (req,res)=>{
     
     })
 
-     console.log(properties[0].data.filter((item)=>(item.type === "Completed")))
+     console.log( "Completed properties")
 
     completedProperties =  properties[0].data.filter((item)=>(item.type === "Completed"))
 
@@ -257,9 +257,6 @@ propertylistfunction = (array, pageSize, pageNumber) => {
 return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
 }
-
-
-console.log("count is now",count)
 
 
 
@@ -329,8 +326,8 @@ return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
 
 
-console.log(incompleteProperties)
-console.log("count is now",count)
+
+console.log("incomplete properties")
 
 
 const propertylist = propertylistfunction(incompleteProperties,pageSize,page)
@@ -362,13 +359,13 @@ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
 
     properties.push({...doc.data(), id:doc.id})
      }) 
-      console.log("property length is",properties.length)
+      console.log("get property by address")
 
    /*  FROM HERE I have to fetch the properties afresh because the onSnapshot is not constantly refreshing like it's meant to END */
 
   property.push( ...properties[0].data.filter((p) => p.address === req.params.address) )
     
-  /*console.log(property)*/
+ 
    return res.json({property})
   })
 
@@ -396,7 +393,7 @@ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
  
      properties.push({...doc.data(), id:doc.id})
       }) 
-       console.log("property length is",properties.length)
+       console.log("use address to find position")
 
        const id =  properties[0].data.findIndex((p) => p.address === req.params.addressalso) 
     
@@ -430,7 +427,7 @@ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
    
        properties.push({...doc.data(), id:doc.id})
         }) 
-         console.log("property length is",properties.length)
+         console.log("add new property")
 
 
     const propertyAddress = req.body.propertyAddress
@@ -500,7 +497,7 @@ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
     const newImage = req.body.image
 
     const arrayPosition = req.params.id
-    console.log(propertyAddress,purchaseDate,purchaseDate,yearBuilt)
+    console.log("edit property")
 
 /*dont forget to set the new image, fetch its url then put the URL into the array below */
 
@@ -519,7 +516,7 @@ return res.json({properties:propertylist, page,pages:Math.ceil(count/pageSize)})
 
     properties.push({...doc.data(), id:doc.id})
      }) 
-      console.log("property length is",properties.length)
+     
    
    
    
@@ -590,7 +587,7 @@ properties[0].data[arrayPosition] =
   
       properties.push({...doc.data(), id:doc.id})
        }) 
-        console.log("property length is",properties.length)
+        console.log("update property bought")
 
    /*INITIAL SETUP */
     const selectedPercentage = req.body.selectedPercentage
@@ -611,7 +608,7 @@ properties[0].data[arrayPosition] =
    const price = properties[0].data[addressPosition].purchasePrice
    const userSpent = price * (selectedPercentage/100)  /*so you do userBalance - subtractUserBalance, to get the new userBalance */
     
-    console.log(newAvailablePercentage)
+   
 
 
     /*i need to get all the properties for that position then alter the available percentage */
@@ -638,7 +635,7 @@ properties[0].data[arrayPosition] =
     
 
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
-    console.log(spotInArray,userHouses)
+    /*console.log(spotInArray,userHouses)*/
 
      /*one small change to the proportion, the user has now */
      if(spotInArray > -1){
@@ -692,7 +689,7 @@ return res.json({submitted:true})
    
        properties.push({...doc.data(), id:doc.id})
         }) 
-         console.log("property length is",properties.length)
+         console.log("update property sold")
 
 
 
@@ -713,7 +710,7 @@ return res.json({submitted:true})
    const price = properties[0].data[addressPosition].purchasePrice
    const userSold = price * (selectedPercentage/100)  /*so you do userBalance + userSold to get the new userBalance */
     
-    console.log(newAvailablePercentage)
+  
 
 
     /*i need to get all the properties for that position then alter the available percentage */
@@ -740,7 +737,7 @@ return res.json({submitted:true})
     messagesArray = doc.data().Messages ? doc.data().Messages  :[]
     
     spotInArray = userHouses.findIndex((item)=>(item.address === address))
-    console.log(spotInArray,userHouses)
+   
 
      /*change to the proportion the user has */
     userHouses[spotInArray].proportion = (userHouses[spotInArray].proportion - (selectedPercentage)) >= 0 ? (userHouses[spotInArray].proportion - (selectedPercentage)) : 0 
@@ -759,7 +756,7 @@ return res.json({submitted:true})
       Message:[...messagesArray],
      })
       .then(
-      ()=>{console.log("I have updated database for bought")/*return res.json({submitted:true})*/}
+      ()=>{console.log("I have updated database for sold")/*return res.json({submitted:true})*/}
         )
  })
 

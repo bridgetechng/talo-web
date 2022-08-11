@@ -83,16 +83,19 @@ const authUser = asyncHandler(async (req, res) => {
      snapshot.docs.forEach((doc)=>{
       user.push({...doc.data(),id:doc.id})
      })
-     console.log(user.length)
-     if (user.length > 0){ 
-     return res.json({
-      userInfo:user[0] /*i am unpeeling the info from the array */
-    }) 
-  
-     }
+     
+    
   })
   
-
+  if (user.length > 0){ 
+    console.log("your user modification worked!")
+    return res.json({
+     userInfo:user[0] /*i am unpeeling the info from the array */
+   }) 
+ 
+    }else{
+     console.log("your user modification did not work o")
+    }
    
   /*if (user.length > 0){ figure out why it jumps straight to else first ? i.e why am I getting 401 error before it parses the array
      
@@ -137,7 +140,7 @@ const authUser = asyncHandler(async (req, res) => {
       getDoc(registeredRef)
       .then((doc) => {
      
-        console.log({userInfo:{...doc.data(),id:doc.id}})
+        console.log("the user has registered successfully")
 
        return  res.json({userInfo:{...doc.data(),id:doc.id}}) 
       }) 
