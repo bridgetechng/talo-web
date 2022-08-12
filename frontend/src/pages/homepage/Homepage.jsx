@@ -113,7 +113,7 @@ export default function Homepage() {
 
    
 
-  },[userInfo,pageNumber])
+  },[pageNumber])
  
  
  
@@ -166,6 +166,8 @@ export default function Homepage() {
     setUserInfo(userData.data)
     setUserBalance(userData.data.userBalance)
 
+    console.log("us")
+
     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
     {
       ownedProperties:userInfo.userInfo.ownedProperties
@@ -192,7 +194,7 @@ setPages(data.pages)
        <div className="homeContainer" onLoad={()=>{updateData()}}> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
-        <Balancebox />
+        <Balancebox userBalance={userInfo.userInfo.userBalance} />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 
