@@ -79,7 +79,7 @@ const authUser = asyncHandler(async (req, res) => {
     const user = []
     const q =  query(colRef, where("email", "==", `${email}`))
     
-   onSnapshot(q,(snapshot) => {
+    getDocs(colRef).then((snapshot) => {
      snapshot.docs.forEach((doc)=>{
       user.push({...doc.data(),id:doc.id})
      })

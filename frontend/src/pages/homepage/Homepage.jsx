@@ -43,7 +43,7 @@ export default function Homepage() {
   const navigate = useNavigate()
   const Location = useLocation()
  
-  console.log(Location)
+  console.log(userInfo,"hi")
   const { pageNumber } = useParams();
 
    /*I am pushing people to login page if they dont have user info details, i.e they are not logged in */
@@ -83,7 +83,9 @@ export default function Homepage() {
 
      const fetchProperties = async() => {
       
+      /*const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) 
    
+      setUserInfo(userData.data)*/
 
      /*this is typically supposed to be a get request but I am breaking convention and using post ,
       so I can send the owned properties array and get info for all properties 
@@ -110,7 +112,7 @@ export default function Homepage() {
 
    
 
-  },[userInfo,pageNumber,])
+  },[userInfo,pageNumber])
  
  
  
@@ -157,6 +159,11 @@ export default function Homepage() {
    }
 
    const updateData = async()=>{
+ 
+    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+   
+    setUserInfo(userData.data)
+
 
     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
     {
@@ -165,9 +172,7 @@ export default function Homepage() {
      config
     )
 
-    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
-   
-    setUserInfo(userData.data)
+    
 
 
 setAddressList(data.properties)

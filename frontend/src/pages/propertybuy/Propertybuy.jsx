@@ -143,8 +143,9 @@ function PropertyBuy() {
   if(selectedPercentage === 0 ){
    window.alert('Please choose an amount to buy, you must select a percentage with the slider!') 
     }
-  else if(userInfo.userInfo.userBalance < (selectedPercentage/100 * property.purchasePrice * property.availablePercentage)){
-   window.alert('Insufficient balance, please select a lower percent!') 
+  else if(userInfo.userInfo.userBalance < (selectedPercentage/100 * property.purchasePrice * property.availablePercentage/100)){
+     
+    window.alert('Insufficient balance, please select a lower percent!') 
   }
   else { 
      
