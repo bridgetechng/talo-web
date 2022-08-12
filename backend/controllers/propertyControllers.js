@@ -125,7 +125,7 @@ const propertylist = propertylistfunction(properties[0].data,pageSize,page)
 const getOwnedProperties = asyncHandler(async (req,res)=>{
   /*res.header("Access-Control-Allow-Origin","*")*/
  
- const userOwns =  req.body.ownedProperties;
+ const userOwns =  req.body.ownedProperties?req.body.ownedProperties:[];
 console.log( "owned properties")
  
 let allProperties = []

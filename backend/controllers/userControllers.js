@@ -86,8 +86,11 @@ const authUser = asyncHandler(async (req, res) => {
      
      if (user.length > 0){ 
       console.log("your user modification worked!")
+       
+     const chosenUser = user.filter((item)=>(item.email === email ))
+      
       return res.json({
-       userInfo:user[0] /*i am unpeeling the info from the array */
+       userInfo:chosenUser[0] /*i am unpeeling the info from the array */
      }) 
    
       }else{

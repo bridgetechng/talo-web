@@ -40,6 +40,7 @@ export default function Homepage() {
   
   const filterRef = useRef();
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [userBalance,setUserBalance]  = useState(100000) 
   const navigate = useNavigate()
   const Location = useLocation()
  
@@ -163,7 +164,7 @@ export default function Homepage() {
     const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
    
     setUserInfo(userData.data)
-
+    setUserBalance(userData.data.userBalance)
 
     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
     {
@@ -191,7 +192,7 @@ setPages(data.pages)
        <div className="homeContainer" onLoad={()=>{updateData()}}> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
-        <Balancebox/>
+        <Balancebox />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 
