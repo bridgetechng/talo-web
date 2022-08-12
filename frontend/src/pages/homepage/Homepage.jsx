@@ -175,9 +175,6 @@ export default function Homepage() {
      config
     )
 
-    
-
-
 setAddressList(data.properties)
 setPage(data.page)
 setPages(data.pages)

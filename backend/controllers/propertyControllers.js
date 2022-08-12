@@ -753,7 +753,7 @@ return res.json({submitted:true})
     updateDoc(userRef,{
       userBalance:(currUserBalance + userSold),
       ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
-      Message:[...messagesArray],
+      Messages:[...messagesArray],
      })
       .then(
       ()=>{console.log("I have updated database for sold")/*return res.json({submitted:true})*/}
