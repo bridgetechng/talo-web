@@ -13,7 +13,7 @@ const location = useLocation()
 /*ideally there should be a property item component for the property items on the home page 
 but the change was small ,just changing available to owned, so i used location and ternary below to switch between owned and available
 */
-
+    
 
     return(
          <>
@@ -31,7 +31,7 @@ but the change was small ,just changing available to owned, so i used location a
            <div className="houseStats">
           
             <div className="percentAppreciation">
-            <div className="moneyHeader">{location.pathname==="/home"?"Owned" :"Available:"}</div>
+            <div className="moneyHeader">{location.pathname.substring(0,5)==="/home"?"Owned" :"Available:"}</div>
                 {(props.percentage).toFixed(1)}%
             </div>
 

@@ -39,20 +39,21 @@ export default function Homepage() {
   const [addressList,setAddressList] = useState([]);
   
   const filterRef = useRef();
-  const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [userInfoStatic,setUserInfoStatic]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [userInfo,setUserInfo] = useState('')
   const [userBalance,setUserBalance]  = useState(100000) 
   const navigate = useNavigate()
   const Location = useLocation()
  
-  console.log(userInfo,"hi")
   const { pageNumber } = useParams();
+
 
    /*I am pushing people to login page if they dont have user info details, i.e they are not logged in */
      useEffect(()=>{
   
  
 
-      if(userInfo === null){
+      if(userInfoStatic === null){
         navigate('/')
        
       }
@@ -78,34 +79,58 @@ export default function Homepage() {
     /*for my post routes END */
    
  
+    useEffect(()=>{
+ 
+    
+
+      const fetchUser = async() => {
+       
+      
+       const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+    
+       setUserInfo(userData.data)
+       setUserBalance(userData.data.userBalance)
+      
+
+
+      console.log("why ")
+
+     }
+ 
+     fetchUser()
+ 
+    
+ 
+   },[pageNumber])
+
+
+
+
+
+
    useEffect(()=>{
  
     
 
      const fetchProperties = async() => {
       
-      /*const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) 
-   
-      setUserInfo(userData.data)*/
+      
+     
 
-     /*this is typically supposed to be a get request but I am breaking convention and using post ,
-      so I can send the owned properties array and get info for all properties 
-      owned by a user, later I will change the user array to have the full details of a property,
-      so all properties will just display from user info*/
-
-     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+     
+      const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
           {
-            ownedProperties:userInfo.userInfo.ownedProperties
+            ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
           },
            config
           )
      
-     
+          
       setAddressList(data.properties)
       setPage(data.page)
       setPages(data.pages)
 
-    
+      console.log("running ")
 
     }
 
@@ -113,7 +138,7 @@ export default function Homepage() {
 
    
 
-  },[pageNumber])
+  },[userInfo])
  
  
  
@@ -161,12 +186,12 @@ export default function Homepage() {
 
    const updateData = async()=>{
  
-    const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+    const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
    
     setUserInfo(userData.data)
     setUserBalance(userData.data.userBalance)
 
-    console.log("us")
+    console.log(addressList)
 
     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
     {
@@ -182,16 +207,17 @@ setPages(data.pages)
    }
 
 
+ 
 
 
   
   return (
 
       <> 
-       <div className="homeContainer" onLoad={()=>{updateData()}}> 
+       <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
-        <Balancebox userBalance={userInfo.userInfo.userBalance} />
+        <Balancebox userBalance={userInfo !==''? userInfo.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 
@@ -235,36 +261,25 @@ setPages(data.pages)
           <h2 className="propertyLabel"> MY PORTFOLIO </h2> 
         <div className="propertyList">
             
-        {filteredAddresses.length === 0 ? 
+       
         
-        addressList.map((item,i)=>{
+        {addressList.map((item,i)=>{
            
           return (
-              
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties?userInfo.userInfo.ownedProperties[i].proportion:0}/> 
+               
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo !==''?userInfo.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:0}/> 
              
           )
          
             
              })
+             }
 
-        :
-        
-        filteredAddresses.map((item,i)=>{
-  
-       return (
-            <div>
-            <Propertyitem imageLink ={item.image} key={i} address={item.address} purchasePrice={item.purchasePrice} percentage={userInfo.userInfo.ownedProperties?userInfo.userInfo.ownedProperties[i].proportion:0}/> 
-            </div>
-       )
-
-          })
-        }
 
         { addressList.length === 0  &&
          
              <div className="noPropertyContainer">
-             <h2> Welcome <span style={{color:"red"}}> {userInfo.userInfo.firstName}{' '}{ userInfo.userInfo.lastName}! </span> </h2>
+             <h2> Welcome <span style={{color:"red"}}> {userInfoStatic.userInfo.firstName}{' '}{ userInfoStatic.userInfo.lastName}! </span> </h2>
              <br/>
               <h2>Properties you own will appear here.</h2>
               <br/>
