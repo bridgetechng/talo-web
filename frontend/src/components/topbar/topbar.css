@@ -28,23 +28,33 @@
  }
 
 
+  .topLeft{
+
+    position: relative;
+    left:18%;
+    background-color: black;
+  }
 
 
   .topRight {
       display:flex;
+      flex-direction: row;
       align-items: center;
       position:relative;
       background-color: black; /*to matchthe topbar background color*/
       margin-top: 5px;
+      
   }
 
   .topbarIconContainer { 
+    display:flex;
+      flex-direction: row;
     position:relative;
     cursor:pointer;  
     margin-right: 10px;
     color:#555;
     background-color: black;
-
+    
 }
 
 
@@ -70,8 +80,8 @@
  }
 
  .logOut {
-    color:white !important;
-    background-color: black  !important;
+    color:white ;
+    background-color: black ;
  }
  .notificationIcon {
 

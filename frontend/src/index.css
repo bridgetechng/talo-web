@@ -7,9 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
   
+  
 }
 
 code {
   font-family: 'Lato',source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    
 }

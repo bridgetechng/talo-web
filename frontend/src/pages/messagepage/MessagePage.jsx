@@ -22,7 +22,7 @@ const MessagePage = () => {
 
  console.log(userInfo.userInfo)
 
-
+/*i call this with onload event handler and get massages from database when the screen reloads */
  const updateData =  async() => {
    
       const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */

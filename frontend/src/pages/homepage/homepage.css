@@ -8,6 +8,7 @@
     padding-top: 5%;
     padding-bottom:5%;
     background-color: #ffffff;
+    font-size: small;
 }
 
 .positionAdjuster{
@@ -81,7 +82,7 @@
   }
 
 .propertyList {
-    margin-top: 40px; /* ideally , I should use some sort of padding , to push neigbouring elements away , but this workds for now */
+    margin-top: 00px; 
     height: 20%;
     flex:3;
     
@@ -91,7 +92,7 @@
 
 
 .propertyLabel {
-    font-size: 2rem;
+    font-size: 1.5rem;
 
 }
 

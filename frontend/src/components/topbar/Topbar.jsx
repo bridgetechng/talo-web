@@ -21,18 +21,23 @@ export default function Topbar(){
              
                 <div className="topLeft">
                      <img src={logo} className="uh" alt='urban hive logo'></img>
+                     <span className='logOut'><button className="widgetSmButton1">LOG OUT </button></span>
                     </div>
 
                          
 
         {/*1*/}   <div className="topRight">
+                        
+                        
                         <div className="topbarIconContainer">
+                        
+                         
                           <span className="loggedUser">
                           {userInfo.userInfo.firstName.toUpperCase()} 
                           {' '}
                           {userInfo.userInfo.lastName.toUpperCase()}
                           &nbsp;&nbsp;
-                            <span className='logOut'>( LOG OUT )</span>
+                            
                           </span>
                          
                          <NotificationsNone className="notificationIcon"/>
