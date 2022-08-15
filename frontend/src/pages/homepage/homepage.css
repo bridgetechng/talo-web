@@ -82,12 +82,13 @@
   }
 
 .propertyList {
-    margin-top: 00px; 
+    margin-top: -100px; /*DO NOT DELETE THIS UNTIL YOU ARE SURE OF WHAT YOU ARE DOING, IT STOPS THE HUGE SPACE BETWEEN "my portfolio" AND THE ACTUAL PORTFOLIO ITEMS*/
     height: 20%;
     flex:3;
     
-    /*max-height: 55vh;*/
+    max-height: 70vh;
     background-color: #ffffff;
+    overflow: scroll; /* THIS ALLOWS ALL FILES TO BE VISIBLE*/
 }
 
 
