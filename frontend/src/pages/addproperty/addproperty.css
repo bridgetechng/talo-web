@@ -18,7 +18,7 @@ p {
 label {
   display: flex;
   align-items: center;
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
@@ -80,7 +80,7 @@ button {
 
 .clue {
   margin-left: 0.25rem;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: black;
 }
 

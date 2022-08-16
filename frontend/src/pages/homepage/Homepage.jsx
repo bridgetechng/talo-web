@@ -64,7 +64,11 @@ export default function Homepage() {
     /*I am pushing people to login page if they dont have user info details, i.e they are not logged in END */
 
 
-
+    const prevCountRef = useRef();
+    useEffect(() => {
+      //assign the ref's current value to the count Hook
+      prevCountRef.current = userInfo;
+    }, [userInfo]); 
 
  
   
@@ -86,14 +90,17 @@ export default function Homepage() {
       const fetchUser = async() => {
        
       
+      
        const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
-    
+      
+       console.log("why !")
+
        setUserInfo(userData.data)
        setUserBalance(userData.data.userBalance)
       
 
 
-      console.log("why ")
+      
 
      }
  
@@ -101,7 +108,7 @@ export default function Homepage() {
  
     
  
-   },[pageNumber])
+   },[page])
 
 
 
@@ -114,10 +121,7 @@ export default function Homepage() {
 
      const fetchProperties = async() => {
       
-      
-     
-
-     
+    
       const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
           {
             ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
@@ -125,20 +129,30 @@ export default function Homepage() {
            config
           )
      
-          
+
+          const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+      
+         
+      if(userInfo !== prevCountRef.current ){
+          setUserInfo(userData.data)
+          setUserBalance(userData.data.userBalance)
+      }
+       
+      
       setAddressList(data.properties)
       setPage(data.page)
       setPages(data.pages)
+        
+     
 
-      console.log("running ")
-
-    }
+    
+  }
 
     fetchProperties()
 
    
 
-  },[userInfo])
+  },[pageNumber])
  
  
  
@@ -267,7 +281,7 @@ setPages(data.pages)
            
           return (
                
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfo !==''?userInfo.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:0}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={/*userInfo!== '' ?userInfo.userInfo.ownedProperties[(page?page:1) + (2*((page?page:1)-1) + i - 1)].proportion:*/0}/> 
              
           )
          
