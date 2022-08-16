@@ -40,6 +40,7 @@ export default function Homepage() {
   
   const filterRef = useRef();
   const [userInfoStatic,setUserInfoStatic]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
+  const [userInfoStable,setUserInfoStable] = useState('')
   const [userInfo,setUserInfo] = useState('')
   const [userBalance,setUserBalance]  = useState(100000) 
   const navigate = useNavigate()
@@ -64,11 +65,11 @@ export default function Homepage() {
     /*I am pushing people to login page if they dont have user info details, i.e they are not logged in END */
 
 
-    const prevCountRef = useRef();
+   /* const prevCountRef = useRef();
     useEffect(() => {
       //assign the ref's current value to the count Hook
-      prevCountRef.current = userInfo;
-    }, [userInfo]); 
+      setUserInfoStable(prevCountRef.current);
+    }, [userInfo]); */
 
  
   
@@ -99,16 +100,13 @@ export default function Homepage() {
        setUserBalance(userData.data.userBalance)
       
 
-
-      
-
      }
  
      fetchUser()
  
     
  
-   },[page])
+   },[pageNumber])
 
 
 
@@ -133,9 +131,9 @@ export default function Homepage() {
           const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
       
          
-      if(userInfo !== prevCountRef.current ){
-          setUserInfo(userData.data)
-          setUserBalance(userData.data.userBalance)
+      if(userInfo !== '' ){
+          setUserInfoStable(userInfo)
+          
       }
        
       
@@ -143,7 +141,7 @@ export default function Homepage() {
       setPage(data.page)
       setPages(data.pages)
         
-     
+     console.log("running")
 
     
   }
@@ -152,7 +150,7 @@ export default function Homepage() {
 
    
 
-  },[pageNumber])
+  },[userInfo])
  
  
  
@@ -231,7 +229,7 @@ setPages(data.pages)
        <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
         <Chartbox/> 
-        <Balancebox userBalance={userInfo !==''? userInfo.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
+        <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 
@@ -278,10 +276,10 @@ setPages(data.pages)
        
         
         {addressList.map((item,i)=>{
-           
+           console.log((page) + (2*((page)-1) + i - 1))
           return (
-               
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={/*userInfo!== '' ?userInfo.userInfo.ownedProperties[(page?page:1) + (2*((page?page:1)-1) + i - 1)].proportion:*/0}/> 
+                   
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable!== '' ?userInfoStable.userInfo.ownedProperties[(page?page:1) + (2*((page?page:1)-1) + i - 1)].proportion:0}/> 
              
           )
          
