@@ -181,8 +181,11 @@ name: {
 
 propertylistfunction = (array, pageSize, pageNumber) => {
 
+const firstIndex = (pageNumber - 1) * pageSize
+const secondIndex = (pageNumber * pageSize )
 
-return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+return array.slice(firstIndex,secondIndex );
 
 }
 

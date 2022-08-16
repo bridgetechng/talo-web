@@ -36,13 +36,15 @@ export default function Homepage() {
  
   const [pages,setPages] = useState(1);
   const [page,setPage] = useState(1);
-  const [addressList,setAddressList] = useState([]);
+  
   
   const filterRef = useRef();
   const [userInfoStatic,setUserInfoStatic]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const [userInfoStable,setUserInfoStable] = useState('')
   const [userInfo,setUserInfo] = useState('')
-  const [userBalance,setUserBalance]  = useState(100000) 
+  const [addressList,setAddressList] = useState([1]);
+  const [addressListStable,setAddressListStable]  = useState([]) 
+  
   const navigate = useNavigate()
   const Location = useLocation()
  
@@ -94,11 +96,19 @@ export default function Homepage() {
       
        const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
       
-       console.log("why !")
+       const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+          {
+            ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
+          },
+           config
+          )
+     
 
-       setUserInfo(userData.data)
-       setUserBalance(userData.data.userBalance)
+      setAddressList(data.properties)
       
+       setUserInfo(userData.data)
+
+       console.log("why")
 
      }
  
@@ -114,45 +124,49 @@ export default function Homepage() {
 
 
    useEffect(()=>{
- 
-    
-
-     const fetchProperties = async() => {
-      
-    
-      const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
-          {
-            ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
-          },
-           config
-          )
      
-
-          const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
-      
-         
-      if(userInfo !== '' ){
-          setUserInfoStable(userInfo)
+      if(userInfo !== ''  && addressList !== addressListStable){ 
+        setUserInfoStable(userInfo)  
+        setAddressListStable(addressList)
           
-      }
-       
-      
-      setAddressList(data.properties)
-      setPage(data.page)
-      setPages(data.pages)
-        
-     console.log("running")
-
-    
-  }
-
-    fetchProperties()
-
-   
+     console.log("are you")
+    }
 
   },[userInfo])
  
  
+
+
+  useEffect(()=>{
+ 
+    
+
+    const fetchPages = async() => {
+     
+   
+     const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+         {
+           ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
+         },
+          config
+         )
+    
+   
+     
+     setPage(data.page)
+     setPages(data.pages)
+       
+    console.log("running ?")
+
+   
+ }
+
+ if(addressListStable === addressList){
+   fetchPages()
+   }
+  
+
+ },[addressListStable])
  
  
  
@@ -173,7 +187,7 @@ export default function Homepage() {
  })
   },[searchDone])
   
-   
+   /*====USE EFFECT END===*/
   
    const upMenu = function(){
       filterRef.current.style.opacity = 1
@@ -191,32 +205,10 @@ export default function Homepage() {
     if(event.key === 'Enter'){
     setSearchDone(true)
     return
-    /*console.log(searchTerm)
-    console.log(filteredAddresses)*/
+    
     }
    }
 
-   const updateData = async()=>{
- 
-    const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
-   
-    setUserInfo(userData.data)
-    setUserBalance(userData.data.userBalance)
-
-    console.log(addressList)
-
-    const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
-    {
-      ownedProperties:userInfo.userInfo.ownedProperties
-    },
-     config
-    )
-
-setAddressList(data.properties)
-setPage(data.page)
-setPages(data.pages)
-
-   }
 
 
  
@@ -275,20 +267,24 @@ setPages(data.pages)
             
        
         
-        {addressList.map((item,i)=>{
-           console.log((page) + (2*((page)-1) + i - 1))
+        {addressListStable !== [] ? 
+        addressListStable.map((item,i)=>{
+           console.log("i am looping the properties now")
           return (
                    
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable!== '' ?userInfoStable.userInfo.ownedProperties[(page?page:1) + (2*((page?page:1)-1) + i - 1)].proportion:0}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable.userInfo.ownedProperties.length > ((page) + (2*(page-1) + i - 1)) ?userInfoStable.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:0}/> 
              
           )
          
             
              })
-             }
+      :   
+        <h2>Loading...</h2>
+      
+      }
 
 
-        { addressList.length === 0  &&
+        { addressListStable.length === 0  &&
          
              <div className="noPropertyContainer">
              <h2> Welcome <span style={{color:"red"}}> {userInfoStatic.userInfo.firstName}{' '}{ userInfoStatic.userInfo.lastName}! </span> </h2>
