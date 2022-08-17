@@ -9,7 +9,7 @@ a {
     height:100%;/*calc(100vh )- 50px */
     background-color: rgb(30, 121, 3);
     float:left;
-    width:300px;
+    width:220px;
     position:fixed;
     top:-10px;
     z-index: 2;
@@ -18,11 +18,11 @@ a {
 }
 
 @media screen and (max-width:1100px) {
-   .sidebar{ width:300px; }
+   .sidebar{ width:220px; }
 }
 
 .sidebarWrapper {
-     margin-top: 100px;
+     margin-top: 10px;
     padding:20px;
     color:white;
     background-color: rgb(30, 121, 3);
@@ -35,18 +35,21 @@ a {
 
 
 /* logo styles grouping*/
-.imageCenter{
+
+.imageCenter{  /*this is the parent element of my logo and it controls te size of the pic*/
     display:flex;
     justify-content: center;
     align-items: center;
-    background-color:none !important;
+    margin-top: 4rem;
+    background-color: rgb(30, 121, 3);
+    width: 220px;
    
 }
 
 .sidebarLogo {
-   width:100%; 
+   width:60%; 
+   background-color: rgb(30, 121, 3);
     
-    background-color: rgb(30, 121, 3);
 }
 
 /* logo styles grouping END*/

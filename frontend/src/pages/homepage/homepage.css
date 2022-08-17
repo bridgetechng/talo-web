@@ -84,6 +84,7 @@
     height: 20px;
     object-fit: cover;
     background: transparent !important;
+    margin-right: 2rem;
   }
 
 .propertyList {
@@ -93,7 +94,8 @@
     
     max-height: 70vh;
     background-color: #ffffff;
-    overflow: scroll; /* THIS ALLOWS ALL FILES TO BE VISIBLE*/
+    margin-bottom: 2rem;
+   /*   overflow: scroll; THIS ALLOWS ALL FILES TO BE VISIBLE*/
 }
 
 

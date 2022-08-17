@@ -79,7 +79,7 @@ const getProperties = asyncHandler(async (req,res)=>{
         count = properties[0].data.length
 
    //FROM HERE
-    const pageSize = 3 // 3 per page as dean has asked
+    const pageSize = 2 // 3 per page as dean has asked
     const page = Number(req.query.pageNumber) || 1
 
 
@@ -161,7 +161,7 @@ let count;
       count = userProperties.length
 
  //FROM HERE
-  const pageSize = 3 // 3 per page as dean has asked
+  const pageSize = 2 // 3 per page as dean has asked
   const page = Number(req.query.pageNumber) || 1
 
 
@@ -236,7 +236,7 @@ const getCompletedProperties = asyncHandler(async (req,res)=>{
       count = completedProperties.length
 
  //FROM HERE
-  const pageSize = 3 // 3 per page as dean has asked
+  const pageSize = 2 // 3 per page as dean has asked
   const page = Number(req.query.pageNumber) || 1
 
 
@@ -302,7 +302,7 @@ const getIncompleteProperties = asyncHandler(async (req,res)=>{
       count = incompleteProperties.length
 
  //FROM HERE
-  const pageSize = 3 // 3 per page as dean has asked
+  const pageSize = 2 // 3 per page as dean has asked
   const page = Number(req.query.pageNumber) || 1
 
 

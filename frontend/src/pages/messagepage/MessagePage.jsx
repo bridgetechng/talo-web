@@ -13,6 +13,7 @@ const MessagePage = () => {
   const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo'))) 
   const [focusMessage,setFocusMessage] = useState(" ")
   const [focusMessageDate,setFocusMessageDate] = useState(" ")
+  const [focusMessageTime,setFocusMessageTime] = useState(" ")
   const navigate = useNavigate()
   const rightNow = new Date()
   const secondsConverter = function(seconds){
@@ -20,7 +21,7 @@ const MessagePage = () => {
   }
  /*STATE SET UP END*/ 
 
- console.log(userInfo.userInfo)
+ 
 
 /*i call this with onload event handler and get massages from database when the screen reloads */
  const updateData =  async() => {
@@ -29,7 +30,7 @@ const MessagePage = () => {
    
       setUserInfo(userData.data)
 
-     console.log(userData)
+    
     }
 
  
@@ -48,7 +49,7 @@ const MessagePage = () => {
    
      setUserInfo(userData.data)
 
-     console.log(userData)
+   
     }
 
      fetchUser()
@@ -65,10 +66,10 @@ const MessagePage = () => {
      { userInfo.userInfo.Messages.length > 0 ?
      
             userInfo.userInfo.Messages.map((item,i)=>{
-           
+              console.log(item.date)
            
                return (
-            <div className="singleMessage" key={i} onClick ={()=>{setFocusMessage(item.message);setFocusMessageDate(secondsConverter(item.date.seconds*1000).toLocaleDateString())}}>
+            <div className="singleMessage" key={i} onClick ={()=>{setFocusMessage(item.message);setFocusMessageDate(secondsConverter(item.date.seconds*1000).toLocaleDateString());setFocusMessageTime(secondsConverter(item.date.seconds*1000).toLocaleTimeString())}}>
           
             <img src={profilePhoto} className="senderPic" alt="talo symbol" />
             <div className="messageDetails">
@@ -106,6 +107,7 @@ const MessagePage = () => {
         <div className="titleSender">
         <h2>Talo</h2>
         <div>{focusMessageDate !== " " ?focusMessageDate:rightNow.toLocaleDateString()}</div> 
+        <div>{focusMessageTime !== " " ?focusMessageTime:rightNow.toLocaleTimeString()}</div> 
         </div>
         </div>
 
