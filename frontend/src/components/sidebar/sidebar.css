@@ -6,11 +6,11 @@ a {
 
 .sidebar {
     /*flex:1.5;*/
-    height:100vh;/*calc(100vh )- 50px */
+    height:100%;/*calc(100vh )- 50px */
     background-color: rgb(30, 121, 3);
-    
+    float:left;
     width:300px;
-    position:sticky;
+    position:fixed;
     top:-10px;
     z-index: 2;
 

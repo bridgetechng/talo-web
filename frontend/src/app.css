@@ -6,6 +6,9 @@
 .container {
     display:flex;
     background-color: #ffffff;
+    width: calc(100% - 300px);
+    float:right;
+    min-height: 100%;
 } 
 
 /*.others {

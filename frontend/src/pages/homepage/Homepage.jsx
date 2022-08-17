@@ -225,29 +225,30 @@ export default function Homepage() {
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 
-       <span className="positionAdjuster">
+      {/* <center>*/}
     <div className="searchAndFilterContainer">
          
-         {/*properties*/}
+         
+         <span>
+        <h2 className="propertyLabelHome"> PROPERTIES </h2>
+        </span>
         
-        <h2 className="propertyLabel"> PROPERTIES </h2>
-       
+         
+       {/*input for searching*/}
+         <span className="searchBox">
+         <input className="inputBox"type="text"  value={searchTerm} onKeyPress={showSearchResult} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="type an address and Enter..."/> 
+         </span>
         
 
-       {/*input for searching*/}
-         <div className="searchBox">
-         <input className="inputBox"type="text"  value={searchTerm} onKeyPress={showSearchResult} onChange={(e)=>{setSearchTerm(e.target.value);setSearchDone(false)}} placeholder="type an address and Enter..."/> 
-         </div>
-        
          <button type="submit" class="search-button" >
           <img src={magGlass}/>
         </button>
         
         {/*filter and it's icon*/}
-         <div className="filterAndLogo" onMouseEnter={upMenu} onMouseLeave={downMenu}>
+         <span className="filterAndLogo" onMouseEnter={upMenu} onMouseLeave={downMenu}>
         <FilterListIcon className="filterIcon" />
          FILTER   
-         </div>
+         </span>
     
         <div className="filterOptions" ref={filterRef} onMouseEnter={upMenu} onMouseLeave={downMenu}>
           <div className="optionItem1"> Value {'(Asc)'} <ArrowUpwardIcon className="ArrowIcon"/></div>
@@ -256,13 +257,13 @@ export default function Homepage() {
         </div>
 
         
-    </div>
-</span>
+       </div>
+    {/*</center>*/}
 
 
          {/* the property list below will be a forEach , and i will load as many
           components as the database warrants me to, but for now, I will just hard code like 5 items */}
-          <h2 className="propertyLabel"> MY PORTFOLIO </h2> 
+          <h2 className="portfolioTitle"> MY PORTFOLIO </h2> 
         <div className="propertyList">
             
        

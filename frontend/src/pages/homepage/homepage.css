@@ -37,6 +37,10 @@
   display: flex;
   gap:2.6rem;
   width: 110%;
+  position: relative;
+  left:1%;
+   
+  
 }
 
 .searchBox{
@@ -44,7 +48,8 @@
 }
 
 .inputBox{
-    min-width:10rem;
+    width:50%;
+   
     height: 1rem;
     font-size:1rem;
 }
@@ -82,7 +87,7 @@
   }
 
 .propertyList {
-    margin-top: -100px; /*DO NOT DELETE THIS UNTIL YOU ARE SURE OF WHAT YOU ARE DOING, IT STOPS THE HUGE SPACE BETWEEN "my portfolio" AND THE ACTUAL PORTFOLIO ITEMS*/
+    margin-top: 30px; /*DO NOT DELETE THIS UNTIL YOU ARE SURE OF WHAT YOU ARE DOING, IT STOPS THE HUGE SPACE BETWEEN "my portfolio" AND THE ACTUAL PORTFOLIO ITEMS*/
     height: 20%;
     flex:3;
     
@@ -92,9 +97,18 @@
 }
 
 
-.propertyLabel {
+.propertyLabelHome {
     font-size: 1.5rem;
+    position: relative;
+    left: 15%;
+}
 
+.portfolioTitle {
+    font-size: 2rem;
+    position: relative;
+    left:2%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .filterAndLogo1{

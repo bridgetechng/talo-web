@@ -183,7 +183,7 @@ function PropertyBuy() {
          
          <div className="propertyPricingDetails">
 
-          <div>Available for purchase:</div>
+          <div>Available to Invest:</div>
            <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage/100).toFixed(2)}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            

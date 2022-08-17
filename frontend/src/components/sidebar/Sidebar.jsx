@@ -38,10 +38,12 @@ export default function Sidebar() {
               </div>
                
                
-               <div  className = "buttonSidebar" onClick = {changeMode}>   
+              { /* I MAY NEED THIS LATER BUT I AM BLOCKING THIS OUT BECAUSE MR DEAN SAID TO SEPARATE ADMIN AND USERS
+              
+                <div  className = "buttonSidebar" onClick = {changeMode}>   
                   <WifiProtectedSetupIcon className = "iconNB"/> {admin ?"Admin Mode":"User Mode"}
                 </div>
-
+             */}
                 
             <div className="sidebarWrapper">
                

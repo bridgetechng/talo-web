@@ -40,7 +40,7 @@ function App() {
   return (
      <>
      {!(pathname === "/"|| pathname === "/register") && <Topbar/>}
-   
+     {!(pathname === "/"|| pathname === "/register")  && <Sidebar/>}
       
   
        <div className={ !(pathname === "/"|| pathname === "/register") && "container"}> {/*making this flexbox conditional for the login screen to be centred ...very crude , i know */}
@@ -50,7 +50,7 @@ function App() {
        now it wraps App, revert if need be ,but i did it so I can use the useLocation hook and 
         do a faux login page, so I wouldnt have to start placing sidebar in all my components*/}
      
-      {!(pathname === "/"|| pathname === "/register")  && <Sidebar/>}
+      
          <Routes>
          <Route  path="/" element={<Loginpage/>} />
          <Route  path="/register" element={<Registerpage/>} />
