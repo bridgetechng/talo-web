@@ -38,7 +38,7 @@ but the change was small ,just changing available to owned, so i used location a
             <div className="priceAndView">
                <div className="moneyHeader">total value:</div>
               <div className="price">
-               ${props.purchasePrice}
+               ${props.purchasePrice.toLocaleString()}
               </div>
 
               <Link to={`/propertyview/${props.address}`}>

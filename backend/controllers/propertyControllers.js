@@ -597,6 +597,7 @@ properties[0].data[arrayPosition] =
     const addressPosition = req.body.addressPosition
     const userId= req.body.userId
     const currUserBalance = req.body.userBalance
+    const currInvestmentAmount = req.body.investmentAmount
     const address = req.params.address
     const userRef = doc(dbtest,'users',userId)
     let userHouses;
@@ -652,7 +653,8 @@ properties[0].data[arrayPosition] =
     updateDoc(userRef,{
       userBalance:(currUserBalance - userSpent),
       ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
-      Messages:[...messagesArray]
+      Messages:[...messagesArray],
+      investmentAmount:currInvestmentAmount + userSpent
      })
       .then(
       ()=>{console.log("i have updated the database for bought")/*return res.json({submitted:true})*/}
@@ -672,7 +674,7 @@ properties[0].data[arrayPosition] =
 /* I HAVE TO SEND THE JSON IN THE SAME SCOPE AS THE RES, NOT IN THE GEN SCOPE */
 
 
-return res.json({submitted:true})
+  return res.json({submitted:true})
 
    })
 
@@ -701,6 +703,7 @@ return res.json({submitted:true})
     const addressPosition = req.body.addressPosition
     const userId= req.body.userId
     const currUserBalance = req.body.userBalance
+    const currInvestmentAmount = req.body.investmentAmount
     const address = req.params.address
     const userRef = doc(dbtest,'users',userId)
     let userHouses;
@@ -757,6 +760,7 @@ return res.json({submitted:true})
       userBalance:(currUserBalance + userSold),
       ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
       Messages:[...messagesArray],
+      investmentAmount:currInvestmentAmount - userSold
      })
       .then(
       ()=>{console.log("I have updated database for sold")/*return res.json({submitted:true})*/}

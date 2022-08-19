@@ -221,7 +221,7 @@ export default function Homepage() {
       <> 
        <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
-        <Chartbox className="chartBoxMargin"/> 
+        <Chartbox  investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} className="chartBoxMargin" /> 
         <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
@@ -271,7 +271,7 @@ export default function Homepage() {
         
         {addressListStable !== [] ? 
         addressListStable.map((item,i)=>{
-           console.log("i am looping the properties now")
+           console.log("i am looping the properties again")
           return (
                    
                <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable.userInfo.ownedProperties.length > ((page) + (2*(page-1) + i - 1)) ?userInfoStable.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:0}/> 

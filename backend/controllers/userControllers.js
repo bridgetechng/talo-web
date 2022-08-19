@@ -135,6 +135,7 @@ const authUser = asyncHandler(async (req, res) => {
       phoneNumber:phoneNumber,
       userBalance:100000,/* THE DATA TYPE IS IMPORTANT, FOR THE DATABASE */
       Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
+      investmentAmount:0
 
     }).then((document) => {
      
@@ -195,7 +196,7 @@ const authUser = asyncHandler(async (req, res) => {
     getDoc(userRef)
      .then((doc) => {
       
-    return  res.json({userInfo:{...doc.data(),id:doc.id}}) /*I got lazy here, and wanted to follow my frontend syntax, I can do better here */
+    return  res.json({userInfo:{...doc.data(),id:doc.id}}) /*I got lazy here, and wanted to follow my frontend syntax of userInfo.userInfo, I can do better here */
      }) 
 
   })

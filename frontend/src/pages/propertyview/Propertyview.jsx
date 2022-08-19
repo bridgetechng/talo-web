@@ -112,7 +112,7 @@ function PropertyView() {
          <div className="propertyPricingDetails">
 
           <div>Investment:</div>
-           <div className='moneyValue'>${(property.purchasePrice *(property.availablePercentage/100)).toFixed(2)}</div>
+           <div className='moneyValue'>${((property.purchasePrice *(property.availablePercentage/100))).toLocaleString()}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>
@@ -138,9 +138,9 @@ function PropertyView() {
                <ul className="featuresList">
                  <li className ="fontAdjust">PURCHASE DATE:<strong>{property.purchaseDate}</strong></li>
                  <li className ="fontAdjust">PURPOSE: <strong>{property.type} </strong></li>
-                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'} </strong></li>
-                 <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice}</strong> </li>
-                 <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice} </strong></li>
+                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'.toLocaleString()} </strong></li>
+                 <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice.toLocaleString()}</strong> </li>
+                 <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice.toLocaleString()} </strong></li>
                </ul>
              </div>
             

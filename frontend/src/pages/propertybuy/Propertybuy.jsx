@@ -153,7 +153,8 @@ function PropertyBuy() {
      selectedPercentage:selectedPercentage,
      addressPosition:addressPosition,
      userId:userInfo.userInfo.id,
-     userBalance:userInfo.userInfo.userBalance
+     userBalance:userInfo.userInfo.userBalance,
+     userBalance:userInfo.userInfo.investmentAmount
    }
      , config)
      
@@ -184,7 +185,7 @@ function PropertyBuy() {
          <div className="propertyPricingDetails">
 
           <div>Investment:</div>
-           <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage/100).toFixed(2)}</div>
+           <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage/100).toLocaleString()}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
            <div>Percentage Owned:</div>
@@ -194,7 +195,7 @@ function PropertyBuy() {
 
            <br/>
            <div>Current Balance:</div>
-           <div className="percentageValue">${userInfo && (userInfo.userInfo.userBalance).toFixed(2)}</div>
+           <div className="percentageValue">${userInfo && (userInfo.userInfo.userBalance).toLocaleString()}</div>
 
          </div>
 
@@ -237,7 +238,7 @@ function PropertyBuy() {
                   <ul className="featuresList">
                  <li >Portion Selected:<strong className="fontAdjust" style={{color:'red'}}>${(property.purchasePrice*selectedPercentage/100).toFixed(2)}{' '}{' '}</strong>{`(${selectedPercentage.toFixed(1)}%)`}</li>
                  <br/>
-                 <li >Available for Purchase: <strong className="fontAdjust">${(property.purchasePrice * (property.availablePercentage/100)).toFixed(2)} </strong></li>
+                 <li >Available for Purchase: <strong className="fontAdjust">${(property.purchasePrice * (property.availablePercentage/100)).toLocaleString()} </strong></li>
                  </ul>
                   </div>
 
