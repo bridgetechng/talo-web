@@ -143,7 +143,7 @@ export default function Homepage() {
     
 
     const fetchPages = async() => {
-     
+      
    
      const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
          {
@@ -221,7 +221,7 @@ export default function Homepage() {
       <> 
        <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
-        <Chartbox/> 
+        <Chartbox className="chartBoxMargin"/> 
         <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}

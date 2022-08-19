@@ -55,17 +55,13 @@ export default function Actualchart (){
          <>
          
          
-         <ResponsiveContainer width="100%" height="85%">
-          <LineChart data={data} >
+         <ResponsiveContainer width="100%" height="85%" className="widgetWidth">
+          <LineChart data={data}  width="300px">
           { <XAxis datakey="name" stroke="#000000" height={50} />}
           <YAxis type="number"  tickCount="0" axisLine={false} tickLine={false} ticks={['$']} domain={[0, 100000]} label={{ value: 'value($)', angle: -90, position: 'insideLeft' }}  />
             <Line type="monotone" dot={{ fill: 'black' }} dataKey="uv" stroke="#000000" label={<CustomizedLabel/>} />
           </LineChart>
          </ResponsiveContainer>
-         
-
-       
-         
          
          </>
      )

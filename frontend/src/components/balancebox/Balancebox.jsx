@@ -17,7 +17,7 @@ const updateData = async()=>{
     return(
          <>
 
-          <div className="balanceboxContainer"/* onLoad={()=>{updateData()}}*/>
+          <div className="balanceboxContainer widgetWidth" /* onLoad={()=>{updateData()}}*/>
           <h4 className="messageTitle"> Wallet</h4>
               <Balanceitem name={"BALANCE"} symbol={"balance"} value={props.userBalance}/>
               <hr style={{color:"black",width:"100%", fontSize:"2rem"}}/> {/*this is a makeshift to complete the bottom border of balance box above */}

@@ -3,7 +3,8 @@
     margin:0 20px;
     padding: 30px;
     border-radius:10px;
-    max-height: max-content;
+     height: 34vh;
+     width: 300px;
     overflow: hidden;
 
     /*doing display flex to mush the messages together*/
@@ -19,4 +20,10 @@
 .messageTitle {
     position: relative;
     
+}
+
+.widgetWidth{
+    min-width: 300px;
+    max-width: 700px;
+   
 }

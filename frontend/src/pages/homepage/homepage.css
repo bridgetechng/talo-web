@@ -22,10 +22,14 @@
     display:flex;
     width:100%; /*this width is the width from right of dashboard
                  to the right side of the screen*/
-    justify-content:space-between;
+    justify-content:flex-start;
+    gap:3rem;
     background-color: #ffffff;
 }
 
+.chartBoxMargin {
+    margin-left: 30rem;
+}
 
 .searchComponent{
     flex:0.2;

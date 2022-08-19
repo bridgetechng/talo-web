@@ -11,7 +11,7 @@ export default function Chartbox (){
 
     return(
          <>
-         <div className="chartboxContainer">
+         <div className="chartboxContainer widgetWidth">
          <h6 className="chartTitle">Total Portfolio Valuation</h6>
           <h1> $71,450</h1>
          <Actualchart/>
