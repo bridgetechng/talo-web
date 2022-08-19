@@ -6,8 +6,16 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 5%;
   }
+
+  @media screen and (max-width:1600px){
+    .pagination {
+      
+      margin-top: 13%;
+    }
+  }
+
   .pages {
     display: flex;
     flex-direction: row;
