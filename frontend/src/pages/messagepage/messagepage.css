@@ -54,7 +54,14 @@
  padding: 2rem;
  border: 1px solid black;
  
- min-width: 300px;
+ 
+ width:1000px; /*to make sure the messages do not change the borders of their containers as they are clicked*/
+}
+
+@media screen and (max-width:1600px){
+  .messageHighlight{
+    width:500px;   /*to make sure the messages do not change the borders of their containers as they are clicked*/
+   }
 }
 
 .chosenMessageTitle {
