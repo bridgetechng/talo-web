@@ -114,11 +114,15 @@
     padding-top: 30px;
     margin-right:10px;
     flex:3;
+    
 }
 
 
 .featuresList {
     list-style: none;
+   
+    padding-left:9px;  /*my quick and dirty way to make left align property description features*/
+  
 }
 
 .controls{
