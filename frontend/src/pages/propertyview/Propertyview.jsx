@@ -59,7 +59,7 @@ function PropertyView() {
       if(userInfo === null){
         navigate('/')
       }else{
-       
+        console.log("whas the issue ?")
         const fetchUserForUpdates = async() => {
       const userData = await axios.get(`/api/users/${userInfo.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
      
@@ -138,9 +138,9 @@ function PropertyView() {
                <ul className="featuresList">
                  <li className ="fontAdjust">PURCHASE DATE:<strong>{property.purchaseDate}</strong></li>
                  <li className ="fontAdjust">PURPOSE: <strong>{property.type} </strong></li>
-                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'.toLocaleString()} </strong></li>
-                 <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice.toLocaleString()}</strong> </li>
-                 <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice.toLocaleString()} </strong></li>
+                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'} </strong></li>
+                 <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice ?property.purchasePrice.toLocaleString():"Loading..."}</strong> </li>
+                 <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice? property.currentPrice.toLocaleString():"Loading..."} </strong></li>
                </ul>
              </div>
             
