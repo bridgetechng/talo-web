@@ -146,9 +146,9 @@ function PropertyView() {
             
              <div className="controls">
               <Link to={`/propertybuy/${address}`}><button className="button">BUY</button> </Link> 
-              <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
-               <button className="button">OFFER</button>
-               <button className="button">VOTE</button>
+              <Link to ={`/propertysell/${address}`}><button className="button">{ownedPercentage > 0?'SELL':'INEREST'}</button> </Link> 
+              {/* <button className="button">OFFER</button>
+               <button className="button">VOTE</button>*/}
              </div>
             
           </div>

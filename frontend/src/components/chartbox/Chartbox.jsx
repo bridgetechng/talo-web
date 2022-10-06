@@ -12,8 +12,8 @@ export default function Chartbox (props){
     return(
          <>
          <div className="chartboxContainer widgetWidth">
-         <h6 className="chartTitle">Total Portfolio Valuation</h6>
-          <h1> ${props.investmentAmount.toLocaleString()}</h1>
+         <h6 className="chartTitle">Investment over time</h6>
+          {/* THE AMOUNT I HID UNDER TOTAL VALUATION<h1> ${props.investmentAmount.toLocaleString()}</h1>*/}
          <Actualchart/>
         
          </div>

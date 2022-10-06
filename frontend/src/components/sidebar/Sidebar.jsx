@@ -56,13 +56,15 @@ export default function Sidebar() {
 
 
                 <div className="sidebarMenu">
-                    <h3 className="sidebarTitle">SEARCH</h3>
+                <Link  className="linkref" to={"/properties/offplan/"}><h3 className="sidebarTitle">PROPERTIES</h3></Link> 
                    <ul className="sidebarList">
                      
                       {/*I had to assign each emoji component a classname here, to enforce background color*/ }
                      
                     
-                 <Link to ={'/properties/built/'} className="linkref">
+               {/*   I COMMENTED THE SUBMENU'S OUT
+               
+               <Link to ={'/properties/built/'} className="linkref">
                      <li className="sidebarListItem">
                          <AccountBalanceIcon  className="sidebarListItemIcon"/>
                         Completed 
@@ -79,7 +81,7 @@ export default function Sidebar() {
                             Incomplete
                    
                      </li>
-                    </Link> 
+            </Link> */}
 
                      
 

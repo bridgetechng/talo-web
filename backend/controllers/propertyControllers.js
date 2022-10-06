@@ -760,7 +760,7 @@ properties[0].data[arrayPosition] =
       userBalance:(currUserBalance + userSold),
       ownedProperties: userHouses, /*the entire array of ownedProperties is getting replaced by itself, with one small change, made to the proportion they currently have */
       Messages:[...messagesArray],
-      investmentAmount:currInvestmentAmount - userSold
+      investmentAmount:currInvestmentAmount - userSold  >= 0 ? (currInvestmentAmount - userSold) : 0
      })
       .then(
       ()=>{console.log("I have updated database for sold")/*return res.json({submitted:true})*/}
