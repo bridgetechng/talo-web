@@ -221,8 +221,10 @@ export default function Homepage() {
       <> 
        <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
-        <Chartbox  investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} className="chartBoxMargin" /> 
+       
         <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
+        <Chartbox  investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} className="chartBoxMargin" /> 
+        
         </div>
        {/*<Searchandfilter className="searchComponent"/>  I am going to connect this to a database and it can work as a component*/}
 

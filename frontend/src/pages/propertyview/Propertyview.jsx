@@ -136,18 +136,18 @@ function PropertyView() {
                <br />
 
                <ul className="featuresList">
-                 <li className ="fontAdjust">PURCHASE DATE:<strong>{property.purchaseDate}</strong></li>
-                 <li className ="fontAdjust">PURPOSE: <strong>{property.type} </strong></li>
-                 <li className ="fontAdjust">PROPERTY MGMT: <strong>{'$350'} </strong></li>
-                 <li className ="fontAdjust">PURCHASE PRICE: <strong>$ {property.purchasePrice ?property.purchasePrice.toLocaleString():"Loading..."}</strong> </li>
-                 <li className ="fontAdjust">CURRENT PRICE: <strong>$ {property.currentPrice? property.currentPrice.toLocaleString():"Loading..."} </strong></li>
+                 <li className ="fontAdjust"><strong>Purchase Date</strong>:{property.purchaseDate}</li>
+                 <li className ="fontAdjust"><strong>Duration</strong>: {"6 Months"} </li>
+                 <li className ="fontAdjust"><strong>ARV</strong>: {'27.5%'} </li>
+                 <li className ="fontAdjust"><strong>Purchase Price</strong>: $ {property.purchasePrice ?property.purchasePrice.toLocaleString():"Loading..."} </li>
+                 <li className ="fontAdjust"><strong>Current Price</strong>: $ {property.currentPrice? property.currentPrice.toLocaleString():"Loading..."} </li>
                </ul>
              </div>
             
              <div className="controls">
               <Link to={`/propertybuy/${address}`}><button className="button">BUY</button> </Link> 
-              <Link to ={`/propertysell/${address}`}><button className="button">{ownedPercentage > 0?'SELL':'INEREST'}</button> </Link> 
-              {/* <button className="button">OFFER</button>
+              {/*<Link to ={`/propertysell/${address}`}><button className="button">{ownedPercentage > 0?'SELL':'INEREST'}</button> </Link> 
+               <button className="button">OFFER</button>
                <button className="button">VOTE</button>*/}
              </div>
             

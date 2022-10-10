@@ -121,7 +121,7 @@
 .featuresList {
     list-style: none;
    
-    padding-left:9px;  /*my quick and dirty way to make left align property description features*/
+    padding-left:18px;  /*my quick and dirty way to make left align property description features*/
   
 }
 
@@ -157,6 +157,7 @@
 
 .fontAdjust {
     font-size: 15px;
+    text-align: left;
 }
 
 

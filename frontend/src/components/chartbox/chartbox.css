@@ -15,7 +15,7 @@
 
 .chartTitle {
     margin-bottom:10px; /*just so we separate the title from the chart*/
-
+    font-size: 1rem;
 }
 
 .widgetWidth{
