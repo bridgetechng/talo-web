@@ -49,7 +49,7 @@
 .inputBox {
     width:95%;
     padding:14px;
-    background-color: rgba(202, 202, 145, 0.568);
+    background-color: #ffffff/*rgba(202, 202, 145, 0.568)*/;
     border-width:1px;
     margin:0 auto;
     

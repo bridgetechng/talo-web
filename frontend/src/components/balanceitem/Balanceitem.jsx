@@ -26,8 +26,10 @@ export default function BalanceItem(props){
 
 
             <div className="widgetSmUser1">
-           
-             <span className="widgetSmUsername1">$ {props.value.toLocaleString()}</span>
+            
+            
+             <span className="widgetSmUsername1">${props.value.toLocaleString()}</span>
+             
              
            
             </div>

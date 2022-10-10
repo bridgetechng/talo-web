@@ -54,14 +54,23 @@
     display:flex;
     flex:3;
     flex-direction:column;
-    text-align: left;
+    justify-content: flex-start;
+    position: relative;
+    
 }
+
+
 
 .widgetSmUsername1 {
     font-weight: 600;
     font-size: 1.5rem;
-    width: max-content;
+    width: 120px;
+   text-align: left;
+   
+    
 }
+
+
 
 .widgetSmUserTitle1 {
     font-weight: 300;
@@ -79,6 +88,7 @@
     background-color:  rgb(30, 121, 3);; /*#b0b0b4;*/
     color:#ffff;
     font-size:15px;
+    min-width: 150px;
     
 }
  

@@ -38,7 +38,7 @@ export default function Sidebar() {
               </div>
                
                
-              { /* I MAY NEED THIS LATER BUT I AM BLOCKING THIS OUT BECAUSE MR DEAN SAID TO SEPARATE ADMIN AND USERS
+              { /* I MAY NEED THIS admin and user sidebar switch LATER BUT I AM BLOCKING THIS OUT BECAUSE MR DEAN SAID TO SEPARATE ADMIN AND USERS
               
                 <div  className = "buttonSidebar" onClick = {changeMode}>   
                   <WifiProtectedSetupIcon className = "iconNB"/> {admin ?"Admin Mode":"User Mode"}
@@ -50,19 +50,20 @@ export default function Sidebar() {
                
                 <div className="sidebarMenu">
                 <Link to ={'/home'} className="linkref">
-                    <h3 className="sidebarTitle clickable">DASHBOARD</h3>
+                    <h3 className="sidebarTitle clickable"><PersonIcon className="sidebarListItemIcon"/>DASHBOARD</h3>
                 </Link> 
                 </div> {/*sidebar menu closing */}
-
+             
+                <br/>
 
                 <div className="sidebarMenu">
-                <Link  className="linkref" to={"/properties/offplan/"}><h3 className="sidebarTitle">PROPERTIES</h3></Link> 
-                   <ul className="sidebarList">
+                <Link  className="linkref" to={"/properties/offplan/"}><h3 className="sidebarTitle  clickable"><HomeIcon className="sidebarListItemIcon"/>PROPERTIES</h3></Link> 
+                    {/*<ul className="sidebarList">
                      
-                      {/*I had to assign each emoji component a classname here, to enforce background color*/ }
+                      
                      
                     
-               {/*   I COMMENTED THE SUBMENU'S OUT
+                 I COMMENTED THE SUBMENU'S OUT
                
                <Link to ={'/properties/built/'} className="linkref">
                      <li className="sidebarListItem">
@@ -81,19 +82,21 @@ export default function Sidebar() {
                             Incomplete
                    
                      </li>
-            </Link> */}
+            </Link> 
 
                      
 
 
-                    </ul> 
+                    </ul> */}
                 </div> {/*sidebar menu closing */}
+            
+                <br/>
 
           { !admin && 
                  <>
                  <Link  className="linkref" to={"/messages/"}>
                 <div className="sidebarMenu">
-                    <h3 className="sidebarTitle clickable"> MESSAGES </h3>
+                    <h3 className="sidebarTitle clickable"><EmailIcon className="sidebarListItemIcon"/> MESSAGES </h3>
                    
                 </div> 
                 </Link>
@@ -102,7 +105,7 @@ export default function Sidebar() {
 
 
                    <div className="sidebarMenu">
-                    <h3 className="sidebarTitle">SETTINGS </h3>
+                    <h3 className="sidebarTitle"><SettingsIcon className="sidebarListItemIcon"/>SETTINGS </h3>
                   
                 </div>
                 </>
