@@ -130,7 +130,7 @@ export default function Homepage() {
         setUserInfoStable(userInfo)  
         setAddressListStable(addressList)
           
-     console.log("are you")
+     console.log(userInfoStable)
     }
 
   },[userInfo])

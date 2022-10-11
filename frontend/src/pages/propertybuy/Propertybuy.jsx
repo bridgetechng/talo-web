@@ -154,7 +154,7 @@ function PropertyBuy() {
      addressPosition:addressPosition,
      userId:userInfo.userInfo.id,
      userBalance:userInfo.userInfo.userBalance,
-     userBalance:userInfo.userInfo.investmentAmount
+     investmentAmount:userInfo.userInfo.investmentAmount
    }
      , config)
      
