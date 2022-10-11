@@ -222,7 +222,7 @@ export default function Homepage() {
        <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
         <div className="chartsAndMessages">   
        
-        <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} />
+        <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} />
         <Chartbox  investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} className="chartBoxMargin" /> 
         
         </div>
