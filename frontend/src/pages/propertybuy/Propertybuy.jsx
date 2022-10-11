@@ -184,7 +184,7 @@ function PropertyBuy() {
          
          <div className="propertyPricingDetails">
 
-          <div>Investment:</div>
+          <div>Available:</div>
            <div className='moneyValue'>${(property.purchasePrice * property.availablePercentage/100).toLocaleString()}</div>
            <br/> {/*you can  use css-margin, or css-display flex gap instead of this if you like */}
            
@@ -251,7 +251,7 @@ function PropertyBuy() {
              </div>
             
              <div className="controls">
-             <Link to={`/properties/offplan/`}><button className="button">BACK</button> </Link> 
+             <Link to={`/propertyview/${address}`}><button className="button">BACK</button> </Link> 
               <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
                {/*<button className="button">OFFER</button>*/}
                {/*  <button className="button">VOTE</button>*/}

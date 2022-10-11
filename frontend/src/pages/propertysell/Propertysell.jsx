@@ -236,7 +236,7 @@ function PropertySell() {
               </div>
              
               <div className="controls">
-              <Link to={`/home`}><button className="button">BACK</button> </Link> 
+              <Link to={`/propertyview/${address}`}><button className="button">BACK</button> </Link> 
                <Link to ={`/propertybuy/${address}`}><button className="button">BUY</button> </Link> 
               <button className="button">OFFER</button>
                 {/*  <button className="button">VOTE</button>*/}
