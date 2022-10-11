@@ -136,11 +136,11 @@ function PropertyView() {
                <br />
 
                <ul className="featuresList">
-                 <li className ="fontAdjust"><strong>Purchase Date</strong>:{property.purchaseDate}</li>
-                 <li className ="fontAdjust"><strong>Duration</strong>: {"6 Months"} </li>
-                 <li className ="fontAdjust"><strong>ARV</strong>: {'27.5%'} </li>
-                 <li className ="fontAdjust"><strong>Purchase Price</strong>: $ {property.purchasePrice ?property.purchasePrice.toLocaleString():"Loading..."} </li>
-                 <li className ="fontAdjust"><strong>Current Price</strong>: $ {property.currentPrice? property.currentPrice.toLocaleString():"Loading..."} </li>
+                 <li className ="fontAdjust"><strong>Purchase Date</strong>:{' '}{property.purchaseDate}</li>
+                 <li className ="fontAdjust"><strong>Duration</strong>:{' '} {"6 Months"} </li>
+                 <li className ="fontAdjust"><strong>Return</strong>:{' '} {'27.5%'} </li>
+                 <li className ="fontAdjust"><strong>Purchase Price</strong>:{' '} $ {property.purchasePrice ?property.purchasePrice.toLocaleString():"Loading..."} </li>
+                 <li className ="fontAdjust"><strong>Current Price</strong>:{' '} $ {property.currentPrice? property.currentPrice.toLocaleString():"Loading..."} </li>
                </ul>
              </div>
             

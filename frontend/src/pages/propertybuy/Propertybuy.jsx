@@ -251,9 +251,9 @@ function PropertyBuy() {
              </div>
             
              <div className="controls">
-             <Link to={`/home`}><button className="button">BACK</button> </Link> 
+             <Link to={`/properties/offplan/`}><button className="button">BACK</button> </Link> 
               <Link to ={`/propertysell/${address}`}><button className="button">SELL</button> </Link> 
-             <button className="button">OFFER</button>
+               {/*<button className="button">OFFER</button>*/}
                {/*  <button className="button">VOTE</button>*/}
              </div>
             
