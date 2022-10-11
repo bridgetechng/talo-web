@@ -103,7 +103,7 @@ function PropertySell() {
       setOwnedPercentage(userHas) 
      }
   
-    },[address,userInfo,submitted])
+    },[address,submitted,userInfo])
 
     /*I am pushing people to login page if they dont have user info details, i.e they are not in END */
 

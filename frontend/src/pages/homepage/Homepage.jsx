@@ -110,6 +110,7 @@ export default function Homepage() {
        setUserInfo(userData.data)
 
        console.log("why")
+       console.log(data.properties)
 
      }
  
@@ -126,14 +127,14 @@ export default function Homepage() {
 
    useEffect(()=>{
      
-      if(userInfo !== ''  && addressList !== addressListStable){ 
+      if(userInfo !== '' /* && addressList !== addressListStable*/){ 
         setUserInfoStable(userInfo)  
         setAddressListStable(addressList)
           
-     console.log(userInfoStable)
+    
     }
 
-  },[userInfo])
+  },[userInfo,addressList])
  
  
 
@@ -162,10 +163,10 @@ export default function Homepage() {
    
  }
 
- if(addressListStable === addressList){
+ /*if(addressListStable === addressList){
    fetchPages()
-   }
-  
+   }*/
+  fetchPages()
 
  },[addressListStable])
  
@@ -211,6 +212,34 @@ export default function Homepage() {
    }
 
 
+   /*THE FUNCTION BELOW(updateData) WAS DONE TO FORCE A DATA UPDATE BECAUSE MY COMPONENT DID NOT WANT 
+   TO LOAD ACCURATE DATA WHEN I SOLD A PROPERTY, IT IS A PLASTER TO THE REAL ISSUE, AS
+    I GET REAL TIME UPDATES ON BUY BUT NOT ON SELL */
+    
+   const updateData = async() => {
+       
+      
+      
+    const userData = await axios.get(`/api/users/${userInfoStatic.userInfo.id}`) /*i am relying on local storage userinfo here, before setting it to the one from the database */
+   
+    const {data} = await axios.post(`/api/properties/owned?pageNumber=${pageNumber}`,
+       {
+         ownedProperties:userInfo!==''?userInfo.userInfo.ownedProperties:userInfoStatic.userInfo.ownedProperties
+       },
+        config
+       )
+  
+
+   setAddressList(data.properties)
+   
+    setUserInfo(userData.data)
+
+    console.log("why")
+    console.log(data.properties)
+
+  }
+
+
 
  
 
@@ -219,7 +248,7 @@ export default function Homepage() {
   return (
 
       <> 
-       <div className="homeContainer" /*onLoad={()=>{updateData()}}*/> 
+       <div className="homeContainer" onLoad={()=>{updateData()}}> 
         <div className="chartsAndMessages">   
        
         <Balancebox userBalance={userInfoStable !==''? userInfoStable.userInfo.userBalance:userInfoStatic.userInfo.userBalance} investmentAmount={userInfoStable !==''? userInfoStable.userInfo.investmentAmount:userInfoStatic.userInfo.investmentAmount} />
@@ -271,12 +300,12 @@ export default function Homepage() {
             
        
         
-        {addressListStable !== [] ? 
+        {addressListStable !== undefined ?
         addressListStable.map((item,i)=>{
-           console.log("i am looping the properties again")
+           console.log("addresses of what this user owns is mapping right now")
           return (
                    
-               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable.userInfo.ownedProperties.length > ((page) + (2*(page-1) + i - 1)) ?userInfoStable.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:0}/> 
+               <Propertyitem imageLink ={item.image} key={i} address={item.address}  purchasePrice={item.purchasePrice} percentage={userInfoStable.userInfo.ownedProperties.length > ((page) + (2*(page-1) + i - 1)) ?userInfoStable.userInfo.ownedProperties[(page) + (2*(page-1) + i - 1)].proportion:9}/> 
              
           )
          
