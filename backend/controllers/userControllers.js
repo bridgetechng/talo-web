@@ -31,7 +31,6 @@ initializeApp(firebaseConfig)
 const dbtest = getFirestore()
 
 const colRef = collection(dbtest , "users")
-const docRef = doc(dbtest, "users","Cu6GjKbFOCOT4Jx7j8Q7IMQTetm1") /*the jibberish to the left is for id's change it to any id in the database that you want */ 
 const auth = getAuth();
 
 /**the arrays i will send in my fetch requests */
@@ -79,11 +78,14 @@ const authUser = asyncHandler(async (req, res) => {
     //req.body will give us the object thats sent in the body of our front end/POSTMAN JSON, take note
     //res.send accepts an object i think and not just variables, take note...hese are part of the things that you have to research on yor own
     const user = []
-    const q =  query(colRef, where("email", "==", `${email}`))
     
+    
+  try{
+ await signInWithEmailAndPassword(auth,email,password).then((document)=>{ 
+  const q =  query(colRef, where("email", "==", `${document.user.email}`))
+  //you make queries by putting the q (above) into where the colRef(below) used to be 
 
- signInWithEmailAndPassword(auth,email,password).then((document)=>{ 
-    getDocs(colRef).then((snapshot) => {
+  getDocs(q/*colRef*/).then((snapshot) => {
      snapshot.docs.forEach((doc)=>{
       user.push({...doc.data(),id:doc.id})
      })
@@ -91,19 +93,40 @@ const authUser = asyncHandler(async (req, res) => {
      if (user.length > 0){ 
       console.log("your user modification worked!")
        
-     const chosenUser = user.filter((item)=>(item.uid === document.user.uid )) //think about something that doesnt involve filtering the WHOLE DOCUMENT, the filter condition is pretty decent as well, but is that the only reason I am going through this sign in method ?
+
       
       return res.json({
-       userInfo:chosenUser[0] /*i am unpeeling the info from the array */
+       userInfo:user[0] /*i am unpeeling the info from the array */
      }) 
    
       }else{
-       console.log("your user modification did not work o")
+       console.log("WRONG EMAIL OR PASSWORD, this doesn't really do anything")
+       res.status(500)
+       throw new Error('invalid email or password')
       }
     
-  })
+  })/*.catch((err)=>{
+    console.log("WRONG EMAIL OR PASSWORD 1")
+    res.status(401)
+    throw new Error(err)  //I REMOVED THE TWO CATCH STATEMENTS BECAUSE MY TRY-CATCH BLOCK COVERS IT ALL
+   
+  })*/
   
-  })
+  })/*.catch((err)=>{
+    console.log(err)
+    res.status(401)
+    throw new Error(err)
+   
+  })*/
+
+ }catch(error){
+   
+   res.status(500).json({
+    message: error.code==='auth/wrong-password'||error.code==='auth/user-not-found'?'Invalid email or password, please try again!':'Please check your network and try again' 
+  }) 
+   console.log(error)
+   
+ }
    
   /*if (user.length > 0){ figure out why it jumps straight to else first ? i.e why am I getting 401 error before it parses the array
      
@@ -131,7 +154,8 @@ const authUser = asyncHandler(async (req, res) => {
     let myTimeStamp = Timestamp.fromDate(new Date());
 
     /*using firebase authentication to securely add the user */
-      createUserWithEmailAndPassword(auth,email,password).then((document)=>{
+    try{
+    await createUserWithEmailAndPassword(auth,email,password).then((document)=>{
          console.log("THIS IS RES!",document.user.uid)
        
 
@@ -156,6 +180,10 @@ const authUser = asyncHandler(async (req, res) => {
             console.log("the user has registered successfully")
     
            return  res.json({userInfo:{...doc.data(),id:doc.id}}) 
+          }).catch(()=>{
+
+            res.status(401)
+            throw new Error('hallo, something went wrong')
           }) 
      
          
@@ -163,34 +191,18 @@ const authUser = asyncHandler(async (req, res) => {
 
       });
      
-    })
+    }) 
+   }catch(error){
+   
+    res.status(500).json({
+     message:error.message.substring(9)/*i am unpeeling the info from the array */
+   }) 
+    console.log(error)
+    
+  }
    
 
-   
-   /* addDoc(colRef,{ 
-      email: email,
-      firstName:firstName,
-      lastName:lastName,
-      phoneNumber:phoneNumber,
-      userBalance:100000,
-      Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
-      investmentAmount:0
-
-    }).then((document) => {
-     
-    
-      const registeredRef = doc(dbtest,'users',document.id)
-
-      getDoc(registeredRef)
-      .then((doc) => {
-     
-        console.log("the user has registered successfully")
-
-       return  res.json({userInfo:{...doc.data(),id:doc.id}}) 
-      }) 
- 
-    
-    })*/
+  
 
    
 

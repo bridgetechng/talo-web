@@ -1,3 +1,9 @@
+.errorNotif {
+    color: rgb(233, 96, 96);
+}
+
+
+
 .loginContainer {
     display:flex;
     flex-direction: column;
@@ -96,3 +102,4 @@
 .fakeAtag{
     background-color:#eee7e7;
 }
+

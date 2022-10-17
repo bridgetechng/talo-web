@@ -15,7 +15,7 @@ export default function Loginpage() {
   const [email,setEmail] = useState('')
    const [password,setPassword] = useState('')
    const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo')))
-  
+   const [serverError,setServerError] = useState('')
    const navigate = useNavigate()
     
 
@@ -45,11 +45,10 @@ export default function Loginpage() {
 
 
   const  loginHandler = async(e) => {
-     
+   try{  
     e.preventDefault()
-      
-
-    const {data} = await axios.post(`/api/users/`,
+     
+    const res = await axios.post(`/api/users/`,
     {
       email:email,
       password:password,
@@ -57,9 +56,23 @@ export default function Loginpage() {
     },
      config
     ) 
-    sessionStorage.setItem('userInfo',JSON.stringify(data))
+   console.log(res)
+
+   /* message && setServerError(message)*/
+
+if (res.statusText === 'OK'){
+    sessionStorage.setItem('userInfo',JSON.stringify(res.data))
     setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
-   
+   }else{
+
+     throw new Error('hallo, Invalid User name or password.')
+   }
+  }
+  catch(err){
+    
+    console.log(err.message)
+    setServerError(err.response.data.message)
+  }
   }
 
  
@@ -76,8 +89,10 @@ export default function Loginpage() {
        <img src={urbanlogo} alt="urban hive logo"  />
        </div>
 
+       {serverError!=='' && <div className='center errorNotif'><h2>{serverError}</h2></div>}
+
        <div >
-     
+        
         <form className="formContainer" onSubmit={loginHandler}>
            
            <div className=" inputOrganiser">

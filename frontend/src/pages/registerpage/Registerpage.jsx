@@ -36,7 +36,7 @@ export default function Registerpage() {
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastname] = useState('')
   const [phoneNumber,setPhoneNumber] = useState('')
-
+  const [serverError,setServerError] = useState('')
 
  
  
@@ -54,10 +54,10 @@ export default function Registerpage() {
 
 
 const  registerHandler = async(e) => {
-   
+  
+  try{
   e.preventDefault()
    
-  
 if(password !== confirmPassword)
 {
  window.alert("Passwords do not match, please ensure you are typing the right password.")
@@ -75,14 +75,20 @@ if(password !== confirmPassword)
   },
    config
   ) 
+
+
   if(data !== null){
   sessionStorage.setItem('userInfo',JSON.stringify(data))
   setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
   }else{
-    window.alert('something went wrong please try again!')
+    throw Error('Invalid User name or password.')
   }
 
 }
+  }catch(err){
+    console.log(err)
+    setServerError(err.response.data.message)
+  }
  
 }
   
@@ -99,8 +105,9 @@ if(password !== confirmPassword)
        <img src={urbanlogo} alt="urban hive logo" className="urbanLogoReg" />
        </div>
 
+         
        <div >
-     
+       
         <form className="formContainerReg" onSubmit={registerHandler}>
            
         
@@ -145,10 +152,11 @@ if(password !== confirmPassword)
            
        
 
-
+            
 
             <div className="form-grouping">
-         
+          
+            {serverError!=='' && <div className='center errorNotif'><h2>{serverError}</h2></div>}
          
           <button type="submit" id="submit" className=" buttonAdjustReg" >
             REGISTER
