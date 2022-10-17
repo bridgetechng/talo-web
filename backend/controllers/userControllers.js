@@ -6,6 +6,7 @@ import asyncHandler from 'express-async-handler'
 
 import { getFirestore, collection, where , query ,getDocs ,addDoc, deleteDoc ,doc, getDoc ,updateDoc,onSnapshot,Timestamp} from 'firebase/firestore';
 import { initializeApp } from 'firebase/app'
+import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword } from 'firebase/auth'
 
 import dotenv from 'dotenv'
 //const dotenv = require('dotenv')
@@ -31,6 +32,7 @@ const dbtest = getFirestore()
 
 const colRef = collection(dbtest , "users")
 const docRef = doc(dbtest, "users","Cu6GjKbFOCOT4Jx7j8Q7IMQTetm1") /*the jibberish to the left is for id's change it to any id in the database that you want */ 
+const auth = getAuth();
 
 /**the arrays i will send in my fetch requests */
 let users = []
@@ -79,6 +81,8 @@ const authUser = asyncHandler(async (req, res) => {
     const user = []
     const q =  query(colRef, where("email", "==", `${email}`))
     
+
+ signInWithEmailAndPassword(auth,email,password).then((document)=>{ 
     getDocs(colRef).then((snapshot) => {
      snapshot.docs.forEach((doc)=>{
       user.push({...doc.data(),id:doc.id})
@@ -87,7 +91,7 @@ const authUser = asyncHandler(async (req, res) => {
      if (user.length > 0){ 
       console.log("your user modification worked!")
        
-     const chosenUser = user.filter((item)=>(item.email === email ))
+     const chosenUser = user.filter((item)=>(item.uid === document.user.uid )) //think about something that doesnt involve filtering the WHOLE DOCUMENT, the filter condition is pretty decent as well, but is that the only reason I am going through this sign in method ?
       
       return res.json({
        userInfo:chosenUser[0] /*i am unpeeling the info from the array */
@@ -99,7 +103,7 @@ const authUser = asyncHandler(async (req, res) => {
     
   })
   
-  
+  })
    
   /*if (user.length > 0){ figure out why it jumps straight to else first ? i.e why am I getting 401 error before it parses the array
      
@@ -126,14 +130,49 @@ const authUser = asyncHandler(async (req, res) => {
     const user = []
     let myTimeStamp = Timestamp.fromDate(new Date());
 
-    /* 1  adding to firestore */
+    /*using firebase authentication to securely add the user */
+      createUserWithEmailAndPassword(auth,email,password).then((document)=>{
+         console.log("THIS IS RES!",document.user.uid)
+       
+
+         /* 1  adding to firestore */
+         addDoc(colRef, { 
+          uid: document.user.uid,
+          email: email,
+          firstName:firstName,
+          lastName:lastName,
+          phoneNumber:phoneNumber,
+          userBalance:100000,/* THE DATA TYPE(BELOW) IS IMPORTANT, FOR THE DATABASE */
+          Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
+          investmentAmount:0
+         }).then((newUser) => {
      
-    addDoc(colRef,{
+    
+          const registeredRef = doc(dbtest,'users',newUser.id)
+    
+          getDoc(registeredRef)
+          .then((doc) => {
+         
+            console.log("the user has registered successfully")
+    
+           return  res.json({userInfo:{...doc.data(),id:doc.id}}) 
+          }) 
+     
+         
+      /*NESTING .THENS INSTEAD OF REGULAR SCOPE ON THE SAME LEVEL IS NOT NEAT AT ALL */
+
+      });
+     
+    })
+   
+
+   
+   /* addDoc(colRef,{ 
       email: email,
       firstName:firstName,
       lastName:lastName,
       phoneNumber:phoneNumber,
-      userBalance:100000,/* THE DATA TYPE IS IMPORTANT, FOR THE DATABASE */
+      userBalance:100000,
       Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
       investmentAmount:0
 
@@ -151,33 +190,7 @@ const authUser = asyncHandler(async (req, res) => {
       }) 
  
     
-    })
-
-    /*adding to firestore END */
-
-
-   /*2  sending from firestore,  i did a query cuz i didnt have the
-    id and i believe you can only search for an individual document
-     by id, not be email, or some other category */
-
-    
-    const q =  query(colRef, where("email", "==", `${email}`))
-    
-   /*onSnapshot(q,(snapshot) => {
-     snapshot.docs.forEach((doc)=>{
-      user.push({...doc.data(),id:doc.id})
-     })
-   
-     console.log(user.length)
-     
-     if(user.length > 0){ 
-      res.json({
-      userInfo:user[0]
-    }) 
-   }
-
-
-   })*/
+    })*/
 
    
 

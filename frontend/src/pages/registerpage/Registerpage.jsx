@@ -78,6 +78,8 @@ if(password !== confirmPassword)
   if(data !== null){
   sessionStorage.setItem('userInfo',JSON.stringify(data))
   setUserInfo(JSON.parse(window.sessionStorage.getItem('userInfo')))
+  }else{
+    window.alert('something went wrong please try again!')
   }
 
 }
