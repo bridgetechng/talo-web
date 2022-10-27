@@ -3,23 +3,36 @@
 
 
 .registerContainer {
+   /* display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;*/
+    
     display:flex;
-    
-    justify-content: flex-end;
-    align-items: center;
-    
+    justify-content:center;
+   padding: 15%;
+   padding-top: 5%;
+  background-color: rgb(24, 99, 2) ;
     
 }
 
 
 .formContainerReg {
     background-color: #eee7e7;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     margin-top: 30px;
     min-width: 400px;;
     
-
+    flex:2;
 }
+
+@media screen and (max-width:1080px) {
+    .formContainerReg {
+    border-radius: 20px;
+    }
+}
+
 
 .form-grouping{
     padding: 0.25rem;
@@ -61,7 +74,11 @@
 }
 
 .urbanLogoReg {
-    height:200px; /*HARD CODED HEIGHT FOR NOW, CONSIDER RESPONSIVENESS LATER*/
+    height:100%; 
+    display: flex;
+    justify-content:center;
+    background-color:inherit ;
+    margin-bottom: 80px;
     
 }
 
@@ -92,4 +109,71 @@
     
     
    
+}
+
+
+.welcomeDetailsReg {
+    background-color: rgb(30, 121, 3) !important;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   padding: 10%;
+    margin-top: 30px;
+    
+}
+
+@media screen and (max-width:1080px) {
+    .welcomeDetailsReg {
+    display: none;
+    }
+}
+
+/* WELCOME TO TALO PLATFORM*/
+
+.textContainerReg {
+    width: 75%;
+    background-color: inherit;
+    
+}
+
+.welcomeHeaderReg{
+    font-size: 36px;
+    color: #fff !important;
+    font-weight: 900;
+    background-color: inherit;
+    margin-bottom: 50px;
+    font-family: 'Ubuntu';
+}
+
+
+.welcomeTextReg{
+    font-size: 20px;
+    color: #fff !important;
+    font-weight: 600;
+    background-color: inherit;
+    
+    
+}
+
+.welcomeTextIntroReg{
+    font-size: 20px;
+    color: #fff !important;
+    background-color: inherit;
+    margin-bottom: 50px;
+    font-family: 'Ubuntu';
+}
+
+.welcomeTextReg ul{
+  
+    background-color: inherit;
+    
+}
+
+.welcomeTextReg li{
+    margin-bottom: 30px;
+    background-color: inherit;
 }

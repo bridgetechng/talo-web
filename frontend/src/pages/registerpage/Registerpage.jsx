@@ -101,15 +101,27 @@ if(password !== confirmPassword)
       <> 
        <div className="registerContainer"> 
        
-       <div className="urbanLogoReg">
+      {/* <div className="urbanLogoReg">
        <img src={urbanlogo} alt="urban hive logo" className="urbanLogoReg" />
-       </div>
+  </div>*/}
 
          
-       <div >
+       
        
         <form className="formContainerReg" onSubmit={registerHandler}>
            
+        <div className=" inputOrganiser">   
+
+        <div className="urbanLogoReg">
+           <img src={urbanlogo} style={{height:'120px', backgroundColor:'inherit'}} alt="urban hive logo"  />
+           <div className="verticalDivider"></div>
+           
+           <div className="headers">
+            <div className="bigHeader">TALO</div>
+            <div className="smallHeader">INVESTMENT</div>
+           </div>
+          
+         </div>
         
            <div className="form-grouping">
            <label id="name-label" for="name" className="backgroundColor">First Name</label>
@@ -151,7 +163,7 @@ if(password !== confirmPassword)
             </div>
            
        
-
+            </div> 
             
 
             <div className="form-grouping">
@@ -173,9 +185,27 @@ if(password !== confirmPassword)
 
      </form>
 
-       
+     <div className='welcomeDetailsReg'>
+        <div className='textContainerReg'>
+         <div className='welcomeHeader'>
+          Welcome to Talo Investment !
+        </div>
+          <div className='welcomeText'>
+           <div className='welcomeTextIntro'>Your one stop platform for:</div>
+            
 
+            <ul>
+              <li>buying property in parts.</li>
+              <li>Easy sales of property.</li>
+              <li>Accurately monitoring market conditions.</li>
+            </ul>
+         </div>
        </div>
+     
+
+      </div>
+
+       
         
       
 

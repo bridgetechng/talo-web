@@ -89,7 +89,7 @@
 }
 
 .urbanLogo {
-    height:100%; /*HARD CODED HEIGHT FOR NOW, CONSIDER RESPONSIVENESS LATER*/
+    height:100%; 
     display: flex;
     justify-content:center;
     background-color:inherit ;
