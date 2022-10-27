@@ -1,26 +1,48 @@
 .errorNotif {
-    color: rgb(233, 96, 96);
+    color: rgb(209, 19, 19);
+    display: flex;
+    justify-content: space-between;
+    background-color:  rgb(233, 96, 96) !important;
 }
+
+.errorNotif h2{
+    background-color:  rgb(250, 139, 139) !important;
+    
+}
+
 
 
 
 .loginContainer {
     display:flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    
+    justify-content:center;
+   padding: 15%;
+   padding-top: 5%;
+  background-color: rgb(24, 99, 2) ;
     
 }
+
 
 
 .formContainer {
     background-color: #eee7e7;
-    border-radius: 20px;
-
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     margin-top: 30px;
+    
+    flex:2;
 
 }
+
+
+@media screen and (max-width:1080px) {
+    .formContainer {
+    border-radius: 20px;
+    }
+}
+
+
+
 
 .form-grouping{
     padding: 0.25rem;
@@ -34,7 +56,7 @@
 
 .input-box {
     
-    display: block;
+    /*display: block;*/
     width: 100%;
     height: 2.375rem;
     padding: 0.375rem 0.75rem;
@@ -58,7 +80,7 @@
     justify-content: space-around;
     background-color:#eee7e7 !important;
     width: 400px;
-    height: 100px;
+   
 
     margin: 1rem auto 0rem auto; /*this margin interacts with the buttons margin, the 0rem one*/
     padding: 0.25rem;
@@ -67,19 +89,56 @@
 }
 
 .urbanLogo {
-    height:400px; /*HARD CODED HEIGHT FOR NOW, CONSIDER RESPONSIVENESS LATER*/
-    
+    height:100%; /*HARD CODED HEIGHT FOR NOW, CONSIDER RESPONSIVENESS LATER*/
+    display: flex;
+    justify-content:center;
+    background-color:inherit ;
+    margin-bottom: 80px;
+
 }
+
+.verticalDivider {
+    border-left: 2px solid gray;
+    margin-left: -0px;
+   
+
+}
+
+.headers {
+    background-color: inherit;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.bigHeader{
+  font-weight: bolder;
+  font-size: 48px;
+  background-color: inherit;
+  margin-left: -7px; /*A QUICK FIX SO TALO CAN START ON THE SAME LINE AS INVESTMENT*/
+ font-family: 'Ubuntu';
+}
+
+.smallHeader {
+    font-weight: bold;
+    font-size: 28px;
+    background-color: inherit;
+    color: gray;
+}
+
+
 
 .buttonAdjust {
     display: block;
-    width: 30%;
+    width: 50%;
     font-weight: bold;
     margin:60px auto 0px;
     padding: 0.75rem;
     background:black;
     color: white;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
 }
 
@@ -103,3 +162,68 @@
     background-color:#eee7e7;
 }
 
+.welcomeDetails {
+    background-color: rgb(30, 121, 3);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   padding: 10%;
+    margin-top: 30px;
+    
+}
+
+@media screen and (max-width:1080px) {
+    .welcomeDetails {
+    display: none;
+    }
+}
+
+/* WELCOME TO TALO PLATFORM*/
+
+.textContainer {
+    width: 75%;
+    background-color: inherit;
+    
+}
+
+.welcomeHeader{
+    font-size: 36px;
+    color: #fff !important;
+    font-weight: 900;
+    background-color: inherit;
+    margin-bottom: 50px;
+    font-family: 'Ubuntu';
+}
+
+
+.welcomeText{
+    font-size: 20px;
+    color: #fff !important;
+    font-weight: 600;
+    background-color: inherit;
+    
+    
+}
+
+.welcomeTextIntro{
+    font-size: 20px;
+    color: #fff !important;
+    background-color: inherit;
+    margin-bottom: 50px;
+    font-family: 'Ubuntu';
+}
+
+.welcomeText ul{
+  
+    background-color: inherit;
+    
+}
+
+.welcomeText li{
+    margin-bottom: 30px;
+    background-color: inherit;
+}

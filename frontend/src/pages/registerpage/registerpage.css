@@ -2,9 +2,9 @@
   /*REGISTER CSS HAS THE EXACT SAME CLASSES AS LOGIN CSS , SO BE CAREFUL WHEN YOU CHANGE A CLASS NAME*/
 
 
-.loginContainer {
+.registerContainer {
     display:flex;
-    flex-direction: column;
+    
     justify-content: flex-end;
     align-items: center;
     

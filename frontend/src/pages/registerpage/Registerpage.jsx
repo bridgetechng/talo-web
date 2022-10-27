@@ -99,7 +99,7 @@ if(password !== confirmPassword)
   return (
 
       <> 
-       <div className="loginContainer"> 
+       <div className="registerContainer"> 
        
        <div className="urbanLogoReg">
        <img src={urbanlogo} alt="urban hive logo" className="urbanLogoReg" />

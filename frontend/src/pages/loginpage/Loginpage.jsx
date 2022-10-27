@@ -15,7 +15,7 @@ export default function Loginpage() {
   const [email,setEmail] = useState('')
    const [password,setPassword] = useState('')
    const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo')))
-   const [serverError,setServerError] = useState('')
+   const [serverError,setServerError] = useState(false)
    const navigate = useNavigate()
     
 
@@ -70,8 +70,9 @@ if (res.statusText === 'OK'){
   }
   catch(err){
     
-    console.log(err.message)
+    
     setServerError(err.response.data.message)
+    console.log(err.message)
   }
   }
 
@@ -82,21 +83,39 @@ if (res.statusText === 'OK'){
   
   return (
 
-      <> 
+      <div className='loginBackground'> 
+        
+       
+       
        <div className="loginContainer"> 
        
-       <div className="urbanLogo">
-       <img src={urbanlogo} alt="urban hive logo"  />
-       </div>
-
-       {serverError!=='' && <div className='center errorNotif'><h2>{serverError}</h2></div>}
-
-       <div >
         
         <form className="formContainer" onSubmit={loginHandler}>
            
            <div className=" inputOrganiser">
             
+           <div className="urbanLogo">
+           <img src={urbanlogo} style={{height:'120px', backgroundColor:'inherit'}} alt="urban hive logo"  />
+           <div className="verticalDivider"></div>
+           
+           <div className="headers">
+            <div className="bigHeader">TALO</div>
+            <div className="smallHeader">INVESTMENT</div>
+           </div>
+          
+         </div>
+       
+         {serverError!==false && 
+         <div   className='center errorNotif'>
+          <h2>{serverError}</h2>
+          <h2 onClick={()=>{setServerError(false)}} >X</h2>
+         </div>
+         }
+
+     
+
+
+
             <div className="form-grouping">
            <label id="name-label" for="name" >Email Address</label>
             <input type="email" placeholder='enter your email' className="input-box" required value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -129,15 +148,35 @@ if (res.statusText === 'OK'){
 
         </form>
 
-       
-       </div>
-        
       
 
-          
+        <div className='welcomeDetails'>
+        <div className='textContainer'>
+         <div className='welcomeHeader'>
+          Welcome to Talo Investment !
+        </div>
+          <div className='welcomeText'>
+           <div className='welcomeTextIntro'>Your one stop platform for:</div>
+            
+
+            <ul>
+              <li>buying property in parts.</li>
+              <li>Easy sales of property.</li>
+              <li>Accurately monitoring market conditions.</li>
+            </ul>
+         </div>
+       </div>
+     
+
+      </div>
+      
+       
+         
       </div> {/*login container ending */}
+
+      
         
-      </> 
+      </div> 
       
     )
 }
