@@ -16,6 +16,7 @@ export default function Topbar(){
 
     const [visible,setVisible] = useState(false)
     const [userInfo,setUserInfo]  = useState(JSON.parse(window.sessionStorage.getItem('userInfo')))
+    console.log(userInfo.userInfo)
 
     const upMenu = function(){
         setVisible(true)
@@ -69,7 +70,7 @@ export default function Topbar(){
                          
 
                       </div>
-                <img src={userInfo.userInfo.profileImage?userInfo.userInfo.profileImage:profile} alt="profile pic" className="topAvatar" />
+                <img src={userInfo.userInfo.profileImage && userInfo.userInfo.profileImage !=="" ?userInfo.userInfo.profileImage:profile} alt="profile pic" className="topAvatar" />
 
          
                     </div> 

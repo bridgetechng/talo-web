@@ -148,7 +148,7 @@ const authUser = asyncHandler(async (req, res) => {
     /*res.header("Access-Control-Allow-Origin","*")*/
    let registeredId
     
-    const { email, password, firstName,lastName,phoneNumber} = req.body
+    const { email, password, firstName,lastName,phoneNumber,profileImage} = req.body
     console.log(email)
     const user = []
     let myTimeStamp = Timestamp.fromDate(new Date());
@@ -166,6 +166,7 @@ const authUser = asyncHandler(async (req, res) => {
           firstName:firstName,
           lastName:lastName,
           phoneNumber:phoneNumber,
+          profileImage:profileImage,
           userBalance:100000,/* THE DATA TYPE(BELOW) IS IMPORTANT, FOR THE DATABASE */
           Messages:[{date:myTimeStamp,message:"Welcome to the Talo platform, congrats on registering!"}],
           investmentAmount:0
